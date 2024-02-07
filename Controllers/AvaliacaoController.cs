@@ -16,9 +16,9 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
 
         [HttpGet]
         [Route(template: "getAllAvaliacoes")]
-        public async Task<IEnumerable<Produto>> getAllAvaliacoes()
+        public async Task<IEnumerable<Produto>> GetAllAvaliacoes()
         {
-            IEnumerable <Produto> produtos = new List<Produto>
+            IEnumerable<Produto> produtos = new List<Produto>
             {
                 new Produto { Id = 1, Nome = "Smartphone", Avaliacao = 5, Descricao = "Tela de alta resolução, processador rápido, câmera de alta qualidade, conectividade 5G." },
                 new Produto { Id = 2, Nome = "Laptop", Avaliacao = 4, Descricao = "Processador potente, tela de alta definição, bateria de longa duração, armazenamento SSD rápido." },
@@ -35,6 +35,10 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             return await Task.FromResult(produtos); ;
         }
 
+        //public async Task<IActionResult> GetByIdProduto()
+        //{
+        //    return null;
+        //}
 
     }
 }
