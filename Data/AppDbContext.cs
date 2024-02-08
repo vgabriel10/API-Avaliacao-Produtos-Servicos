@@ -1,5 +1,6 @@
 ﻿
 
+using API_Avaliacao_Produtos_Servicos.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace API_Avaliacao_Produtos_Servicos.Data
@@ -10,5 +11,7 @@ namespace API_Avaliacao_Produtos_Servicos.Data
         {
 
         }
+
+        public DbSet<Produto> Produtos { get; set; }
     }
 }
