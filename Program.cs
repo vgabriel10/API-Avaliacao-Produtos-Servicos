@@ -1,4 +1,11 @@
+using API_Avaliacao_Produtos_Servicos.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Adicionando o service que vai referenciar a string de conexão que fica no appsettings.json
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BaseEstacionamentoContext") ?? throw new InvalidOperationException("Connection string 'BaseEstacionamentoContext' not found.")));
 
 // Add services to the container.
 
