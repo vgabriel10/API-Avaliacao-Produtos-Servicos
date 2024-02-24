@@ -1,4 +1,6 @@
-﻿using API_Avaliacao_Produtos_Servicos.Models;
+﻿using API_Avaliacao_Produtos_Servicos.Data;
+using API_Avaliacao_Produtos_Servicos.Models;
+using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
 
@@ -8,37 +10,55 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
     [Route(template: "api/v1")]
     public class AvaliacaoController : ControllerBase
     {
-        public AvaliacaoController()
+        private readonly IProdutoRepository _produtoRepository;
+        public AvaliacaoController(IProdutoRepository produtoRepository)
         {
-
+            _produtoRepository = produtoRepository;
         }
 
 
-        [HttpGet]
-        [Route(template: "getAllAvaliacoes")]
-        public async Task<IEnumerable<Produto>> GetAllAvaliacoes()
+        [HttpGet("produto")]
+        public async Task<IEnumerable<Produto>> GetAllAvaliacoesProdutos()
         {
-            IEnumerable<Produto> produtos = new List<Produto>
+            return await _produtoRepository.FindAll();         
+        }
+
+
+        [HttpGet("produto/{id}")]
+        public async Task<IActionResult> GetByIdAvaliacoesProdutos([FromRoute] int id)
+        {
+            var produto = await _produtoRepository.FindById(id);
+            if (produto == null)
+                return NotFound("Produto não encontrado!");
+            return Ok(produto);
+        }
+
+        [HttpPost("produto")]
+        public async Task<IActionResult> PostProduto([FromBody] Produto produto)
+        {
+            return Ok("Deu bom!");
+        }
+
+        [HttpPut("produto/{id}")]
+        public async Task<IActionResult> PutProduto([FromRoute] int id, [FromBody] Produto produto)
+        {
+            return null;
+        }
+
+        [HttpDelete("produto/{id}")]
+        public async Task<IActionResult> DeleteProduto([FromRoute] int id)
+        {
+            try
             {
-                new Produto { Id = 1, Nome = "Smartphone", Avaliacao = 5, Descricao = "Tela de alta resolução, processador rápido, câmera de alta qualidade, conectividade 5G." },
-                new Produto { Id = 2, Nome = "Laptop", Avaliacao = 4, Descricao = "Processador potente, tela de alta definição, bateria de longa duração, armazenamento SSD rápido." },
-                new Produto { Id = 3, Nome = "Fone de Ouvido Bluetooth", Avaliacao = 4, Descricao = "Cancelamento de ruído ativo, conexão Bluetooth estável, longa duração da bateria, qualidade de som premium." },
-                new Produto { Id = 4, Nome = "Máquina de Café Expresso", Avaliacao = 4, Descricao = "Pressão adequada para extração, função de espuma de leite, opções de café personalizadas." },
-                new Produto { Id = 5, Nome = "Drone", Avaliacao = 4, Descricao = "Câmera de alta resolução, estabilização avançada, controles intuitivos, longo alcance de voo." },
-                new Produto { Id = 6, Nome = "Relógio Inteligente (Smartwatch)", Avaliacao = 4, Descricao = "Monitoramento de saúde, GPS integrado, notificações de smartphone, resistência à água." },
-                new Produto { Id = 7, Nome = "Caixa de Som Bluetooth Portátil", Avaliacao = 4, Descricao = "Qualidade de som nítida, conexão Bluetooth fácil, resistente à água e poeira." },
-                new Produto { Id = 8, Nome = "Câmera DSLR", Avaliacao = 4, Descricao = "Sensor de alta resolução, capacidade para troca de lentes, controles manuais avançados." },
-                new Produto { Id = 9, Nome = "Patinete Elétrico", Avaliacao = 4, Descricao = "Velocidade máxima adequada, autonomia de bateria suficiente, design dobrável e portátil." },
-                new Produto { Id = 10, Nome = "Impressora Multifuncional", Avaliacao = 4, Descricao = "Impressão de alta qualidade, scanner de documentos rápido, conexão Wi-Fi para impressão sem fio." }
-            };
-
-            return await Task.FromResult(produtos); ;
+                //Task<IActionResult> produto = await _produtoRepository.DeleteById(id);
+                await _produtoRepository.DeleteById(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return NotFound();
+            }
         }
-
-        //public async Task<IActionResult> GetByIdProduto()
-        //{
-        //    return null;
-        //}
 
     }
 }
