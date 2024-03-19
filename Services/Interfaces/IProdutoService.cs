@@ -3,7 +3,7 @@ using API_Avaliacao_Produtos_Servicos.Models;
 
 namespace API_Avaliacao_Produtos_Servicos.Services.Interfaces
 {
-    public interface ProdutoService
+    public interface IProdutoService
     {
         List<Produto> RetornarProdutosMaisBaratos(CategoriaEnum categoria);
 
