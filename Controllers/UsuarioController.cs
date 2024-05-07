@@ -1,5 +1,6 @@
 ﻿using API_Avaliacao_Produtos_Servicos.Models;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
+using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_Avaliacao_Produtos_Servicos.Controllers
@@ -8,16 +9,16 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
     [Route("api/v1")]
     public class UsuarioController : ControllerBase
     {
-        private readonly IUsuarioRepository _usuarioRepository;
-        public UsuarioController(IUsuarioRepository usuario)
+        private readonly IUsuarioService _usuarioService;
+        public UsuarioController(IUsuarioService usuarioService)
         {
-            _usuarioRepository = usuario;
+            _usuarioService = usuarioService;
         }
 
         [HttpGet("usuario")]
         public async Task<IEnumerable<Usuario>> Get()
         {
-            return await _usuarioRepository.BuscarTodosUsuarios();
+            return await _usuarioService.RetornarTodosUsuarios();
         }
 
         [HttpGet("usuario/{id}")]

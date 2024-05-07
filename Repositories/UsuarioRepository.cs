@@ -19,7 +19,7 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Usuario>> BuscarTodosUsuarios()
+        public async Task<IEnumerable<Usuario>> RetornarTodosUsuarios()
         {
             return await _context.Usuarios.ToListAsync();
         }
