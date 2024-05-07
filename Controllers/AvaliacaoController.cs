@@ -17,14 +17,14 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
 
-        [HttpGet("produto")]
+        [HttpGet("avaliacao")]
         public async Task<IEnumerable<Produto>> GetAllAvaliacoesProdutos()
         {
             return await _produtoRepository.FindAll();         
         }
 
 
-        [HttpGet("produto/{id}")]
+        [HttpGet("avaliacao/{id}")]
         public async Task<IActionResult> GetByIdAvaliacoesProdutos([FromRoute] int id)
         {
             var produto = await _produtoRepository.FindById(id);
@@ -33,19 +33,19 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             return Ok(produto);
         }
 
-        [HttpPost("produto")]
+        [HttpPost("avaliacao")]
         public async Task<IActionResult> PostProduto([FromBody] Produto produto)
         {
             return Ok("Deu bom!");
         }
 
-        [HttpPut("produto/{id}")]
+        [HttpPut("avaliacao/{id}")]
         public async Task<IActionResult> PutProduto([FromRoute] int id, [FromBody] Produto produto)
         {
             return null;
         }
 
-        [HttpDelete("produto/{id}")]
+        [HttpDelete("avaliacao/{id}")]
         public async Task<IActionResult> DeleteProduto([FromRoute] int id)
         {
             try

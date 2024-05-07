@@ -10,5 +10,6 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories.Interfaces
         public Task<Produto> FindById(int id);
         public Task<Produto> Update();
         public Task DeleteById(int id);
+        public Task<Produto> AdicionarProduto(Produto produto);
     }
 }

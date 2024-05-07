@@ -16,7 +16,16 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
 
         public async Task<IEnumerable<Produto>> FindAll()
         {
-            return await _context.Produtos.ToListAsync();
+            try
+            {
+                var produtos = await _context.Produtos.ToListAsync();
+                return produtos;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            
         }
 
         public async Task<Produto> FindById(int id)
@@ -36,6 +45,21 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             var produto = await _context.Produtos.FirstOrDefaultAsync(p => p.Id == id);
             _context.Remove(produto);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<Produto> AdicionarProduto(Produto produto)
+        {
+            try
+            {
+                _context.Produtos.Add(produto);
+                await _context.SaveChangesAsync();
+                return produto;
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
+            
         }
     }
 }
