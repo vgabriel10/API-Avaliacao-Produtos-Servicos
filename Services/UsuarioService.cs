@@ -15,22 +15,22 @@ namespace API_Avaliacao_Produtos_Servicos.Services
 
         public async Task<Usuario> AdicionarUsuario(Usuario usuario)
         {
-            throw new NotImplementedException();
+            return await _usuarioRepository.AdicionarUsuario(usuario);
         }
 
-        public async Task ApagarUsuario()
+        public async Task DeletarUsuario(int id)
         {
-            throw new NotImplementedException();
+            await _usuarioRepository.DeletarUsuario(id);
         }
 
-        public async Task<IEnumerable<Usuario>> BuscarUsuarioPorId(int id)
+        public async Task<Usuario> BuscarUsuarioPorId(int id)
         {
-            throw new NotImplementedException();
+            return await _usuarioRepository.BuscarUsuarioPorId(id);
         }
 
         public async Task<Usuario> EditarUsuario(Usuario usuario)
         {
-            throw new NotImplementedException();
+            return await _usuarioRepository.EditarUsuario(usuario);
         }
 
         public async Task<IEnumerable<Usuario>> RetornarTodosUsuarios()

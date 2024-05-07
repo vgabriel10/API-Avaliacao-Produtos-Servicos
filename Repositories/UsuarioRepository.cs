@@ -33,5 +33,10 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public Task<Usuario> EditarUsuario(Usuario usuario)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
