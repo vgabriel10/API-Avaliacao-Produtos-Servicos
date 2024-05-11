@@ -32,9 +32,9 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             throw new NotImplementedException();
         }
 
-        public Task DeletarProduto(int id)
+        public async Task DeletarProduto(int id)
         {
-            throw new NotImplementedException();
+            await _produtoRepository.DeleteById(id);
         }
 
         public async Task<IEnumerable<Produto>> GetAllProdutos()

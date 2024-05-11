@@ -29,7 +29,11 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         [HttpGet("produto")]
         public async Task<IActionResult> Get()
         {
-             return Ok(_produtoService.GetAllProdutos());
+            var response = await _produtoService.GetAllProdutos();
+            if(response != null)
+                return Ok(response);
+
+            return BadRequest();
         }
 
         [HttpGet("produto/{id}")]
@@ -46,8 +50,11 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         [HttpPost("produto")]
         public async Task<IActionResult> Post([FromBody] ProdutoViewModel produto)
         {
-            await _produtoService.AdicionarProduto(produto);
-            return Ok("Deu bom!");
+            var response = await _produtoService.AdicionarProduto(produto);
+            if (response != null)
+                return Ok(response);
+
+            return BadRequest();
         }
 
         [HttpPut("produto/{id}")]
@@ -71,8 +78,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         {
             try
             {
-                //Task<IActionResult> produto = await _produtoRepository.DeleteById(id);
-                //await _produtoRepository.DeleteById(id);
+                await _produtoService.DeletarProduto(id);
                 return NoContent();
             }
             catch (Exception ex)

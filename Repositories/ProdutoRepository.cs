@@ -43,7 +43,8 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
         public async Task DeleteById(int id)
         {
             var produto = await _context.Produtos.FirstOrDefaultAsync(p => p.Id == id);
-            _context.Remove(produto);
+            if (produto  != null)
+                _context.Remove(produto);
             await _context.SaveChangesAsync();
         }
 
