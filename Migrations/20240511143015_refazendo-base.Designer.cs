@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API_Avaliacao_Produtos_Servicos.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240507011343_initial")]
-    partial class initial
+    [Migration("20240511143015_refazendo-base")]
+    partial class refazendobase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,7 +64,6 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int[]>("Avaliacoes")
-                        .IsRequired()
                         .HasColumnType("integer[]");
 
                     b.Property<string>("Cidade")

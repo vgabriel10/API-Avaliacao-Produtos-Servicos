@@ -61,7 +61,6 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int[]>("Avaliacoes")
-                        .IsRequired()
                         .HasColumnType("integer[]");
 
                     b.Property<string>("Cidade")

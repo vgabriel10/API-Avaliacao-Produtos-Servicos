@@ -25,7 +25,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             return BadRequest();
         }
 
-        [HttpPost("fornecedor/{fornecedor}")]
+        [HttpPost("fornecedor")]
         public async Task<IActionResult> Post(FornecedorViewModel fornecedor)
         {
             var result = await _fornecedorService.AdicionarFornecedor(fornecedor);

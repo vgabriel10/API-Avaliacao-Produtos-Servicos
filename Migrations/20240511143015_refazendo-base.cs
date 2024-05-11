@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API_Avaliacao_Produtos_Servicos.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class refazendobase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -42,7 +42,7 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                     Cidade = table.Column<string>(type: "VARCHAR", maxLength: 20, nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "Timestamp without Time Zone", nullable: false),
                     Deletado = table.Column<bool>(type: "BOOLEAN", nullable: false),
-                    Avaliacoes = table.Column<int[]>(type: "integer[]", nullable: false)
+                    Avaliacoes = table.Column<int[]>(type: "integer[]", nullable: true)
                 },
                 constraints: table =>
                 {

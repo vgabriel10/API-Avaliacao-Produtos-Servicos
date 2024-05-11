@@ -12,7 +12,7 @@ namespace API_Avaliacao_Produtos_Servicos.Models
         public string Cidade { get; set; }
         public DateTime DataCadastro { get; set; }
         public bool Deletado { get; set; } = false;
-        public List<Produto> Produtos { get; set; }
-        public List<AvaliacaoEnum> Avaliacoes { get; set; }
+        public List<Produto>? Produtos { get; set; }
+        public List<AvaliacaoEnum>? Avaliacoes { get; set; }
     }
 }
