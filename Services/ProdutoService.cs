@@ -27,9 +27,16 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             return await _produtoRepository.AdicionarProduto(produtoConvertido);
         }
 
-        public Task<Produto> AlterarProduto(int id, ProdutoViewModel produto)
+        public async Task<Produto> AlterarProduto(int id, ProdutoViewModel produto)
         {
-            throw new NotImplementedException();
+            Produto produtoEntity = new Produto
+            {
+                Nome = produto.Nome,
+                Descricao = produto.Descricao,
+                Preco = produto.Preco,
+                FornecedorID = produto.FornecedorId
+            };
+            return await _produtoRepository.AlterarProduto(id, produtoEntity);
         }
 
         public async Task DeletarProduto(int id)
@@ -42,9 +49,9 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             return await _produtoRepository.FindAll();
         }
 
-        public Task<Produto> RetornarProdutoPorId(int id)
+        public async Task<Produto> RetornarProdutoPorId(int id)
         {
-            throw new NotImplementedException();
+            return await _produtoRepository.RetornarProdutoPorId(id);
         }
 
         public List<Produto> RetornarProdutosMaisBaratos(CategoriaEnum categoria)

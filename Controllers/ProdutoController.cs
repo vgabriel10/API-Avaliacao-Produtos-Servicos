@@ -39,12 +39,11 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         [HttpGet("produto/{id}")]
         public async Task<IActionResult> Get([FromRoute] int id)
         {
-            //var produto = await _produtoRepository.FindById(id);
-            //if (produto == null)
-            //    return NotFound("Produto não encontrado!");
-            //return Ok(produto);
+            var response = await _produtoService.RetornarProdutoPorId(id);
+            if (response != null)
+                return Ok(response);
 
-            return null;
+            return NotFound();
         }
 
         [HttpPost("produto")]

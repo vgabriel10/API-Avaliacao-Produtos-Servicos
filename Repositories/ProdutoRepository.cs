@@ -1,6 +1,7 @@
 ﻿using API_Avaliacao_Produtos_Servicos.Data;
 using API_Avaliacao_Produtos_Servicos.Models;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
+using API_Avaliacao_Produtos_Servicos.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace API_Avaliacao_Produtos_Servicos.Repositories
@@ -28,7 +29,7 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             
         }
 
-        public async Task<Produto> FindById(int id)
+        public async Task<Produto> RetornarProdutoPorId(int id)
         {
             return await _context.Produtos
                 .AsNoTracking()
@@ -61,6 +62,11 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
                 return null;
             }
             
+        }
+
+        public Task<Produto> AlterarProduto(int id, ProdutoViewModel produto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

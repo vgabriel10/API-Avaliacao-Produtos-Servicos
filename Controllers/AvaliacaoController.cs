@@ -27,7 +27,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         [HttpGet("avaliacao/{id}")]
         public async Task<IActionResult> GetByIdAvaliacoesProdutos([FromRoute] int id)
         {
-            var produto = await _produtoRepository.FindById(id);
+            var produto = await _produtoRepository.RetornarProdutoPorId(id);
             if (produto == null)
                 return NotFound("Produto não encontrado!");
             return Ok(produto);
