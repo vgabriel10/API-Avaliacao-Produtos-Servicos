@@ -46,5 +46,16 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             return BadRequest();
         }
 
+        [HttpPut("fornecedor/{id}")]
+        public async Task<IActionResult> Put([FromRoute] int id,
+            [FromBody] FornecedorViewModel fornecedor)
+        {
+            var result = await _fornecedorService.AlterarFornecedor(id, fornecedor);
+            if (result != null)
+                return Ok(result);
+
+            return BadRequest();
+        }
+
     }
 }

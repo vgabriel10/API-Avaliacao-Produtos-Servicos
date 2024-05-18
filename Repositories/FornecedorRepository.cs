@@ -20,6 +20,14 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             return fornecedor;
         }
 
+        public async Task<Fornecedor> AlterarFornecedor(int id, Fornecedor fornecedor)
+        {
+
+             _context.Fornecedores.Update(fornecedor);
+            await _context.SaveChangesAsync();
+            return fornecedor;
+        }
+
         public async Task<Fornecedor> RetornarFornecedorPorId(int id)
         {
             return await _context.Fornecedores.FirstOrDefaultAsync(x => x.Id == id);

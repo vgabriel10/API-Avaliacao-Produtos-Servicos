@@ -2,6 +2,8 @@
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
 using API_Avaliacao_Produtos_Servicos.ViewModels;
+using API_Avaliacao_Produtos_Servicos.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace API_Avaliacao_Produtos_Servicos.Services
 {
@@ -30,6 +32,28 @@ namespace API_Avaliacao_Produtos_Servicos.Services
                 return await _fornecedorRepository.AdicionarFornecedor(novoFornecedor);
             }
             return null;
+        }
+
+        public async Task<Fornecedor> AlterarFornecedor(int id, FornecedorViewModel fornecedorViewModel)
+        {
+            var fornecedor = await _fornecedorRepository.RetornarFornecedorPorId(id);
+            if (fornecedor == null)
+                throw new NotFoundException("Fornecedor não encontrado");
+
+            fornecedor.Nome = fornecedorViewModel.Nome;
+            fornecedor.Cnpj = fornecedorViewModel.Cnpj;
+            fornecedor.Cpf = fornecedorViewModel.Cpf;
+            fornecedor.Pais = fornecedorViewModel.Pais;
+            fornecedor.Cidade = fornecedorViewModel.Cidade;
+            fornecedor.DataCadastro = DateTime.Now;
+            fornecedor.Deletado = false;
+
+            var result = await _fornecedorRepository.AlterarFornecedor(id, fornecedor);
+
+            if (result == null)
+                throw new BadRequestException("erro ao tentar realizar a alteração no fornecedor");
+
+            return result;            
         }
 
         public Task<Fornecedor> RetornarFornecedorPorId(int id)
