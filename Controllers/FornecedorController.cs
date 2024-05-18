@@ -25,6 +25,16 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             return BadRequest();
         }
 
+        [HttpGet("fornecedor/{id}")]
+        public async Task<IActionResult> Get([FromRoute] int id)
+        {
+            var result = await _fornecedorService.RetornarFornecedorPorId(id);
+            if (result != null)
+                return Ok(result);
+
+            return NotFound();
+        }
+
         [HttpPost("fornecedor")]
         public async Task<IActionResult> Post(FornecedorViewModel fornecedor)
         {

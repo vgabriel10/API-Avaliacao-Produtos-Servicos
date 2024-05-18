@@ -34,7 +34,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
 
         public Task<Fornecedor> RetornarFornecedorPorId(int id)
         {
-            throw new NotImplementedException();
+            return _fornecedorRepository.RetornarFornecedorPorId(id);
         }
 
         public async Task<IEnumerable<Fornecedor>> RetornarTodosFornecedores()
