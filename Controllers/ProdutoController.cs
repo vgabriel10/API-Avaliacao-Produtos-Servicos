@@ -18,14 +18,6 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
 			_produtoService = produtoService;
         }
 
-
-        //[HttpGet("produto")]
-        //public async Task<IEnumerable<Produto>> Get()
-        //{
-        //    return await _produtoService.GetAllProdutos();         
-        //}
-
-
         [HttpGet("produto")]
         public async Task<IActionResult> Get()
         {
@@ -56,20 +48,32 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             return BadRequest();
         }
 
-        [HttpPut("produto/{id}")]
-        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] ProdutoViewModel produto)
+        //[HttpPut("produto/{id}")]
+        //public async Task<IActionResult> Put([FromRoute] int id, [FromBody] ProdutoViewModel produto)
+        //{
+        //    try
+        //    {
+        //        var result = await _produtoService.AlterarProduto(produto);
+        //        return Ok(result);
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
+
+        [HttpPut("produto")]
+        public async Task<IActionResult> Put([FromBody] ProdutoViewModel produto)
         {
             try
             {
-                await _produtoService.AlterarProduto(id, produto);
-                return NoContent();
+                var result = await _produtoService.AlterarProduto(produto);
+                return Ok(result);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-            
-
         }
 
         [HttpDelete("produto/{id}")]

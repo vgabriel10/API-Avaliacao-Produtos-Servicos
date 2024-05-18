@@ -64,9 +64,17 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             
         }
 
-        public Task<Produto> AlterarProduto(int id, ProdutoViewModel produto)
+        public async Task<Produto> AlterarProduto(int id, Produto produto)
         {
-            throw new NotImplementedException();
+
+            return null;
+        }
+
+        public async Task<Produto> AlterarProduto(Produto produto)
+        {
+            _context.Entry(produto).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return produto;
         }
     }
 }

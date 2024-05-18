@@ -31,12 +31,28 @@ namespace API_Avaliacao_Produtos_Servicos.Services
         {
             Produto produtoEntity = new Produto
             {
+                Id = id,
                 Nome = produto.Nome,
                 Descricao = produto.Descricao,
                 Preco = produto.Preco,
                 FornecedorID = produto.FornecedorId
             };
             return await _produtoRepository.AlterarProduto(id, produtoEntity);
+        }
+
+        public async Task<Produto> AlterarProduto(ProdutoViewModel produto)
+        {
+            if (produto.Id == null)
+                return null;
+            Produto produtoEntity = new Produto
+            {
+                Id = produto.Id.Value,
+                Nome = produto.Nome,
+                Descricao = produto.Descricao,
+                Preco = produto.Preco,
+                FornecedorID = produto.FornecedorId
+            };
+            return await _produtoRepository.AlterarProduto(produtoEntity);
         }
 
         public async Task DeletarProduto(int id)

@@ -9,7 +9,8 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories.Interfaces
     {
         public Task<IEnumerable<Produto>> FindAll();
         public Task<Produto> RetornarProdutoPorId(int id);
-        public Task<Produto> AlterarProduto(int id, ProdutoViewModel produto);
+        public Task<Produto> AlterarProduto(int id, Produto produto);
+        public Task<Produto> AlterarProduto(Produto produto);
         public Task DeleteById(int id);
         public Task<Produto> AdicionarProduto(Produto produto);
     }
