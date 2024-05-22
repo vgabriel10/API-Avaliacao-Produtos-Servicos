@@ -31,18 +31,30 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
         public async Task DeletarFornecedor(int id)
         {
             var fornecedor = await _context.Fornecedores.FirstOrDefaultAsync(x => x.Id == id);
+            if (fornecedor != null)
+            {
+                fornecedor.Deletado = true;
+                _context.Update(fornecedor);
+            }
+            
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeletarRegistroFornecedor(int id)
+        {
+            var fornecedor = await _context.Fornecedores.FirstOrDefaultAsync(x => x.Id == id);
             _context.Remove(fornecedor);
             await _context.SaveChangesAsync();
         }
 
         public async Task<Fornecedor> RetornarFornecedorPorId(int id)
         {
-            return await _context.Fornecedores.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Fornecedores.FirstOrDefaultAsync(x => x.Id == id && x.Deletado == false);
         }
 
         public async Task<IEnumerable<Fornecedor>> RetornarTodosFornecedores()
         {
-            return await _context.Fornecedores.ToListAsync();
+            return await _context.Fornecedores.Where(x => x.Deletado == false).ToListAsync();
         }
     }
 }

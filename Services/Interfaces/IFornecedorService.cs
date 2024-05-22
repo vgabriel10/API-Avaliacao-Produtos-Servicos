@@ -10,6 +10,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services.Interfaces
         Task<Fornecedor> AdicionarFornecedor(FornecedorViewModel fornecedor);
         Task<Fornecedor> AlterarFornecedor(int id, FornecedorViewModel fornecedorViewModel);
         Task DeletarFornecedor(int id);
-        
+        Task DeletarRegistroFornecedor(int id);
+
     }
 }

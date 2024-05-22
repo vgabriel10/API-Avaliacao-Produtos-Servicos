@@ -16,7 +16,8 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
 
         public async Task<Usuario> AdicionarUsuario(Usuario usuario)
         {
-            throw new NotImplementedException();
+            await _context.Usuarios.AddAsync(usuario);
+            return usuario;
         }
 
         public async Task<IEnumerable<Usuario>> RetornarTodosUsuarios()
@@ -31,12 +32,19 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
 
         public async Task DeletarUsuario(int id)
         {
-            throw new NotImplementedException();
+            var usuario = _context.Usuarios.FirstOrDefault(x => x.Id == id);
+            if (usuario != null) 
+            { 
+                _context.Usuarios.Remove(usuario);
+                await _context.SaveChangesAsync();
+            }
         }
 
-        public Task<Usuario> EditarUsuario(Usuario usuario)
+        public async Task<Usuario> EditarUsuario(int id, Usuario usuario)
         {
-            throw new NotImplementedException();
+            _context.Usuarios.Update(usuario);
+            await _context.SaveChangesAsync();
+            return usuario;
         }
     }
 }

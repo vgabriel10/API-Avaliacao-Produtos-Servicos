@@ -9,5 +9,6 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories.Interfaces
         Task<Fornecedor> AdicionarFornecedor(Fornecedor fornecedor);
         Task<Fornecedor> AlterarFornecedor (int id, Fornecedor fornecedor);
         Task DeletarFornecedor(int id);
+        Task DeletarRegistroFornecedor(int id);
     }
 }

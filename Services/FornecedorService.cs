@@ -59,6 +59,12 @@ namespace API_Avaliacao_Produtos_Servicos.Services
         public async Task DeletarFornecedor(int id)
         {
             await _fornecedorRepository.DeletarFornecedor(id);
+                
+        }
+
+        public async Task DeletarRegistroFornecedor(int id)
+        {
+            await _fornecedorRepository.DeletarRegistroFornecedor(id);
         }
 
         public Task<Fornecedor> RetornarFornecedorPorId(int id)
