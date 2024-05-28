@@ -25,13 +25,21 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         [HttpGet("usuario/{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            return null;
+            var result = await _usuarioService.BuscarUsuarioPorId(id);
+            if (result != null)
+                return Ok(result);
+
+            return NotFound();
         }
 
         [HttpPost("usuario/")]
         public async Task<IActionResult> Post(UsuarioViewModel usuario)
         {
-            var result = _usuarioService.AdicionarUsuario(usuario)
+            var result = _usuarioService.AdicionarUsuario(usuario);
+            if (result != null)
+                return Ok(result);
+
+            return BadRequest();
         }
 
         [HttpPut("usuario/{id}")]

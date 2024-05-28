@@ -27,7 +27,13 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
 
         public async Task<Usuario> BuscarUsuarioPorId(int id)
         {
-            throw new NotImplementedException();
+            var usuario = await _context.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
+            if (usuario != null)
+            {
+                return usuario;
+            }
+
+            return null;
         }
 
         public async Task DeletarUsuario(int id)
