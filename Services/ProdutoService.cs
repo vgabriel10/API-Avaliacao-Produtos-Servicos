@@ -1,8 +1,8 @@
 ﻿using API_Avaliacao_Produtos_Servicos.Enums;
 using API_Avaliacao_Produtos_Servicos.Models;
+using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
-using API_Avaliacao_Produtos_Servicos.ViewModels;
 
 namespace API_Avaliacao_Produtos_Servicos.Services
 {

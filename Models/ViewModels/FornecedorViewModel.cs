@@ -1,6 +1,6 @@
 ﻿using API_Avaliacao_Produtos_Servicos.Enums;
 
-namespace API_Avaliacao_Produtos_Servicos.ViewModels
+namespace API_Avaliacao_Produtos_Servicos.Models.ViewModels
 {
     public class FornecedorViewModel
     {

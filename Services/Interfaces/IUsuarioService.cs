@@ -1,5 +1,5 @@
 ﻿using API_Avaliacao_Produtos_Servicos.Models;
-using API_Avaliacao_Produtos_Servicos.ViewModels;
+using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
 
 namespace API_Avaliacao_Produtos_Servicos.Services.Interfaces
 {

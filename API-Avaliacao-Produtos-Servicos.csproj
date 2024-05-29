@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\InputModels\" />
     <Folder Include="Validator\" />
   </ItemGroup>
 </Project>

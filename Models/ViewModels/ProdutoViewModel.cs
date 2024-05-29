@@ -1,7 +1,7 @@
 ﻿using API_Avaliacao_Produtos_Servicos.Enums;
 using API_Avaliacao_Produtos_Servicos.Models;
 
-namespace API_Avaliacao_Produtos_Servicos.ViewModels
+namespace API_Avaliacao_Produtos_Servicos.Models.ViewModels
 {
     public class ProdutoViewModel
     {

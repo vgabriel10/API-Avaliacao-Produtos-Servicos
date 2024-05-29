@@ -1,6 +1,6 @@
 ﻿using API_Avaliacao_Produtos_Servicos.Data;
 using API_Avaliacao_Produtos_Servicos.Models;
-using API_Avaliacao_Produtos_Servicos.ViewModels;
+using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_Avaliacao_Produtos_Servicos.Repositories.Interfaces

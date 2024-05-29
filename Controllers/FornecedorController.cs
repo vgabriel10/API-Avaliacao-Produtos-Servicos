@@ -1,5 +1,5 @@
-﻿using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
-using API_Avaliacao_Produtos_Servicos.ViewModels;
+﻿using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
+using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_Avaliacao_Produtos_Servicos.Controllers
