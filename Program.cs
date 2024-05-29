@@ -3,7 +3,10 @@ using API_Avaliacao_Produtos_Servicos.Repositories;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Services;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
+using API_Avaliacao_Produtos_Servicos.Validators;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +23,8 @@ builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
 builder.Services.AddScoped<IFornecedorService,FornecedorService>();
 builder.Services.AddScoped<IFornecedorRepository, FornecedorRepository>();
+
+builder.Services.AddValidatorsFromAssemblyContaining<UsuarioValidator>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
