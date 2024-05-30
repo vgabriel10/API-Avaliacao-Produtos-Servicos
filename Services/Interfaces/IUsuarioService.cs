@@ -7,7 +7,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services.Interfaces
     {
         public Task<IEnumerable<Usuario>> RetornarTodosUsuarios();
         public Task<Usuario> BuscarUsuarioPorId(int id);
-        public Task<Usuario> AdicionarUsuario(UsuarioViewModel usuario);
+        public Task<Usuario> AdicionarUsuario(UsuarioInputModel usuario);
         public Task<Usuario> EditarUsuario(int id,UsuarioViewModel usuario);
         public Task DeletarUsuario(int id);
     }

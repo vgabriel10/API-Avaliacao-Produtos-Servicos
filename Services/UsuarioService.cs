@@ -16,7 +16,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             _usuarioRepository = usuarioRepository;
         }
 
-        public async Task<Usuario> AdicionarUsuario(UsuarioViewModel usuarioViewModel)
+        public async Task<Usuario> AdicionarUsuario(UsuarioInputModel usuarioViewModel)
         {
             var usuario = new Usuario
             {

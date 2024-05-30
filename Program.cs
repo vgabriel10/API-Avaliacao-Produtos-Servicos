@@ -5,6 +5,7 @@ using API_Avaliacao_Produtos_Servicos.Services;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Validators;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -25,6 +26,7 @@ builder.Services.AddScoped<IFornecedorService,FornecedorService>();
 builder.Services.AddScoped<IFornecedorRepository, FornecedorRepository>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<UsuarioValidator>();
+builder.Services.AddFluentValidationAutoValidation();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

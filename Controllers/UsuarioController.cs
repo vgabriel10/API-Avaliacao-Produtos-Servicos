@@ -2,6 +2,8 @@
 using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
+using API_Avaliacao_Produtos_Servicos.Validators;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_Avaliacao_Produtos_Servicos.Controllers
@@ -33,9 +35,9 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpPost("usuario/")]
-        public async Task<IActionResult> Post(UsuarioViewModel usuario)
+        public async Task<IActionResult> Post(UsuarioInputModel usuario)
         {
-            var result = _usuarioService.AdicionarUsuario(usuario);
+            var result = await _usuarioService.AdicionarUsuario(usuario);
             if (result != null)
                 return Ok(result);
 
