@@ -15,7 +15,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             _fornecedorRepository = fornecedorRepository;
         }
 
-        public async Task<Fornecedor> AdicionarFornecedor(FornecedorViewModel fornecedor)
+        public async Task<Fornecedor> AdicionarFornecedor(FornecedorInputModel fornecedor)
         {
             if(fornecedor != null)
             {
@@ -34,7 +34,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             return null;
         }
 
-        public async Task<Fornecedor> AlterarFornecedor(int id, FornecedorViewModel fornecedorViewModel)
+        public async Task<Fornecedor> AlterarFornecedor(int id, FornecedorInputModel fornecedorViewModel)
         {
             var fornecedor = await _fornecedorRepository.RetornarFornecedorPorId(id);
             if (fornecedor == null)

@@ -1,5 +1,6 @@
 ﻿using API_Avaliacao_Produtos_Servicos.Enums;
 using API_Avaliacao_Produtos_Servicos.Models;
+using API_Avaliacao_Produtos_Servicos.Models.InputModels;
 using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
@@ -15,7 +16,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             _produtoRepository = produtoRepository;
         }
 
-        public async Task<Produto> AdicionarProduto(ProdutoViewModel produto)
+        public async Task<Produto> AdicionarProduto(ProdutoInputModel produto)
         {
             Produto produtoConvertido = new Produto
             {
@@ -27,7 +28,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             return await _produtoRepository.AdicionarProduto(produtoConvertido);
         }
 
-        public async Task<Produto> AlterarProduto(int id, ProdutoViewModel produto)
+        public async Task<Produto> AlterarProduto(int id, ProdutoInputModel produto)
         {
             Produto produtoEntity = new Produto
             {
@@ -40,7 +41,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             return await _produtoRepository.AlterarProduto(id, produtoEntity);
         }
 
-        public async Task<Produto> AlterarProduto(ProdutoViewModel produto)
+        public async Task<Produto> AlterarProduto(ProdutoInputModel produto)
         {
             if (produto.Id == null)
                 return null;

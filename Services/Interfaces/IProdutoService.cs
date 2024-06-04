@@ -1,5 +1,6 @@
 ﻿using API_Avaliacao_Produtos_Servicos.Enums;
 using API_Avaliacao_Produtos_Servicos.Models;
+using API_Avaliacao_Produtos_Servicos.Models.InputModels;
 using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
 
 namespace API_Avaliacao_Produtos_Servicos.Services.Interfaces
@@ -10,11 +11,11 @@ namespace API_Avaliacao_Produtos_Servicos.Services.Interfaces
         List<Produto> RetornarProdutosMaisBaratos(CategoriaEnum categoria);
 
         List<Produto> RetornarProdutosMaisBemAvaliados();
-        Task<Produto> AdicionarProduto (ProdutoViewModel produto);
+        Task<Produto> AdicionarProduto (ProdutoInputModel produto);
 
         Task<Produto> RetornarProdutoPorId(int id);
-        Task<Produto> AlterarProduto(int id, ProdutoViewModel produto);
-        Task<Produto> AlterarProduto(ProdutoViewModel produto);
+        Task<Produto> AlterarProduto(int id, ProdutoInputModel produto);
+        Task<Produto> AlterarProduto(ProdutoInputModel produto);
         Task DeletarProduto(int id);
 
     }

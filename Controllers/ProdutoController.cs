@@ -1,5 +1,6 @@
 ﻿using API_Avaliacao_Produtos_Servicos.Data;
 using API_Avaliacao_Produtos_Servicos.Models;
+using API_Avaliacao_Produtos_Servicos.Models.InputModels;
 using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
@@ -39,7 +40,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpPost("produto")]
-        public async Task<IActionResult> Post([FromBody] ProdutoViewModel produto)
+        public async Task<IActionResult> Post([FromBody] ProdutoInputModel produto)
         {
             var response = await _produtoService.AdicionarProduto(produto);
             if (response != null)
@@ -63,7 +64,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         //}
 
         [HttpPut("produto")]
-        public async Task<IActionResult> Put([FromBody] ProdutoViewModel produto)
+        public async Task<IActionResult> Put([FromBody] ProdutoInputModel produto)
         {
             try
             {
