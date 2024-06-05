@@ -17,7 +17,9 @@ namespace API_Avaliacao_Produtos_Servicos.Validators
                 .LessThan(DateTime.Now).WithMessage("A data de nascimento deve ser menor que hoje");
 
             RuleFor(x => x.Cpf)
-                .NotEmpty();
+                .NotEmpty()
+                .Length(11, 14);
+            
 
         }
     }

@@ -105,7 +105,7 @@ namespace API_Avaliacao_Produtos_Servicos.Data
                 .HasKey(x => x.Id);
 
             modelBuilder.Entity<Fornecedor>()
-                .Property(x => x.Pais)
+                .Property(x => x.Nacionalidade)
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(20);
 

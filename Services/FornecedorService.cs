@@ -4,6 +4,7 @@ using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
+using API_Avaliacao_Produtos_Servicos.Models.InputModels;
 
 namespace API_Avaliacao_Produtos_Servicos.Services
 {
@@ -25,7 +26,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
                     Cidade = fornecedor.Cidade,
                     Cnpj = fornecedor.Cnpj,
                     Cpf = fornecedor.Cpf,
-                    Pais = fornecedor.Pais,
+                    Nacionalidade = fornecedor.Nacionalidade,
                     DataCadastro = DateTime.Now,
                     Deletado = false
                 };
@@ -43,7 +44,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             fornecedor.Nome = fornecedorViewModel.Nome;
             fornecedor.Cnpj = fornecedorViewModel.Cnpj;
             fornecedor.Cpf = fornecedorViewModel.Cpf;
-            fornecedor.Pais = fornecedorViewModel.Pais;
+            fornecedor.Nacionalidade = fornecedorViewModel.Nacionalidade;
             fornecedor.Cidade = fornecedorViewModel.Cidade;
             fornecedor.DataCadastro = DateTime.Now;
             fornecedor.Deletado = false;
