@@ -49,8 +49,8 @@ namespace API_Avaliacao_Produtos_Servicos.Data
                 .Property(x => x.Descricao)
                 .IsRequired()
                 .HasColumnType("TEXT");
-            
-         
+
+
 
             modelBuilder.Entity<Produto>()
                 .HasOne(x => x.Fornecedor)
@@ -96,7 +96,7 @@ namespace API_Avaliacao_Produtos_Servicos.Data
             modelBuilder.Entity<Usuario>()
                 .Property(x => x.Deletado)
                 .HasColumnType("BOOLEAN");
-            
+
 
             #endregion
 
@@ -139,6 +139,37 @@ namespace API_Avaliacao_Produtos_Servicos.Data
             #endregion
 
             #region Comentarios
+            modelBuilder.Entity<Comentario>()
+                .HasKey(x => x.Id);
+
+            modelBuilder.Entity<Comentario>()
+                .Property(x => x.Titulo)
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(100);
+
+            modelBuilder.Entity<Comentario>()
+                .Property(x => x.Descricao)
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(2000);
+
+            modelBuilder.Entity<Comentario>()
+                .Property(x => x.Data)
+                .HasColumnType("Timestamp without Time Zone");
+
+            // Um comentario está relacionado a um produto
+            // Um produto pode ter vários comentários
+            modelBuilder.Entity<Comentario>()
+                .HasOne(c => c.Produto)
+                .WithMany(p => p.Comentarios) // WithMany, indicando que um Produto pode ter muitos Comentarios
+                .HasForeignKey(c => c.ProdutoId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Comentario>()
+                .HasOne(c => c.Usuario)
+                .WithMany(u => u.Comentarios)
+                .HasForeignKey(c => c.UsuarioId)
+                .OnDelete(DeleteBehavior.Cascade);
+                
 
             #endregion
         }

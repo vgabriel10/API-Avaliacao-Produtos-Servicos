@@ -10,5 +10,7 @@
         public string Cidade { get; set; }
         public DateTime DataCadastro { get; set; }
         public bool Deletado { get; set; } = false;
+
+        public virtual List<Comentario> Comentarios { get; set; }
     }
 }

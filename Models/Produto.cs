@@ -17,6 +17,8 @@ namespace API_Avaliacao_Produtos_Servicos.Models
         public bool Deletado { get; set; } = false;
         public DateTime DataCadastro { get; set; }
 
+        public virtual List<Comentario> Comentarios { get; set; }
+
         //public int Id { get; set; }
         //public string Nome { get; set; }
         //public string Descricao { get; set; }
