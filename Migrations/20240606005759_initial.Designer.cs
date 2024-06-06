@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API_Avaliacao_Produtos_Servicos.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240511143015_refazendo-base")]
-    partial class refazendobase
+    [Migration("20240606005759_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,23 +34,29 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Data")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("Timestamp without Time Zone");
 
                     b.Property<string>("Descricao")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(2000)
+                        .HasColumnType("VARCHAR");
 
-                    b.Property<int>("IdProduto")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("IdUsuario")
+                    b.Property<int>("ProdutoId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Titulo")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("VARCHAR");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Comentarios");
                 });
@@ -87,14 +93,14 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                     b.Property<bool>("Deletado")
                         .HasColumnType("BOOLEAN");
 
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Pais")
+                    b.Property<string>("Nacionalidade")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("VARCHAR");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -187,6 +193,25 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                     b.ToTable("Usuarios");
                 });
 
+            modelBuilder.Entity("API_Avaliacao_Produtos_Servicos.Models.Comentario", b =>
+                {
+                    b.HasOne("API_Avaliacao_Produtos_Servicos.Models.Produto", "Produto")
+                        .WithMany("Comentarios")
+                        .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API_Avaliacao_Produtos_Servicos.Models.Usuario", "Usuario")
+                        .WithMany("Comentarios")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Produto");
+
+                    b.Navigation("Usuario");
+                });
+
             modelBuilder.Entity("API_Avaliacao_Produtos_Servicos.Models.Produto", b =>
                 {
                     b.HasOne("API_Avaliacao_Produtos_Servicos.Models.Fornecedor", "Fornecedor")
@@ -205,6 +230,16 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
             modelBuilder.Entity("API_Avaliacao_Produtos_Servicos.Models.Fornecedor", b =>
                 {
                     b.Navigation("Produtos");
+                });
+
+            modelBuilder.Entity("API_Avaliacao_Produtos_Servicos.Models.Produto", b =>
+                {
+                    b.Navigation("Comentarios");
+                });
+
+            modelBuilder.Entity("API_Avaliacao_Produtos_Servicos.Models.Usuario", b =>
+                {
+                    b.Navigation("Comentarios");
                 });
 #pragma warning restore 612, 618
         }

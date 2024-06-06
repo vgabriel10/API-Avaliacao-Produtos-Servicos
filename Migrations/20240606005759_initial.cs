@@ -7,28 +7,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API_Avaliacao_Produtos_Servicos.Migrations
 {
     /// <inheritdoc />
-    public partial class refazendobase : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Comentarios",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    IdUsuario = table.Column<int>(type: "integer", nullable: false),
-                    IdProduto = table.Column<int>(type: "integer", nullable: false),
-                    Titulo = table.Column<string>(type: "text", nullable: false),
-                    Descricao = table.Column<string>(type: "text", nullable: false),
-                    Data = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Comentarios", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Fornecedores",
                 columns: table => new
@@ -38,7 +21,7 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                     Nome = table.Column<string>(type: "text", nullable: false),
                     Cnpj = table.Column<string>(type: "VARCHAR", maxLength: 20, nullable: false),
                     Cpf = table.Column<string>(type: "VARCHAR", maxLength: 14, nullable: false),
-                    Pais = table.Column<string>(type: "VARCHAR", maxLength: 20, nullable: false),
+                    Nacionalidade = table.Column<string>(type: "VARCHAR", maxLength: 20, nullable: false),
                     Cidade = table.Column<string>(type: "VARCHAR", maxLength: 20, nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "Timestamp without Time Zone", nullable: false),
                     Deletado = table.Column<bool>(type: "BOOLEAN", nullable: false),
@@ -98,6 +81,45 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                         principalTable: "Fornecedores",
                         principalColumn: "Id");
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Comentarios",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UsuarioId = table.Column<int>(type: "integer", nullable: false),
+                    ProdutoId = table.Column<int>(type: "integer", nullable: false),
+                    Titulo = table.Column<string>(type: "VARCHAR", maxLength: 100, nullable: false),
+                    Descricao = table.Column<string>(type: "VARCHAR", maxLength: 2000, nullable: false),
+                    Data = table.Column<DateTime>(type: "Timestamp without Time Zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comentarios", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comentarios_Produtos_ProdutoId",
+                        column: x => x.ProdutoId,
+                        principalTable: "Produtos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comentarios_Usuarios_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "Usuarios",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comentarios_ProdutoId",
+                table: "Comentarios",
+                column: "ProdutoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comentarios_UsuarioId",
+                table: "Comentarios",
+                column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Produtos_FornecedorId",
