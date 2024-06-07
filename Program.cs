@@ -25,6 +25,9 @@ builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IFornecedorService,FornecedorService>();
 builder.Services.AddScoped<IFornecedorRepository, FornecedorRepository>();
 
+builder.Services.AddScoped<IAvaliacaoService, AvaliacaoService>();
+builder.Services.AddScoped<IAvaliacaoRepository, AvaliacaoRepository>();
+
 builder.Services.AddValidatorsFromAssemblyContaining<UsuarioValidator>();
 builder.Services.AddFluentValidationAutoValidation();
 
