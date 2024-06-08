@@ -19,9 +19,9 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpGet("avaliacao")]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var todasAvaliacoes = _avaliacaoService.RetornaTodasAvaliacoes();
+            var todasAvaliacoes = await _avaliacaoService.RetornaTodasAvaliacoes();
             if (todasAvaliacoes != null)
                 return Ok(todasAvaliacoes);
 
@@ -29,9 +29,9 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpGet("avaliacao/{idProduto}")]
-        public IActionResult Get(int idProduto)
+        public async Task<IActionResult> Get(int idProduto)
         {
-            var avaliacoesDoProduto = _avaliacaoService.RetornaAvaliacoesDoProduto(idProduto);
+            var avaliacoesDoProduto = await _avaliacaoService.RetornaAvaliacoesDoProduto(idProduto);
             if (avaliacoesDoProduto != null)
                 return Ok(avaliacoesDoProduto);
 
@@ -39,9 +39,9 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpPost("avaliacao")]
-        public IActionResult Post(AvaliacaoInputModel avaliacao)
+        public async Task<IActionResult> Post(AvaliacaoInputModel avaliacao)
         {
-            var result = _avaliacaoService.AdicionarAvaliacao(avaliacao);
+            var result = await _avaliacaoService.AdicionarAvaliacao(avaliacao);
             if (result != null)
                 return Ok(result);
 
@@ -49,14 +49,14 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpPut("avaliacao/{idAvaliacao}")]
-        public IActionResult Put([FromRoute]int idAvaliacao, [FromBody] AvaliacaoInputModel avaliacao)
+        public async Task<IActionResult> Put([FromRoute]int idAvaliacao, [FromBody] AvaliacaoInputModel avaliacao)
         {
             //var result = _avaliacaoService.EditarAvaliacao()
             return BadRequest();
         }
 
         [HttpDelete("avaliacao/{idAvaliacao}")]
-        public IActionResult Delete([FromRoute] int idAvaliacao)
+        public async Task<IActionResult> Delete([FromRoute] int idAvaliacao)
         {
             //_avaliacaoService.RemoverAvaliacao(idAvaliacao)
             return BadRequest();

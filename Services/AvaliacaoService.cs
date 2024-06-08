@@ -1,34 +1,42 @@
 ﻿using API_Avaliacao_Produtos_Servicos.Models;
 using API_Avaliacao_Produtos_Servicos.Models.InputModels;
+using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
 
 namespace API_Avaliacao_Produtos_Servicos.Services
 {
     public class AvaliacaoService : IAvaliacaoService
     {
-        public Task<Avaliacao> AdicionarAvaliacao(AvaliacaoInputModel avaliacao)
+        private readonly IAvaliacaoRepository _avaliacaoRepository;
+
+        public AvaliacaoService (IAvaliacaoRepository avaliacaoRepository)
+        {
+            _avaliacaoRepository = avaliacaoRepository;
+        }
+
+        public async Task<Avaliacao> AdicionarAvaliacao(AvaliacaoInputModel avaliacao)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Avaliacao> EditarAvaliacao(AvaliacaoInputModel avalidacao)
+        public async Task<Avaliacao> EditarAvaliacao(AvaliacaoInputModel avalidacao)
         {
             throw new NotImplementedException();
         }
 
-        public Task RemoverAvaliacao()
+        public async Task RemoverAvaliacao()
         {
             throw new NotImplementedException();
         }
 
-        public Task<Avaliacao> RetornaAvaliacoesDoProduto(int idProduto)
+        public async Task<Avaliacao> RetornaAvaliacoesDoProduto(int idProduto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Avaliacao>> RetornaTodasAvaliacoes()
+        public async Task<IEnumerable<Avaliacao>> RetornaTodasAvaliacoes()
         {
-            throw new NotImplementedException();
+            return await _avaliacaoRepository.RetornaTodasAvaliacoes();
         }
     }
 }

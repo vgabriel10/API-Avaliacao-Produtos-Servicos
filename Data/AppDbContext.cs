@@ -12,7 +12,7 @@ namespace API_Avaliacao_Produtos_Servicos.Data
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Fornecedor> Fornecedores { get; set; }
         public DbSet<Comentario> Comentarios { get; set; }
-
+        public DbSet<Avaliacao> Avaliacoes { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 
