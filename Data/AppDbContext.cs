@@ -169,7 +169,39 @@ namespace API_Avaliacao_Produtos_Servicos.Data
                 .WithMany(u => u.Comentarios)
                 .HasForeignKey(c => c.UsuarioId)
                 .OnDelete(DeleteBehavior.Cascade);
-                
+
+
+            #endregion
+
+            #region Avaliacoes
+
+            modelBuilder.Entity<Avaliacao>()
+                .HasKey(x => x.Id);
+
+            modelBuilder.Entity<Avaliacao>()
+                .Property(x => x.Nota)
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(20)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<Avaliacao>()
+                .HasOne(a => a.Produto)
+                .WithMany(p => p.Avaliacoes)
+                .HasForeignKey(a => a.ProdutoId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Avaliacao>()
+                .HasOne(a => a.Usuario)
+                .WithMany(u => u.Avaliacoes)
+                .HasForeignKey(a => a.UsuarioId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Avaliacao>()
+                .HasOne(a => a.Comentario)
+                .WithOne(c => c.Avaliacao)
+                .HasForeignKey<Comentario>(c => c.AvaliacaoId)
+                .OnDelete(DeleteBehavior.Cascade);
+
 
             #endregion
         }
