@@ -15,7 +15,9 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
         }
         public async Task<Avaliacao> AdicionarAvaliacao(Avaliacao avaliacao)
         {
-            throw new NotImplementedException();
+            _context.Avaliacoes.Add(avaliacao);
+            await _context.SaveChangesAsync();
+            return avaliacao;
         }
 
         public async Task<Avaliacao> EditarAvaliacao(Avaliacao avalidacao)

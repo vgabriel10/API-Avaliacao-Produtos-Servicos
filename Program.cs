@@ -38,6 +38,9 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Configurando data no postgres para UTC
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

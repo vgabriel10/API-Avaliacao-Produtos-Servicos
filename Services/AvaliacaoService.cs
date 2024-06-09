@@ -14,12 +14,21 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             _avaliacaoRepository = avaliacaoRepository;
         }
 
-        public async Task<Avaliacao> AdicionarAvaliacao(AvaliacaoInputModel avaliacao)
+        public async Task<Avaliacao> AdicionarAvaliacao(AvaliacaoInputModel avaliacaoInputModel)
         {
-            throw new NotImplementedException();
+            var avaliacao = new Avaliacao
+            {
+                UsuarioId = avaliacaoInputModel.UsuarioId,
+                ProdutoId = avaliacaoInputModel.ProdutoId,
+                ComentarioId = avaliacaoInputModel?.ComentarioId,
+                Nota = avaliacaoInputModel.Nota,
+                DataAvaliacao = DateTime.Now
+            };
+
+            return await _avaliacaoRepository.AdicionarAvaliacao(avaliacao);
         }
 
-        public async Task<Avaliacao> EditarAvaliacao(AvaliacaoInputModel avalidacao)
+        public async Task<Avaliacao> EditarAvaliacao(AvaliacaoInputModel avaliacaoInputModel)
         {
             throw new NotImplementedException();
         }
