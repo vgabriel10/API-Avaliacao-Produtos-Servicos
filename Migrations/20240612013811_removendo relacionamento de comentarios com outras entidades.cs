@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API_Avaliacao_Produtos_Servicos.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class removendorelacionamentodecomentarioscomoutrasentidades : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -83,28 +83,29 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comentarios",
+                name: "Avaliacoes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UsuarioId = table.Column<int>(type: "integer", nullable: false),
                     ProdutoId = table.Column<int>(type: "integer", nullable: false),
-                    Titulo = table.Column<string>(type: "VARCHAR", maxLength: 100, nullable: false),
-                    Descricao = table.Column<string>(type: "VARCHAR", maxLength: 2000, nullable: false),
-                    Data = table.Column<DateTime>(type: "Timestamp without Time Zone", nullable: false)
+                    Titulo = table.Column<string>(type: "text", nullable: true),
+                    Descricao = table.Column<string>(type: "text", nullable: true),
+                    Nota = table.Column<string>(type: "VARCHAR", maxLength: 20, nullable: false),
+                    DataAvaliacao = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comentarios", x => x.Id);
+                    table.PrimaryKey("PK_Avaliacoes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comentarios_Produtos_ProdutoId",
+                        name: "FK_Avaliacoes_Produtos_ProdutoId",
                         column: x => x.ProdutoId,
                         principalTable: "Produtos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Comentarios_Usuarios_UsuarioId",
+                        name: "FK_Avaliacoes_Usuarios_UsuarioId",
                         column: x => x.UsuarioId,
                         principalTable: "Usuarios",
                         principalColumn: "Id",
@@ -112,13 +113,13 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comentarios_ProdutoId",
-                table: "Comentarios",
+                name: "IX_Avaliacoes_ProdutoId",
+                table: "Avaliacoes",
                 column: "ProdutoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comentarios_UsuarioId",
-                table: "Comentarios",
+                name: "IX_Avaliacoes_UsuarioId",
+                table: "Avaliacoes",
                 column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
@@ -136,7 +137,7 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Comentarios");
+                name: "Avaliacoes");
 
             migrationBuilder.DropTable(
                 name: "Produtos");

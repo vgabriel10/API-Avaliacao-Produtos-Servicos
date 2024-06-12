@@ -20,7 +20,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             {
                 UsuarioId = avaliacaoInputModel.UsuarioId,
                 ProdutoId = avaliacaoInputModel.ProdutoId,
-                ComentarioId = avaliacaoInputModel?.ComentarioId,
+                //ComentarioId = avaliacaoInputModel?.ComentarioId,
                 Nota = avaliacaoInputModel.Nota,
                 DataAvaliacao = DateTime.Now
             };

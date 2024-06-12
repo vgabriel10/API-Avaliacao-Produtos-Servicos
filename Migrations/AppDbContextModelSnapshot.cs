@@ -30,11 +30,11 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ComentarioId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("DataAvaliacao")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("text");
 
                     b.Property<string>("Nota")
                         .IsRequired()
@@ -43,6 +43,9 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
 
                     b.Property<int>("ProdutoId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Titulo")
+                        .HasColumnType("text");
 
                     b.Property<int>("UsuarioId")
                         .HasColumnType("integer");
@@ -54,48 +57,6 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                     b.HasIndex("UsuarioId");
 
                     b.ToTable("Avaliacoes");
-                });
-
-            modelBuilder.Entity("API_Avaliacao_Produtos_Servicos.Models.Comentario", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AvaliacaoId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("Timestamp without Time Zone");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("VARCHAR");
-
-                    b.Property<int>("ProdutoId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Titulo")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("VARCHAR");
-
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AvaliacaoId")
-                        .IsUnique();
-
-                    b.HasIndex("ProdutoId");
-
-                    b.HasIndex("UsuarioId");
-
-                    b.ToTable("Comentarios");
                 });
 
             modelBuilder.Entity("API_Avaliacao_Produtos_Servicos.Models.Fornecedor", b =>
@@ -249,33 +210,6 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("API_Avaliacao_Produtos_Servicos.Models.Comentario", b =>
-                {
-                    b.HasOne("API_Avaliacao_Produtos_Servicos.Models.Avaliacao", "Avaliacao")
-                        .WithOne("Comentario")
-                        .HasForeignKey("API_Avaliacao_Produtos_Servicos.Models.Comentario", "AvaliacaoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("API_Avaliacao_Produtos_Servicos.Models.Produto", "Produto")
-                        .WithMany("Comentarios")
-                        .HasForeignKey("ProdutoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("API_Avaliacao_Produtos_Servicos.Models.Usuario", "Usuario")
-                        .WithMany("Comentarios")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Avaliacao");
-
-                    b.Navigation("Produto");
-
-                    b.Navigation("Usuario");
-                });
-
             modelBuilder.Entity("API_Avaliacao_Produtos_Servicos.Models.Produto", b =>
                 {
                     b.HasOne("API_Avaliacao_Produtos_Servicos.Models.Fornecedor", "Fornecedor")
@@ -291,11 +225,6 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                     b.Navigation("Fornecedor");
                 });
 
-            modelBuilder.Entity("API_Avaliacao_Produtos_Servicos.Models.Avaliacao", b =>
-                {
-                    b.Navigation("Comentario");
-                });
-
             modelBuilder.Entity("API_Avaliacao_Produtos_Servicos.Models.Fornecedor", b =>
                 {
                     b.Navigation("Produtos");
@@ -304,15 +233,11 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
             modelBuilder.Entity("API_Avaliacao_Produtos_Servicos.Models.Produto", b =>
                 {
                     b.Navigation("Avaliacoes");
-
-                    b.Navigation("Comentarios");
                 });
 
             modelBuilder.Entity("API_Avaliacao_Produtos_Servicos.Models.Usuario", b =>
                 {
                     b.Navigation("Avaliacoes");
-
-                    b.Navigation("Comentarios");
                 });
 #pragma warning restore 612, 618
         }
