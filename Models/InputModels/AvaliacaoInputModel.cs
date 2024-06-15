@@ -6,8 +6,8 @@ namespace API_Avaliacao_Produtos_Servicos.Models.InputModels
     {
         public int UsuarioId { get; set; }
         public int ProdutoId { get; set; }
-        public int? ComentarioId { get; set; }
-        public virtual ComentarioInputModel? Comentario { get; set; }
+        public string? Titulo { get; set; }
+        public string? Descricao { get; set; }
         public AvaliacaoEnum Nota { get; set; }
     }
 }
