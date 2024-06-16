@@ -8,8 +8,8 @@ namespace API_Avaliacao_Produtos_Servicos.Services.Interfaces
     {
         Task<IEnumerable<Fornecedor>> RetornarTodosFornecedores();
         Task<Fornecedor> RetornarFornecedorPorId(int id);
-        Task<Fornecedor> AdicionarFornecedor(FornecedorInputModel fornecedor);
-        Task<Fornecedor> AlterarFornecedor(int id, FornecedorInputModel fornecedorViewModel);
+        Task<Fornecedor> AdicionarFornecedor(CreateFornecedorInputModel fornecedor);
+        Task<Fornecedor> AlterarFornecedor(int id, CreateFornecedorInputModel fornecedorViewModel);
         Task DeletarFornecedor(int id);
         Task DeletarRegistroFornecedor(int id);
 

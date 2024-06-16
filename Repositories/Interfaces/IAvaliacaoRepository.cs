@@ -7,7 +7,7 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories.Interfaces
         Task<IEnumerable<Avaliacao>> RetornaTodasAvaliacoes();
         Task<Avaliacao> RetornaAvaliacoesDoProduto(int idProduto);
         Task<Avaliacao> AdicionarAvaliacao(Avaliacao avaliacao);
-        Task<Avaliacao> EditarAvaliacao(Avaliacao avalidacao);
+        Task<Avaliacao> EditarAvaliacao(int idAvaliacao, Avaliacao avalidacao);
         Task RemoverAvaliacao();
     }
 }

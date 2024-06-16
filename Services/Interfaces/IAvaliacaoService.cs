@@ -8,8 +8,8 @@ namespace API_Avaliacao_Produtos_Servicos.Services.Interfaces
     {
         Task<IEnumerable<AvaliacaoViewModel>> RetornaTodasAvaliacoes();
         Task<AvaliacaoViewModel> RetornaAvaliacoesDoProduto(int idProduto);
-        Task<AvaliacaoViewModel> AdicionarAvaliacao(AvaliacaoInputModel avaliacao);
-        Task<AvaliacaoViewModel> EditarAvaliacao(AvaliacaoInputModel avalidacao);
+        Task<AvaliacaoViewModel> AdicionarAvaliacao(CreateAvaliacaoInputModel avaliacao);
+        Task<AvaliacaoViewModel> EditarAvaliacao(int idAvaliacao,CreateAvaliacaoInputModel avalidacao);
         Task RemoverAvaliacao();
     }
 }

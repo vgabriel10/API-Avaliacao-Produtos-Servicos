@@ -26,7 +26,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             _produtoService = produtoService;
         }
 
-        public async Task<AvaliacaoViewModel> AdicionarAvaliacao(AvaliacaoInputModel avaliacaoInputModel)
+        public async Task<AvaliacaoViewModel> AdicionarAvaliacao(CreateAvaliacaoInputModel avaliacaoInputModel)
         {
             try
             {
@@ -55,9 +55,19 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             }
         }
 
-        public async Task<AvaliacaoViewModel> EditarAvaliacao(AvaliacaoInputModel avaliacaoInputModel)
+        public async Task<AvaliacaoViewModel> EditarAvaliacao(int idAvaliacao, CreateAvaliacaoInputModel avaliacaoInputModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                var avaliacao = _avaliacaoMapper.ConverterParaEntidade(avaliacaoInputModel);
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }            
         }
 
         public async Task RemoverAvaliacao()

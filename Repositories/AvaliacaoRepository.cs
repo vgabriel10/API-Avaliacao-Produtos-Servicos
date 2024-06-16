@@ -24,7 +24,7 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             return avaliacao;
         }
 
-        public async Task<Avaliacao> EditarAvaliacao(Avaliacao avalidacao)
+        public async Task<Avaliacao> EditarAvaliacao(int idAvaliacao, Avaliacao avalidacao)
         {
             throw new NotImplementedException();
         }

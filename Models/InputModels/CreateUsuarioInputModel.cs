@@ -1,6 +1,6 @@
 ﻿namespace API_Avaliacao_Produtos_Servicos.Models.InputModels
 {
-    public class UsuarioInputModel
+    public class CreateUsuarioInputModel
     {
         public string Nome { get; set; }
         public string Cpf { get; set; }

@@ -37,7 +37,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpPost("fornecedor")]
-        public async Task<IActionResult> Post(FornecedorInputModel fornecedor)
+        public async Task<IActionResult> Post(CreateFornecedorInputModel fornecedor)
         {
             var result = await _fornecedorService.AdicionarFornecedor(fornecedor);
 
@@ -49,7 +49,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
 
         [HttpPut("fornecedor/{id}")]
         public async Task<IActionResult> Put([FromRoute] int id,
-            [FromBody] FornecedorInputModel fornecedor)
+            [FromBody] CreateFornecedorInputModel fornecedor)
         {
             var result = await _fornecedorService.AlterarFornecedor(id, fornecedor);
             if (result != null)

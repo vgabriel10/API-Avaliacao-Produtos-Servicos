@@ -2,7 +2,7 @@
 
 namespace API_Avaliacao_Produtos_Servicos.Models.InputModels
 {
-    public class AvaliacaoInputModel
+    public class CreateAvaliacaoInputModel
     {
         public int UsuarioId { get; set; }
         public int ProdutoId { get; set; }

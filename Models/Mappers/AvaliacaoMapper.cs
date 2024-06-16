@@ -6,7 +6,7 @@ namespace API_Avaliacao_Produtos_Servicos.Models.Mappers
 {
     public class AvaliacaoMapper : IAvaliacaoMapper
     {
-        public Avaliacao ConverterParaEntidade(AvaliacaoInputModel inputModel)
+        public Avaliacao ConverterParaEntidade(CreateAvaliacaoInputModel inputModel)
         {
             return new Avaliacao
             {
@@ -19,7 +19,7 @@ namespace API_Avaliacao_Produtos_Servicos.Models.Mappers
             };
         }
 
-        public IEnumerable<Avaliacao> ConverterParaEntidade(IEnumerable<AvaliacaoInputModel> inputsModels)
+        public IEnumerable<Avaliacao> ConverterParaEntidade(IEnumerable<CreateAvaliacaoInputModel> inputsModels)
         {
             List<Avaliacao> avaliacoes = new List<Avaliacao>();
 

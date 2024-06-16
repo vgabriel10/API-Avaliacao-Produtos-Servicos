@@ -16,7 +16,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             _produtoRepository = produtoRepository;
         }
 
-        public async Task<Produto> AdicionarProduto(ProdutoInputModel produto)
+        public async Task<Produto> AdicionarProduto(CreateProdutoInputModel produto)
         {
             Produto produtoConvertido = new Produto
             {
@@ -28,7 +28,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             return await _produtoRepository.AdicionarProduto(produtoConvertido);
         }
 
-        public async Task<Produto> AlterarProduto(int id, ProdutoInputModel produto)
+        public async Task<Produto> AlterarProduto(int id, CreateProdutoInputModel produto)
         {
             Produto produtoEntity = new Produto
             {
@@ -41,7 +41,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             return await _produtoRepository.AlterarProduto(id, produtoEntity);
         }
 
-        public async Task<Produto> AlterarProduto(ProdutoInputModel produto)
+        public async Task<Produto> AlterarProduto(CreateProdutoInputModel produto)
         {
             if (produto.Id == null)
                 return null;

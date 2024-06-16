@@ -11,11 +11,11 @@ namespace API_Avaliacao_Produtos_Servicos.Services.Interfaces
         List<Produto> RetornarProdutosMaisBaratos(CategoriaEnum categoria);
 
         List<Produto> RetornarProdutosMaisBemAvaliados();
-        Task<Produto> AdicionarProduto (ProdutoInputModel produto);
+        Task<Produto> AdicionarProduto (CreateProdutoInputModel produto);
 
         Task<Produto> RetornarProdutoPorId(int id);
-        Task<Produto> AlterarProduto(int id, ProdutoInputModel produto);
-        Task<Produto> AlterarProduto(ProdutoInputModel produto);
+        Task<Produto> AlterarProduto(int id, CreateProdutoInputModel produto);
+        Task<Produto> AlterarProduto(CreateProdutoInputModel produto);
         Task DeletarProduto(int id);
 
     }

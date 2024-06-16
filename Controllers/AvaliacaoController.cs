@@ -39,7 +39,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpPost("avaliacao")]
-        public async Task<IActionResult> Post(AvaliacaoInputModel avaliacao)
+        public async Task<IActionResult> Post(CreateAvaliacaoInputModel avaliacao)
         {
             var result = await _avaliacaoService.AdicionarAvaliacao(avaliacao);
             if (result != null)
@@ -49,9 +49,9 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpPut("avaliacao/{idAvaliacao}")]
-        public async Task<IActionResult> Put([FromRoute]int idAvaliacao, [FromBody] AvaliacaoInputModel avaliacao)
+        public async Task<IActionResult> Put([FromRoute]int idAvaliacao, [FromBody] CreateAvaliacaoInputModel avaliacao)
         {
-            //var result = _avaliacaoService.EditarAvaliacao()
+            var result = await _avaliacaoService.EditarAvaliacao(idAvaliacao, avaliacao);
             return BadRequest();
         }
 

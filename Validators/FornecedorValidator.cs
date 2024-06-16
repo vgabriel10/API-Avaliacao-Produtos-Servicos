@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace API_Avaliacao_Produtos_Servicos.Validators
 {
-    public class FornecedorValidator : AbstractValidator<FornecedorInputModel>
+    public class FornecedorValidator : AbstractValidator<CreateFornecedorInputModel>
     {
         public FornecedorValidator() 
         {
