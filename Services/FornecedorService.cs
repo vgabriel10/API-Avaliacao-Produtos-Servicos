@@ -5,37 +5,31 @@ using API_Avaliacao_Produtos_Servicos.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
 using API_Avaliacao_Produtos_Servicos.Models.InputModels;
+using API_Avaliacao_Produtos_Servicos.Models.Mappers.Interfaces;
 
 namespace API_Avaliacao_Produtos_Servicos.Services
 {
     public class FornecedorService : IFornecedorService
     {
+        IFornecedorMapper _fornecedorMapper;
         private readonly IFornecedorRepository _fornecedorRepository;
-        public FornecedorService(IFornecedorRepository fornecedorRepository) 
+        private readonly IUsuarioService _usuaarioService;
+        private readonly IProdutoService _produtoService;
+
+        public FornecedorService(IFornecedorRepository fornecedorRepository, IUsuarioService usuarioService, IProdutoService produtoService, IFornecedorMapper fornecedorMapper) 
         {
             _fornecedorRepository = fornecedorRepository;
+            _usuaarioService = usuarioService;
+            _produtoService = produtoService;
+            _fornecedorMapper = fornecedorMapper;
         }
 
-        public async Task<Fornecedor> AdicionarFornecedor(CreateFornecedorInputModel fornecedor)
+        public async Task<FornecedorViewModel> AdicionarFornecedor(CreateFornecedorInputModel fornecedorInputModel)
         {
-            if(fornecedor != null)
-            {
-                Fornecedor novoFornecedor = new Fornecedor()
-                {
-                    Nome = fornecedor.Nome,
-                    Cidade = fornecedor.Cidade,
-                    Cnpj = fornecedor.Cnpj,
-                    Cpf = fornecedor.Cpf,
-                    Nacionalidade = fornecedor.Nacionalidade,
-                    DataCadastro = DateTime.Now,
-                    Deletado = false
-                };
-                return await _fornecedorRepository.AdicionarFornecedor(novoFornecedor);
-            }
-            return null;
+            var fornecedor = _fornecedorMapper.ConverterParaEntidade(fornecedorInputModel);
         }
 
-        public async Task<Fornecedor> AlterarFornecedor(int id, CreateFornecedorInputModel fornecedorViewModel)
+        public async Task<FornecedorViewModel> AlterarFornecedor(int id, UpdateFornecedorInputModel fornecedorViewModel)
         {
             var fornecedor = await _fornecedorRepository.RetornarFornecedorPorId(id);
             if (fornecedor == null)
@@ -68,12 +62,12 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             await _fornecedorRepository.DeletarRegistroFornecedor(id);
         }
 
-        public Task<Fornecedor> RetornarFornecedorPorId(int id)
+        public Task<FornecedorViewModel> RetornarFornecedorPorId(int id)
         {
             return _fornecedorRepository.RetornarFornecedorPorId(id);
         }
 
-        public async Task<IEnumerable<Fornecedor>> RetornarTodosFornecedores()
+        public async Task<IEnumerable<FornecedorViewModel>> RetornarTodosFornecedores()
         {
             return await _fornecedorRepository.RetornarTodosFornecedores();
         }
