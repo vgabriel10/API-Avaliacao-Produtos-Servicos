@@ -49,17 +49,29 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpPut("avaliacao/{idAvaliacao}")]
-        public async Task<IActionResult> Put([FromRoute]int idAvaliacao, [FromBody] CreateAvaliacaoInputModel avaliacao)
+        public async Task<IActionResult> Put([FromRoute]int idAvaliacao, [FromBody] UpdateAvaliacaoInputModel avaliacao)
         {
             var result = await _avaliacaoService.EditarAvaliacao(idAvaliacao, avaliacao);
+
+            if (result != null)
+                return Ok(result);
+
             return BadRequest();
         }
 
         [HttpDelete("avaliacao/{idAvaliacao}")]
         public async Task<IActionResult> Delete([FromRoute] int idAvaliacao)
         {
-            //_avaliacaoService.RemoverAvaliacao(idAvaliacao)
-            return BadRequest();
+            try
+            {
+                await _avaliacaoService.RemoverAvaliacao(idAvaliacao);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
     }

@@ -31,6 +31,17 @@ namespace API_Avaliacao_Produtos_Servicos.Models.Mappers
             return avaliacoes;
         }
 
+        public Avaliacao ConverterParaEntidade(UpdateAvaliacaoInputModel inputModel)
+        {
+            return new Avaliacao
+            {
+                Titulo = inputModel.Titulo,
+                Descricao = inputModel.Descricao,
+                Nota = inputModel.Nota,
+                DataAvaliacao = DateTime.Now
+            };
+        }
+
         public AvaliacaoViewModel ConverterParaViewModel(Avaliacao entidade)
         {
             return new AvaliacaoViewModel

@@ -7,9 +7,10 @@ namespace API_Avaliacao_Produtos_Servicos.Services.Interfaces
     public interface IAvaliacaoService
     {
         Task<IEnumerable<AvaliacaoViewModel>> RetornaTodasAvaliacoes();
-        Task<AvaliacaoViewModel> RetornaAvaliacoesDoProduto(int idProduto);
+        Task<AvaliacaoViewModel> RetornaAvaliacaoPorId(int idAvaliacao);
+        Task<IEnumerable<AvaliacaoViewModel>> RetornaAvaliacoesDoProduto(int idProduto);
         Task<AvaliacaoViewModel> AdicionarAvaliacao(CreateAvaliacaoInputModel avaliacao);
-        Task<AvaliacaoViewModel> EditarAvaliacao(int idAvaliacao,CreateAvaliacaoInputModel avalidacao);
-        Task RemoverAvaliacao();
+        Task<AvaliacaoViewModel> EditarAvaliacao(int idAvaliacao, UpdateAvaliacaoInputModel avalidacao);
+        Task RemoverAvaliacao(int idAvaliacao);
     }
 }

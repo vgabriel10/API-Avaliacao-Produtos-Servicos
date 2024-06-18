@@ -55,29 +55,39 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             }
         }
 
-        public async Task<AvaliacaoViewModel> EditarAvaliacao(int idAvaliacao, CreateAvaliacaoInputModel avaliacaoInputModel)
+        public async Task<AvaliacaoViewModel> EditarAvaliacao(int idAvaliacao, UpdateAvaliacaoInputModel avaliacaoInputModel)
         {
             try
             {
-
                 var avaliacao = _avaliacaoMapper.ConverterParaEntidade(avaliacaoInputModel);
 
-                return null;
+                var result = await _avaliacaoRepository.EditarAvaliacao(idAvaliacao, avaliacao);
+                return _avaliacaoMapper.ConverterParaViewModel(result);
             }
+            catch (NotFoundException ex)
+            {
+                throw new NotFoundException("Avaliação não encontrada");
+            }    
             catch (Exception ex)
             {
-                return null;
-            }            
+                throw new BadRequestException(ex.Message);
+            }
         }
 
-        public async Task RemoverAvaliacao()
+        public async Task RemoverAvaliacao(int idAvaliacao)
+        {
+            await _avaliacaoRepository.RemoverAvaliacao(idAvaliacao);
+        }
+
+        public Task<AvaliacaoViewModel> RetornaAvaliacaoPorId(int idAvaliacao)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<AvaliacaoViewModel> RetornaAvaliacoesDoProduto(int idProduto)
+        public async Task<IEnumerable<AvaliacaoViewModel>> RetornaAvaliacoesDoProduto(int idProduto)
         {
-            throw new NotImplementedException();
+            var avaliacoes = await _avaliacaoRepository.RetornaAvaliacoesDoProduto(idProduto);
+            return _avaliacaoMapper.ConverterParaViewModel(avaliacoes);
         }
 
         public async Task<IEnumerable<AvaliacaoViewModel>> RetornaTodasAvaliacoes()
