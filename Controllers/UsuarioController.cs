@@ -46,7 +46,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpPut("usuario/{id}")]
-        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] UsuarioViewModel usuario)
+        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] UpdateUsuarioInputModel usuario)
         {
             var result = await _usuarioService.EditarUsuario(id, usuario);
 
