@@ -22,8 +22,17 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
 
         public async Task<Fornecedor> AlterarFornecedor(int id, Fornecedor fornecedor)
         {
+            var fornecedorExistente = await _context.Fornecedores.FirstOrDefaultAsync(x => x.Id == id);
+            if (fornecedorExistente == null)
+                return null;
 
-             _context.Fornecedores.Update(fornecedor);
+            fornecedorExistente.Nome = fornecedor.Nome;
+            fornecedorExistente.Cnpj = fornecedor.Cnpj;
+            fornecedorExistente.Cpf = fornecedor.Cpf;
+            fornecedorExistente.Nacionalidade = fornecedor.Nacionalidade;
+            fornecedorExistente.Cidade = fornecedor.Cidade;
+
+            _context.Fornecedores.Update(fornecedorExistente);
             await _context.SaveChangesAsync();
             return fornecedor;
         }

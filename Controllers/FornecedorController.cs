@@ -49,7 +49,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
 
         [HttpPut("fornecedor/{id}")]
         public async Task<IActionResult> Put([FromRoute] int id,
-            [FromBody] CreateFornecedorInputModel fornecedor)
+            [FromBody] UpdateFornecedorInputModel fornecedor)
         {
             var result = await _fornecedorService.AlterarFornecedor(id, fornecedor);
             if (result != null)

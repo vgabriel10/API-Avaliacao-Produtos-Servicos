@@ -32,6 +32,7 @@ builder.Services.AddScoped<IAvaliacaoRepository, AvaliacaoRepository>();
 
 #region Mappers
 builder.Services.AddScoped<IAvaliacaoMapper,AvaliacaoMapper>();
+builder.Services.AddScoped<IFornecedorMapper, FornecedorMapper>();
 #endregion
 
 #region FluentValidation

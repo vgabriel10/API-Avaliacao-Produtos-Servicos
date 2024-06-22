@@ -9,5 +9,6 @@ namespace API_Avaliacao_Produtos_Servicos.Models.ViewModels
         public string Cpf { get; set; }
         public string Nacionalidade { get; set; }
         public string Cidade { get; set; }
+        public DateTime DataCadastro { get; set; }
     }
 }
