@@ -20,7 +20,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpGet("usuario")]
-        public async Task<IEnumerable<Usuario>> Get()
+        public async Task<IEnumerable<UsuarioViewModel>> Get()
         {
             return await _usuarioService.RetornarTodosUsuarios();
         }

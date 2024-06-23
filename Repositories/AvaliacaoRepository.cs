@@ -16,6 +16,11 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
         }
         public async Task<Avaliacao> AdicionarAvaliacao(Avaliacao avaliacao)
         {
+            var usuario = _context.Usuarios.First(x => x.Id == avaliacao.UsuarioId);
+            var produto = _context.Produtos.First(x => x.Id == avaliacao.ProdutoId);
+            avaliacao.Usuario = usuario;
+            avaliacao.Produto = produto;
+
             // Anexar as entidades existentes ao contexto para evitar a duplicidade
             _context.Entry(avaliacao.Usuario).State = EntityState.Unchanged;
             _context.Entry(avaliacao.Produto).State = EntityState.Unchanged;

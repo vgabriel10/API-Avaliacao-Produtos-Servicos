@@ -20,17 +20,37 @@ namespace API_Avaliacao_Produtos_Servicos.Models.Mappers
 
         public Usuario ConverterParaEntidade(UpdateUsuarioInputModel inputModel)
         {
-            throw new NotImplementedException();
+            return new Usuario
+            {
+                Nome = inputModel.Nome,
+                Cpf = inputModel.Cpf,
+                Cidade = inputModel.Cidade,
+                Nacionalidade = inputModel.Nacionalidade,
+                DataNascimento = inputModel.DataNascimento
+            };
         }
 
         public UsuarioViewModel ConverterParaViewModel(Usuario entidade)
         {
-            throw new NotImplementedException();
+            return new UsuarioViewModel
+            {
+                Nome = entidade.Nome,
+                Cpf = entidade.Cpf,
+                Cidade = entidade.Cidade,
+                Nacionalidade = entidade.Nacionalidade,
+                DataNascimento = entidade.DataNascimento
+            };
         }
 
         public IEnumerable<UsuarioViewModel> ConverterParaViewModel(IEnumerable<Usuario> entidades)
         {
-            throw new NotImplementedException();
+            List<UsuarioViewModel> usuariosViewModels = new List<UsuarioViewModel>();
+            foreach (var usuario in entidades)
+            {
+                usuariosViewModels.Add(ConverterParaViewModel(usuario));
+            }
+
+            return usuariosViewModels;
         }
     }
 }

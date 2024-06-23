@@ -41,9 +41,6 @@ namespace API_Avaliacao_Produtos_Servicos.Services
                 if (produto == null)
                     throw new NotFoundException("Produto não encontrado");
 
-                avaliacao.Usuario = usuario;
-                avaliacao.Produto = produto;
-
                 await _avaliacaoRepository.AdicionarAvaliacao(avaliacao);
 
                 return _avaliacaoMapper.ConverterParaViewModel(avaliacao);

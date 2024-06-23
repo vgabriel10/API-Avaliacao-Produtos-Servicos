@@ -16,8 +16,16 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
 
         public async Task<Usuario> AdicionarUsuario(Usuario usuario)
         {
-            await _context.Usuarios.AddAsync(usuario);
-            return usuario;
+            try
+            {
+                await _context.Usuarios.AddAsync(usuario);
+                await _context.SaveChangesAsync();
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }           
         }
 
         public async Task<IEnumerable<Usuario>> RetornarTodosUsuarios()

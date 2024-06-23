@@ -64,6 +64,11 @@ namespace API_Avaliacao_Produtos_Servicos.Data
             modelBuilder.Entity<Usuario>()
                .HasKey(x => x.Id);
 
+            // Adicionando autoIncrement 
+            modelBuilder.Entity<Usuario>()
+                .Property(x => x.Id)
+                .ValueGeneratedOnAdd();
+
             modelBuilder.Entity<Usuario>()
                 .Property(x => x.Nome)
                 .IsRequired()
