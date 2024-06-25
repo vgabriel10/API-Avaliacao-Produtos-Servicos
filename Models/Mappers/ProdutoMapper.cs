@@ -6,22 +6,41 @@ namespace API_Avaliacao_Produtos_Servicos.Models.Mappers
 {
     public class ProdutoMapper : IProdutoMapper
     {
-        public Usuario ConverterParaEntidade(CreateUsuarioInputModel inputModel)
+        public Produto ConverterParaEntidade(CreateProdutoInputModel inputModel)
         {
-            throw new NotImplementedException();
+            return new Produto
+            {
+                Nome = inputModel.Nome,
+                Descricao = inputModel.Descricao,
+                Preco = inputModel.Preco,
+                FornecedorID = inputModel.FornecedorId,
+                CategoriaId = inputModel.CategoriaId
+            };
         }
 
-        public Usuario ConverterParaEntidade(UpdateUsuarioInputModel inputModel)
+        public Produto ConverterParaEntidade(UpdateProdutoInputModel inputModel)
         {
-            throw new NotImplementedException();
+            return new Produto
+            {
+                Nome = inputModel.Nome,
+                Descricao = inputModel.Descricao,
+                Preco = inputModel.Preco,
+                FornecedorID = inputModel.FornecedorId,
+                CategoriaId = inputModel.CategoriaId
+            };
         }
 
-        public UsuarioViewModel ConverterParaViewModel(Usuario entidade)
+        public ProdutoViewModel ConverterParaViewModel(Produto entidade)
         {
-            throw new NotImplementedException();
+            return new ProdutoViewModel
+            {
+                Nome = entidade.Nome,
+                Descricao = entidade.Descricao,
+                
+            }
         }
 
-        public IEnumerable<UsuarioViewModel> ConverterParaViewModel(IEnumerable<Usuario> entidades)
+        public IEnumerable<ProdutoViewModel> ConverterParaViewModel(IEnumerable<Produto> entidades)
         {
             throw new NotImplementedException();
         }

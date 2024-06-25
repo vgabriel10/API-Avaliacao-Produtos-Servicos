@@ -10,5 +10,6 @@ namespace API_Avaliacao_Produtos_Servicos.Models.InputModels
         public string Descricao { get; set; }
         public decimal Preco { get; set; }
         public int FornecedorId { get; set; }
+        public int CategoriaId { get; set; }
     }
 }

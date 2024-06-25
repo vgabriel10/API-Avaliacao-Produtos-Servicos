@@ -8,9 +8,8 @@ namespace API_Avaliacao_Produtos_Servicos.Models.InputModels
         public int? Id { get; set; }
         public string Nome { get; set; }
         public string Descricao { get; set; }
-        //public CategoriaEnum Categoria { get; set; }
-        //public int FornecedorID { get; set; }
         public decimal Preco { get; set; }
         public int FornecedorId { get; set; }
+        public int CategoriaId { get; set; }
     }
 }

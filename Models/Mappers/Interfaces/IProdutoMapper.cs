@@ -5,10 +5,10 @@ namespace API_Avaliacao_Produtos_Servicos.Models.Mappers.Interfaces
 {
     public interface IProdutoMapper
     {
-        Usuario ConverterParaEntidade (CreateUsuarioInputModel inputModel);
-        Usuario ConverterParaEntidade(UpdateUsuarioInputModel inputModel);
-        UsuarioViewModel ConverterParaViewModel (Usuario entidade);
-        IEnumerable<UsuarioViewModel> ConverterParaViewModel(IEnumerable<Usuario> entidades);
+        Produto ConverterParaEntidade (CreateProdutoInputModel inputModel);
+        Produto ConverterParaEntidade(UpdateProdutoInputModel inputModel);
+        ProdutoViewModel ConverterParaViewModel (Produto entidade);
+        IEnumerable<ProdutoViewModel> ConverterParaViewModel(IEnumerable<Produto> entidades);
 
     }
 }
