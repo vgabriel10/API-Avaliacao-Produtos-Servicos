@@ -61,7 +61,14 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
                 return null;
 
             // Atualize as propriedades da entidade existente com os valores do objeto fornecido
-            _context.Entry(usuarioExistente).CurrentValues.SetValues(usuario);
+            //_context.Entry(usuarioExistente).CurrentValues.SetValues(usuario);
+
+            usuarioExistente.Nome = usuario.Nome;
+            usuarioExistente.Cpf = usuario.Cpf;
+            usuarioExistente.Cidade = usuario.Cidade;
+            usuarioExistente.DataNascimento = usuario.DataNascimento;
+            usuarioExistente.DataCadastro = usuario.DataCadastro;
+            usuarioExistente.Nacionalidade = usuario.Nacionalidade;
 
             // Salve as alterações
             await _context.SaveChangesAsync();
