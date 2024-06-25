@@ -16,7 +16,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             _produtoRepository = produtoRepository;
         }
 
-        public async Task<Produto> AdicionarProduto(CreateProdutoInputModel produto)
+        public async Task<ProdutoViewModel> AdicionarProduto(CreateProdutoInputModel produto)
         {
             Produto produtoConvertido = new Produto
             {
@@ -28,7 +28,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             return await _produtoRepository.AdicionarProduto(produtoConvertido);
         }
 
-        public async Task<Produto> AlterarProduto(int id, CreateProdutoInputModel produto)
+        public async Task<ProdutoViewModel> AlterarProduto(int id, UpdateProdutoInputModel produto)
         {
             Produto produtoEntity = new Produto
             {
@@ -41,7 +41,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             return await _produtoRepository.AlterarProduto(id, produtoEntity);
         }
 
-        public async Task<Produto> AlterarProduto(CreateProdutoInputModel produto)
+        public async Task<ProdutoViewModel> AlterarProduto(UpdateProdutoInputModel produto)
         {
             if (produto.Id == null)
                 return null;
@@ -61,22 +61,22 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             await _produtoRepository.DeleteById(id);
         }
 
-        public async Task<IEnumerable<Produto>> GetAllProdutos()
+        public async Task<IEnumerable<ProdutoViewModel>> GetAllProdutos()
         {
             return await _produtoRepository.FindAll();
         }
 
-        public async Task<Produto> RetornarProdutoPorId(int id)
+        public async Task<ProdutoViewModel> RetornarProdutoPorId(int id)
         {
             return await _produtoRepository.RetornarProdutoPorId(id);
         }
 
-        public List<Produto> RetornarProdutosMaisBaratos(CategoriaEnum categoria)
+        public List<ProdutoViewModel> RetornarProdutosMaisBaratos(CategoriaEnum categoria)
         {
             throw new NotImplementedException();
         }
 
-        public List<Produto> RetornarProdutosMaisBemAvaliados()
+        public List<ProdutoViewModel> RetornarProdutosMaisBemAvaliados()
         {
             throw new NotImplementedException();
         }
