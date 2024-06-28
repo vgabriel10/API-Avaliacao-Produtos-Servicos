@@ -9,6 +9,6 @@ namespace API_Avaliacao_Produtos_Servicos.Models.ViewModels
         public string Descricao { get; set; }
         public decimal Preco { get; set; }
         public FornecedorViewModel Fornecedor { get; set; }
-        public CategoriaViewModel 
+        public CategoriaViewModel Categoria { get; set; }
     }
 }

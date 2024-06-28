@@ -53,7 +53,6 @@ namespace API_Avaliacao_Produtos_Servicos.Models.Mappers
                 {
                     Nome = entidade.Produto.Nome,
                     Descricao = entidade.Produto.Descricao,
-                    FornecedorId = entidade.Produto.FornecedorID,
                     Preco = entidade.Produto.Preco
                 },
                 Usuario = new UsuarioViewModel

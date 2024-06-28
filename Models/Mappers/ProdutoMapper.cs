@@ -36,7 +36,17 @@ namespace API_Avaliacao_Produtos_Servicos.Models.Mappers
             {
                 Nome = entidade.Nome,
                 Descricao = entidade.Descricao,
-                
+                Preco = entidade.Preco,
+                Fornecedor = new FornecedorViewModel
+                {
+                    Nome = entidade.Fornecedor.Nome,
+                    Cidade = entidade.Fornecedor.Cidade,    
+                    Cnpj = entidade.Fornecedor.Cnpj,
+                    Cpf = entidade.Fornecedor.Cpf,
+                    DataCadastro = entidade.Fornecedor.DataCadastro,
+                    Nacionalidade = entidade.Fornecedor.Nacionalidade
+                },
+                Categoria =  new CategoriaViewMod
             }
         }
 
