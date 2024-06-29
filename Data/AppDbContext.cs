@@ -55,7 +55,7 @@ namespace API_Avaliacao_Produtos_Servicos.Data
             modelBuilder.Entity<Produto>()
                 .HasOne(x => x.Fornecedor)
                 .WithMany()
-                .HasForeignKey(x => x.FornecedorID);
+                .HasForeignKey(x => x.FornecedorId);
 
 
             #endregion

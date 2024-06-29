@@ -64,7 +64,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         //}
 
         [HttpPut("produto")]
-        public async Task<IActionResult> Put([FromBody] CreateProdutoInputModel produto)
+        public async Task<IActionResult> Put([FromBody] UpdateProdutoInputModel produto)
         {
             try
             {

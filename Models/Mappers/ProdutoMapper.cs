@@ -13,7 +13,7 @@ namespace API_Avaliacao_Produtos_Servicos.Models.Mappers
                 Nome = inputModel.Nome,
                 Descricao = inputModel.Descricao,
                 Preco = inputModel.Preco,
-                FornecedorID = inputModel.FornecedorId,
+                FornecedorId = inputModel.FornecedorId,
                 CategoriaId = inputModel.CategoriaId
             };
         }
@@ -25,7 +25,7 @@ namespace API_Avaliacao_Produtos_Servicos.Models.Mappers
                 Nome = inputModel.Nome,
                 Descricao = inputModel.Descricao,
                 Preco = inputModel.Preco,
-                FornecedorID = inputModel.FornecedorId,
+                FornecedorId = inputModel.FornecedorId,
                 CategoriaId = inputModel.CategoriaId
             };
         }
@@ -40,19 +40,28 @@ namespace API_Avaliacao_Produtos_Servicos.Models.Mappers
                 Fornecedor = new FornecedorViewModel
                 {
                     Nome = entidade.Fornecedor.Nome,
-                    Cidade = entidade.Fornecedor.Cidade,    
+                    Cidade = entidade.Fornecedor.Cidade,
                     Cnpj = entidade.Fornecedor.Cnpj,
                     Cpf = entidade.Fornecedor.Cpf,
                     DataCadastro = entidade.Fornecedor.DataCadastro,
                     Nacionalidade = entidade.Fornecedor.Nacionalidade
                 },
-                Categoria =  new CategoriaViewMod
-            }
+                Categoria = new CategoriaViewModel
+                {
+                    Nome = entidade.Categoria.Nome,
+                }
+            };
         }
 
         public IEnumerable<ProdutoViewModel> ConverterParaViewModel(IEnumerable<Produto> entidades)
         {
-            throw new NotImplementedException();
+            List<ProdutoViewModel> produtosViewModels = new List<ProdutoViewModel>();
+            foreach (var produto in entidades)
+            {
+                produtosViewModels.Add(ConverterParaViewModel(produto));
+            }
+
+            return produtosViewModels;
         }
     }
 }

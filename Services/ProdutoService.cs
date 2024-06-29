@@ -1,6 +1,7 @@
 ﻿using API_Avaliacao_Produtos_Servicos.Enums;
 using API_Avaliacao_Produtos_Servicos.Models;
 using API_Avaliacao_Produtos_Servicos.Models.InputModels;
+using API_Avaliacao_Produtos_Servicos.Models.Mappers.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
@@ -9,51 +10,62 @@ namespace API_Avaliacao_Produtos_Servicos.Services
 {
     public class ProdutoService : IProdutoService
     {
+        private readonly IProdutoMapper _produtoMapper;
         private readonly IProdutoRepository _produtoRepository;
 
-        public ProdutoService (IProdutoRepository produtoRepository)
+        public ProdutoService (IProdutoRepository produtoRepository, IProdutoMapper produtoMapper)
         {
             _produtoRepository = produtoRepository;
+            _produtoMapper = produtoMapper;
         }
 
-        public async Task<ProdutoViewModel> AdicionarProduto(CreateProdutoInputModel produto)
+        public async Task<ProdutoViewModel> AdicionarProduto(CreateProdutoInputModel produtoInputModel)
         {
             Produto produtoConvertido = new Produto
             {
-                Nome = produto.Nome,
-                Preco = produto.Preco,
-                Descricao = produto.Descricao,
-                FornecedorID = produto.FornecedorId,
+                Nome = produtoInputModel.Nome,
+                Preco = produtoInputModel.Preco,
+                Descricao = produtoInputModel.Descricao,
+                FornecedorId = produtoInputModel.FornecedorId,
             };
-            return await _produtoRepository.AdicionarProduto(produtoConvertido);
+
+            var produto = await _produtoRepository.AdicionarProduto(produtoConvertido);
+            return _produtoMapper.ConverterParaViewModel(produto);
+            
         }
 
-        public async Task<ProdutoViewModel> AlterarProduto(int id, UpdateProdutoInputModel produto)
+        public async Task<ProdutoViewModel> AlterarProduto(int id, UpdateProdutoInputModel produtoInputModel)
         {
             Produto produtoEntity = new Produto
             {
                 Id = id,
-                Nome = produto.Nome,
-                Descricao = produto.Descricao,
-                Preco = produto.Preco,
-                FornecedorID = produto.FornecedorId
+                Nome = produtoInputModel.Nome,
+                Descricao = produtoInputModel.Descricao,
+                Preco = produtoInputModel.Preco,
+                FornecedorId = produtoInputModel.FornecedorId
             };
-            return await _produtoRepository.AlterarProduto(id, produtoEntity);
+
+            var produto = await _produtoRepository.AlterarProduto(id, produtoEntity);
+
+            return _produtoMapper.ConverterParaViewModel(produto);
         }
 
-        public async Task<ProdutoViewModel> AlterarProduto(UpdateProdutoInputModel produto)
+        public async Task<ProdutoViewModel> AlterarProduto(UpdateProdutoInputModel produtoInputModel)
         {
-            if (produto.Id == null)
+            if (produtoInputModel.Id == null)
                 return null;
             Produto produtoEntity = new Produto
             {
-                Id = produto.Id.Value,
-                Nome = produto.Nome,
-                Descricao = produto.Descricao,
-                Preco = produto.Preco,
-                FornecedorID = produto.FornecedorId
+                Id = produtoInputModel.Id.Value,
+                Nome = produtoInputModel.Nome,
+                Descricao = produtoInputModel.Descricao,
+                Preco = produtoInputModel.Preco,
+                FornecedorId = produtoInputModel.FornecedorId
             };
-            return await _produtoRepository.AlterarProduto(produtoEntity);
+
+            var produto = await _produtoRepository.AlterarProduto(produtoEntity);
+
+            return _produtoMapper.ConverterParaViewModel(produto);
         }
 
         public async Task DeletarProduto(int id)
@@ -63,12 +75,14 @@ namespace API_Avaliacao_Produtos_Servicos.Services
 
         public async Task<IEnumerable<ProdutoViewModel>> GetAllProdutos()
         {
-            return await _produtoRepository.FindAll();
+            var produtos = await _produtoRepository.FindAll();
+            return _produtoMapper.ConverterParaViewModel(produtos);
         }
 
         public async Task<ProdutoViewModel> RetornarProdutoPorId(int id)
         {
-            return await _produtoRepository.RetornarProdutoPorId(id);
+            var produto = await _produtoRepository.RetornarProdutoPorId(id);
+            return _produtoMapper.ConverterParaViewModel(produto);
         }
 
         public List<ProdutoViewModel> RetornarProdutosMaisBaratos(CategoriaEnum categoria)

@@ -9,7 +9,7 @@ namespace API_Avaliacao_Produtos_Servicos.Models
         public string Descricao { get; set; }
         public int CategoriaId { get; set; }
         public Categoria Categoria { get; set; }
-        public int FornecedorID { get; set; }
+        public int FornecedorId { get; set; }
         public virtual Fornecedor Fornecedor { get; set; }
         public decimal Preco { get; set; }
         public bool Deletado { get; set; } = false;
