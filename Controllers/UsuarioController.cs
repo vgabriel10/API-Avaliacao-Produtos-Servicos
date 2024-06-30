@@ -20,7 +20,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpGet("usuario")]
-        public async Task<IEnumerable<Usuario>> Get()
+        public async Task<IEnumerable<UsuarioViewModel>> Get()
         {
             return await _usuarioService.RetornarTodosUsuarios();
         }
@@ -36,7 +36,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpPost("usuario/")]
-        public async Task<IActionResult> Post(UsuarioInputModel usuario)
+        public async Task<IActionResult> Post(CreateUsuarioInputModel usuario)
         {
             var result = await _usuarioService.AdicionarUsuario(usuario);
             if (result != null)
@@ -46,7 +46,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpPut("usuario/{id}")]
-        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] UsuarioViewModel usuario)
+        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] UpdateUsuarioInputModel usuario)
         {
             var result = await _usuarioService.EditarUsuario(id, usuario);
 

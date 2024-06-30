@@ -7,15 +7,15 @@ namespace API_Avaliacao_Produtos_Servicos.Services.Interfaces
 {
     public interface IProdutoService
     {
-        Task<IEnumerable<Produto>> GetAllProdutos();
-        List<Produto> RetornarProdutosMaisBaratos(CategoriaEnum categoria);
+        Task<IEnumerable<ProdutoViewModel>> GetAllProdutos();
+        List<ProdutoViewModel> RetornarProdutosMaisBaratos(CategoriaEnum categoria);
 
-        List<Produto> RetornarProdutosMaisBemAvaliados();
-        Task<Produto> AdicionarProduto (ProdutoInputModel produto);
+        List<ProdutoViewModel> RetornarProdutosMaisBemAvaliados();
+        Task<ProdutoViewModel> AdicionarProduto (CreateProdutoInputModel produto);
 
-        Task<Produto> RetornarProdutoPorId(int id);
-        Task<Produto> AlterarProduto(int id, ProdutoInputModel produto);
-        Task<Produto> AlterarProduto(ProdutoInputModel produto);
+        Task<ProdutoViewModel> RetornarProdutoPorId(int id);
+        Task<ProdutoViewModel> AlterarProduto(int id, UpdateProdutoInputModel produto);
+        Task<ProdutoViewModel> AlterarProduto(UpdateProdutoInputModel produto);
         Task DeletarProduto(int id);
 
     }

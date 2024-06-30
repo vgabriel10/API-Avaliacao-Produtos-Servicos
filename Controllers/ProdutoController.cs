@@ -40,7 +40,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpPost("produto")]
-        public async Task<IActionResult> Post([FromBody] ProdutoInputModel produto)
+        public async Task<IActionResult> Post([FromBody] CreateProdutoInputModel produto)
         {
             var response = await _produtoService.AdicionarProduto(produto);
             if (response != null)
@@ -64,7 +64,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         //}
 
         [HttpPut("produto")]
-        public async Task<IActionResult> Put([FromBody] ProdutoInputModel produto)
+        public async Task<IActionResult> Put([FromBody] UpdateProdutoInputModel produto)
         {
             try
             {

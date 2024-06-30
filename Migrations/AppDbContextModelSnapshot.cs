@@ -59,6 +59,26 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                     b.ToTable("Avaliacoes");
                 });
 
+            modelBuilder.Entity("API_Avaliacao_Produtos_Servicos.Models.Categoria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Deletado")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categoria");
+                });
+
             modelBuilder.Entity("API_Avaliacao_Produtos_Servicos.Models.Fornecedor", b =>
                 {
                     b.Property<int>("Id")
@@ -113,7 +133,7 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Categoria")
+                    b.Property<int>("CategoriaId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("DataCadastro")
@@ -126,10 +146,10 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("FornecedorID")
+                    b.Property<int>("FornecedorId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("FornecedorId")
+                    b.Property<int?>("FornecedorId1")
                         .HasColumnType("integer");
 
                     b.Property<string>("Nome")
@@ -142,9 +162,11 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FornecedorID");
+                    b.HasIndex("CategoriaId");
 
                     b.HasIndex("FornecedorId");
+
+                    b.HasIndex("FornecedorId1");
 
                     b.ToTable("Produtos");
                 });
@@ -212,15 +234,23 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
 
             modelBuilder.Entity("API_Avaliacao_Produtos_Servicos.Models.Produto", b =>
                 {
+                    b.HasOne("API_Avaliacao_Produtos_Servicos.Models.Categoria", "Categoria")
+                        .WithMany()
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("API_Avaliacao_Produtos_Servicos.Models.Fornecedor", "Fornecedor")
                         .WithMany()
-                        .HasForeignKey("FornecedorID")
+                        .HasForeignKey("FornecedorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("API_Avaliacao_Produtos_Servicos.Models.Fornecedor", null)
                         .WithMany("Produtos")
-                        .HasForeignKey("FornecedorId");
+                        .HasForeignKey("FornecedorId1");
+
+                    b.Navigation("Categoria");
 
                     b.Navigation("Fornecedor");
                 });

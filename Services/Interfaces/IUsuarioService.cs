@@ -6,10 +6,10 @@ namespace API_Avaliacao_Produtos_Servicos.Services.Interfaces
 {
     public interface IUsuarioService
     {
-        public Task<IEnumerable<Usuario>> RetornarTodosUsuarios();
-        public Task<Usuario> BuscarUsuarioPorId(int id);
-        public Task<Usuario> AdicionarUsuario(UsuarioInputModel usuario);
-        public Task<Usuario> EditarUsuario(int id,UsuarioViewModel usuario);
+        public Task<IEnumerable<UsuarioViewModel>> RetornarTodosUsuarios();
+        public Task<UsuarioViewModel> BuscarUsuarioPorId(int id);
+        public Task<UsuarioViewModel> AdicionarUsuario(CreateUsuarioInputModel usuario);
+        public Task<UsuarioViewModel> EditarUsuario(int id,UpdateUsuarioInputModel usuario);
         public Task DeletarUsuario(int id);
     }
 }

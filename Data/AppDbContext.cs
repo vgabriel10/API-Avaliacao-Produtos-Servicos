@@ -55,7 +55,7 @@ namespace API_Avaliacao_Produtos_Servicos.Data
             modelBuilder.Entity<Produto>()
                 .HasOne(x => x.Fornecedor)
                 .WithMany()
-                .HasForeignKey(x => x.FornecedorID);
+                .HasForeignKey(x => x.FornecedorId);
 
 
             #endregion
@@ -63,6 +63,11 @@ namespace API_Avaliacao_Produtos_Servicos.Data
             #region Usuarios
             modelBuilder.Entity<Usuario>()
                .HasKey(x => x.Id);
+
+            // Adicionando autoIncrement 
+            modelBuilder.Entity<Usuario>()
+                .Property(x => x.Id)
+                .ValueGeneratedOnAdd();
 
             modelBuilder.Entity<Usuario>()
                 .Property(x => x.Nome)

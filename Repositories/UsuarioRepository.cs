@@ -16,8 +16,16 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
 
         public async Task<Usuario> AdicionarUsuario(Usuario usuario)
         {
-            await _context.Usuarios.AddAsync(usuario);
-            return usuario;
+            try
+            {
+                await _context.Usuarios.AddAsync(usuario);
+                await _context.SaveChangesAsync();
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }           
         }
 
         public async Task<IEnumerable<Usuario>> RetornarTodosUsuarios()
@@ -48,9 +56,24 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
 
         public async Task<Usuario> EditarUsuario(int id, Usuario usuario)
         {
-            _context.Usuarios.Update(usuario);
+            var usuarioExistente = await _context.Usuarios.FindAsync(id);
+            if (usuarioExistente == null)
+                return null;
+
+            // Atualize as propriedades da entidade existente com os valores do objeto fornecido
+            //_context.Entry(usuarioExistente).CurrentValues.SetValues(usuario);
+
+            usuarioExistente.Nome = usuario.Nome;
+            usuarioExistente.Cpf = usuario.Cpf;
+            usuarioExistente.Cidade = usuario.Cidade;
+            usuarioExistente.DataNascimento = usuario.DataNascimento;
+            usuarioExistente.DataCadastro = usuario.DataCadastro;
+            usuarioExistente.Nacionalidade = usuario.Nacionalidade;
+
+            // Salve as alterações
             await _context.SaveChangesAsync();
-            return usuario;
+
+            return usuarioExistente;
         }
     }
 }

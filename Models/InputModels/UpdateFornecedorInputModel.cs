@@ -2,7 +2,7 @@
 
 namespace API_Avaliacao_Produtos_Servicos.Models.InputModels
 {
-    public class FornecedorInputModel
+    public class UpdateFornecedorInputModel
     {
         public string Nome { get; set; }
         public string Cnpj { get; set; }

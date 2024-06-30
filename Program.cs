@@ -1,4 +1,6 @@
 using API_Avaliacao_Produtos_Servicos.Data;
+using API_Avaliacao_Produtos_Servicos.Models.Mappers;
+using API_Avaliacao_Produtos_Servicos.Models.Mappers.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Repositories;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Services;
@@ -28,8 +30,17 @@ builder.Services.AddScoped<IFornecedorRepository, FornecedorRepository>();
 builder.Services.AddScoped<IAvaliacaoService, AvaliacaoService>();
 builder.Services.AddScoped<IAvaliacaoRepository, AvaliacaoRepository>();
 
+#region Mappers
+builder.Services.AddScoped<IAvaliacaoMapper,AvaliacaoMapper>();
+builder.Services.AddScoped<IFornecedorMapper, FornecedorMapper>();
+builder.Services.AddScoped<IUsuarioMapper, UsuarioMapper>();
+builder.Services.AddScoped<IProdutoMapper, ProdutoMapper>();
+#endregion
+
+#region FluentValidation
 builder.Services.AddValidatorsFromAssemblyContaining<UsuarioValidator>();
 builder.Services.AddFluentValidationAutoValidation();
+#endregion
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
