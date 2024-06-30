@@ -13,17 +13,17 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Categoria",
+                name: "Categorias",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Nome = table.Column<string>(type: "text", nullable: false),
-                    Deletado = table.Column<bool>(type: "boolean", nullable: false)
+                    Nome = table.Column<string>(type: "VARCHAR", maxLength: 20, nullable: false),
+                    Deletado = table.Column<bool>(type: "BOOLEAN", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categoria", x => x.Id);
+                    table.PrimaryKey("PK_Categorias", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,9 +82,9 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                 {
                     table.PrimaryKey("PK_Produtos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Produtos_Categoria_CategoriaId",
+                        name: "FK_Produtos_Categorias_CategoriaId",
                         column: x => x.CategoriaId,
-                        principalTable: "Categoria",
+                        principalTable: "Categorias",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -159,7 +159,7 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                 name: "Usuarios");
 
             migrationBuilder.DropTable(
-                name: "Categoria");
+                name: "Categorias");
 
             migrationBuilder.DropTable(
                 name: "Fornecedores");

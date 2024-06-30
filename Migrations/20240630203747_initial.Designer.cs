@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API_Avaliacao_Produtos_Servicos.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240630200516_initial")]
+    [Migration("20240630203747_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -71,15 +71,16 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Deletado")
-                        .HasColumnType("boolean");
+                        .HasColumnType("BOOLEAN");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(20)
+                        .HasColumnType("VARCHAR");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categoria");
+                    b.ToTable("Categorias");
                 });
 
             modelBuilder.Entity("API_Avaliacao_Produtos_Servicos.Models.Fornecedor", b =>
