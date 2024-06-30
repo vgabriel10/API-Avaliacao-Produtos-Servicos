@@ -138,8 +138,8 @@ namespace API_Avaliacao_Produtos_Servicos.Data
                 .HasColumnType("BOOLEAN");
 
             modelBuilder.Entity<Fornecedor>()
-                .HasMany(x => x.Produtos)
-                .WithOne();
+                .HasMany(f => f.Produtos)
+                .WithOne(p => p.Fornecedor);
 
             #endregion
 

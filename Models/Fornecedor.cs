@@ -13,6 +13,5 @@ namespace API_Avaliacao_Produtos_Servicos.Models
         public DateTime DataCadastro { get; set; }
         public bool Deletado { get; set; } = false;
         public List<Produto>? Produtos { get; set; }
-        public List<AvaliacaoEnum>? Avaliacoes { get; set; }
     }
 }

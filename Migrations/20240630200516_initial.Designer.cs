@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API_Avaliacao_Produtos_Servicos.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240629214047_adicionando-categoria")]
-    partial class adicionandocategoria
+    [Migration("20240630200516_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -90,9 +90,6 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int[]>("Avaliacoes")
-                        .HasColumnType("integer[]");
-
                     b.Property<string>("Cidade")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -152,9 +149,6 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                     b.Property<int>("FornecedorId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("FornecedorId1")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -168,8 +162,6 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                     b.HasIndex("CategoriaId");
 
                     b.HasIndex("FornecedorId");
-
-                    b.HasIndex("FornecedorId1");
 
                     b.ToTable("Produtos");
                 });
@@ -244,14 +236,10 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                         .IsRequired();
 
                     b.HasOne("API_Avaliacao_Produtos_Servicos.Models.Fornecedor", "Fornecedor")
-                        .WithMany()
+                        .WithMany("Produtos")
                         .HasForeignKey("FornecedorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("API_Avaliacao_Produtos_Servicos.Models.Fornecedor", null)
-                        .WithMany("Produtos")
-                        .HasForeignKey("FornecedorId1");
 
                     b.Navigation("Categoria");
 

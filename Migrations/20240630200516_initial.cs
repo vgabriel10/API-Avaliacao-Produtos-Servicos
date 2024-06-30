@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API_Avaliacao_Produtos_Servicos.Migrations
 {
     /// <inheritdoc />
-    public partial class adicionandocategoria : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -38,8 +38,7 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                     Nacionalidade = table.Column<string>(type: "VARCHAR", maxLength: 20, nullable: false),
                     Cidade = table.Column<string>(type: "VARCHAR", maxLength: 20, nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "Timestamp without Time Zone", nullable: false),
-                    Deletado = table.Column<bool>(type: "BOOLEAN", nullable: false),
-                    Avaliacoes = table.Column<int[]>(type: "integer[]", nullable: true)
+                    Deletado = table.Column<bool>(type: "BOOLEAN", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -77,8 +76,7 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                     FornecedorId = table.Column<int>(type: "integer", nullable: false),
                     Preco = table.Column<decimal>(type: "numeric", nullable: false),
                     Deletado = table.Column<bool>(type: "boolean", nullable: false),
-                    DataCadastro = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    FornecedorId1 = table.Column<int>(type: "integer", nullable: true)
+                    DataCadastro = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -95,11 +93,6 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                         principalTable: "Fornecedores",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Produtos_Fornecedores_FornecedorId1",
-                        column: x => x.FornecedorId1,
-                        principalTable: "Fornecedores",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -151,11 +144,6 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                 name: "IX_Produtos_FornecedorId",
                 table: "Produtos",
                 column: "FornecedorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Produtos_FornecedorId1",
-                table: "Produtos",
-                column: "FornecedorId1");
         }
 
         /// <inheritdoc />
