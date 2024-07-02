@@ -46,7 +46,7 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
 
         public async Task DeletarUsuario(int id)
         {
-            var usuario = _context.Usuarios.FirstOrDefault(x => x.Id == id);
+            var usuario = await _context.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
             if (usuario != null) 
             { 
                 _context.Usuarios.Remove(usuario);

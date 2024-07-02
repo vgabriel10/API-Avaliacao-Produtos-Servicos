@@ -1,6 +1,7 @@
 ﻿using API_Avaliacao_Produtos_Servicos.Data;
 using API_Avaliacao_Produtos_Servicos.Models;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace API_Avaliacao_Produtos_Servicos.Repositories
 {
@@ -13,29 +14,45 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             _context = context;
         }
 
-        public async Task<Categoria> AdicionarUsuario(Categoria usuario)
+        public async Task<Categoria> AdicionarCategoria(Categoria categoria)
         {
-            throw new NotImplementedException();
+            await _context.AddAsync(categoria);
+            await _context.SaveChangesAsync();
+            return categoria;
         }
 
-        public async Task<Categoria> BuscarUsuarioPorId(int id)
+        public async Task DeletarCategoria(int id)
         {
-            throw new NotImplementedException();
+            var categoria = await _context.Categorias.FirstOrDefaultAsync(x => x.Id == id);
+            if (categoria != null)
+            {
+                //_context.Categorias.Remove(categoria);
+                categoria.Deletado = true;
+                await _context.SaveChangesAsync();
+            }
         }
 
-        public async Task DeletarUsuario(int id)
+        public async Task<Categoria> EditarCategoria(int id, Categoria categoria)
         {
-            throw new NotImplementedException();
+            var categoriaExistente = await _context.Categorias.FirstOrDefaultAsync(x => x.Id == id);
+            if (categoriaExistente == null)
+                return null;
+
+            categoriaExistente.Nome = categoria.Nome;
+            categoriaExistente.Deletado = false;
+
+            await _context.SaveChangesAsync();
+            return categoriaExistente;
         }
 
-        public async Task<Categoria> EditarUsuario(int id, Categoria usuario)
+        public async Task<Categoria> RetornarCategoriaPorId(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Categorias.FirstOrDefaultAsync(x => x.Id == id && !x.Deletado);
         }
 
-        public async Task<IEnumerable<Categoria>> RetornarTodosUsuarios()
+        public async Task<IEnumerable<Categoria>> RetornarTodasCategorias()
         {
-            throw new NotImplementedException();
+            return await _context.Categorias.Where(x => !x.Deletado).ToListAsync();
         }
     }
 }
