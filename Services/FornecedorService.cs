@@ -31,13 +31,13 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             return _fornecedorMapper.ConverterParaViewModel(fornecedor);
         }
 
-        public async Task<FornecedorViewModel> AlterarFornecedor(int id, UpdateFornecedorInputModel fornecedorViewModel)
+        public async Task<FornecedorViewModel> AlterarFornecedor(int id, UpdateFornecedorInputModel fornecedorInputModel)
         {
             var existeFornecedor = await _fornecedorRepository.RetornarFornecedorPorId(id);
             if (existeFornecedor == null)
                 throw new NotFoundException("Fornecedor não encontrado");
 
-            var fornecedor = _fornecedorMapper.ConverterParaEntidade(fornecedorViewModel);
+            var fornecedor = _fornecedorMapper.ConverterParaEntidade(fornecedorInputModel);
             await _fornecedorRepository.AlterarFornecedor(id, fornecedor);
             return _fornecedorMapper.ConverterParaViewModel(fornecedor);          
         }

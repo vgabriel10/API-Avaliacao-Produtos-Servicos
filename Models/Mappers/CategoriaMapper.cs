@@ -8,22 +8,37 @@ namespace API_Avaliacao_Produtos_Servicos.Models.Mappers
     {
         public Categoria ConverterParaEntidade(CreateCategoriaInputModel inputModel)
         {
-            throw new NotImplementedException();
+            return new Categoria
+            {
+                Nome = inputModel.Nome,
+            };
         }
 
         public Categoria ConverterParaEntidade(UpdateCategoriaInputModel inputModel)
         {
-            throw new NotImplementedException();
+            return new Categoria
+            {
+                Nome = inputModel.Nome,
+            };
         }
 
         public CategoriaViewModel ConverterParaViewModel(Categoria entidade)
         {
-            throw new NotImplementedException();
+            return new CategoriaViewModel
+            {
+                Nome = entidade.Nome,                
+            };
         }
 
         public IEnumerable<CategoriaViewModel> ConverterParaViewModel(IEnumerable<Categoria> entidades)
         {
-            throw new NotImplementedException();
+            List<CategoriaViewModel> categoriaViewModels = new List<CategoriaViewModel>();
+            foreach (var categoria in entidades)
+            {
+                categoriaViewModels.Add(ConverterParaViewModel(categoria));
+            }
+
+            return categoriaViewModels;
         }
     }
 }

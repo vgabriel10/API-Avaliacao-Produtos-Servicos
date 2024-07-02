@@ -7,6 +7,8 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
     [Route("api/v1")]
     public class CategoriaController : Controller
     {
+
+
         [HttpGet("categoria")]
         public async Task<IActionResult> Get()
         {

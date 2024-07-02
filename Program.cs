@@ -30,11 +30,15 @@ builder.Services.AddScoped<IFornecedorRepository, FornecedorRepository>();
 builder.Services.AddScoped<IAvaliacaoService, AvaliacaoService>();
 builder.Services.AddScoped<IAvaliacaoRepository, AvaliacaoRepository>();
 
+builder.Services.AddScoped<ICategoriaService, CategoriaService>();
+builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+
 #region Mappers
 builder.Services.AddScoped<IAvaliacaoMapper,AvaliacaoMapper>();
 builder.Services.AddScoped<IFornecedorMapper, FornecedorMapper>();
 builder.Services.AddScoped<IUsuarioMapper, UsuarioMapper>();
 builder.Services.AddScoped<IProdutoMapper, ProdutoMapper>();
+builder.Services.AddScoped<ICategoriaMapper, CategoriaMapper>();
 #endregion
 
 #region FluentValidation

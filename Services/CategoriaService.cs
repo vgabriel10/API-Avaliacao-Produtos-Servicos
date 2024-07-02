@@ -1,5 +1,10 @@
-﻿using API_Avaliacao_Produtos_Servicos.Models.InputModels;
+﻿using API_Avaliacao_Produtos_Servicos.Exceptions;
+using API_Avaliacao_Produtos_Servicos.Models;
+using API_Avaliacao_Produtos_Servicos.Models.InputModels;
+using API_Avaliacao_Produtos_Servicos.Models.Mappers;
+using API_Avaliacao_Produtos_Servicos.Models.Mappers.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
+using API_Avaliacao_Produtos_Servicos.Repositories;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
 
@@ -7,36 +12,53 @@ namespace API_Avaliacao_Produtos_Servicos.Services
 {
     public class CategoriaService : ICategoriaService
     {
-        
+        private readonly ICategoriaMapper _categoriaMapper;
         private readonly ICategoriaRepository _categoriaRepository;
-        public CategoriaService(ICategoriaRepository categoriaRepository) 
+        public CategoriaService(ICategoriaMapper categoriaMapper, ICategoriaRepository categoriaRepository) 
         { 
+            _categoriaMapper = categoriaMapper;
             _categoriaRepository = categoriaRepository;
         }
 
-        public Task<CategoriaViewModel> AdicionarCategoria(CreateCategoriaInputModel categoriaInputModel)
+        public async Task<CategoriaViewModel> AdicionarCategoria(CreateCategoriaInputModel categoriaInputModel)
         {
-            throw new NotImplementedException();
+            var categoria = _categoriaMapper.ConverterParaEntidade(categoriaInputModel);
+
+            var result = await _categoriaRepository.AdicionarCategoria(categoria);
+            if (result == null)
+                throw new BadRequestException("Erro ao adicionar nova categoria");
+            return _categoriaMapper.ConverterParaViewModel(result);
         }
 
-        public Task DeletarCategoria(int id)
+        public async Task DeletarCategoria(int id)
         {
-            throw new NotImplementedException();
+            await _categoriaRepository.DeletarCategoria(id);
         }
 
-        public Task<CategoriaViewModel> EditarCategoria(int id, UpdateCategoriaInputModel categoriaInputModel)
+        public async Task<CategoriaViewModel> EditarCategoria(int id, UpdateCategoriaInputModel categoriaInputModel)
         {
-            throw new NotImplementedException();
+            var existeCategoria = _categoriaRepository.RetornarCategoriaPorId(id);
+            if (existeCategoria == null)
+            {
+                throw new NotFoundException("Categoria não encontrada");
+            }
+
+            var categoria = _categoriaMapper.ConverterParaEntidade(categoriaInputModel);
+            await _categoriaRepository.EditarCategoria(id, categoria);
+            return _categoriaMapper.ConverterParaViewModel(categoria);
+
         }
 
-        public Task<CategoriaViewModel> RetornarCategoriaPorId(int id)
+        public async Task<CategoriaViewModel> RetornarCategoriaPorId(int id)
         {
-            throw new NotImplementedException();
+            var categoria = await _categoriaRepository.RetornarCategoriaPorId(id);
+            return _categoriaMapper.ConverterParaViewModel(categoria);
         }
 
-        public Task<IEnumerable<CategoriaViewModel>> RetornarTodasCategorias()
+        public async Task<IEnumerable<CategoriaViewModel>> RetornarTodasCategorias()
         {
-            throw new NotImplementedException();
+            var categorias = await _categoriaRepository.RetornarTodasCategorias();
+            return _categoriaMapper.ConverterParaViewModel(categorias);
         }
     }
 }
