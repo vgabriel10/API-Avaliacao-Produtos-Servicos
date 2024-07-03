@@ -31,7 +31,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         {
             try
             {
-                var result = await _categoriaService.RetornarTodasCategorias();
+                var result = await _categoriaService.RetornarCategoriaPorId(id);
                 if (result != null)
                     return Ok(result);
 
