@@ -48,7 +48,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         {
             try
             {
-                var result = _categoriaService.AdicionarCategoria(categoriaInputModel);
+                var result = await _categoriaService.AdicionarCategoria(categoriaInputModel);
                 if (result != null)
                     return Ok(result);
 
@@ -67,7 +67,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         {
             try
             {
-                var result = _categoriaService.EditarCategoria(id, categoriaInputModel);
+                var result = await _categoriaService.EditarCategoria(id, categoriaInputModel);
                 if (result != null)
                     return Ok(result);
 

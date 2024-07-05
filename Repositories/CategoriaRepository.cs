@@ -16,9 +16,17 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
 
         public async Task<Categoria> AdicionarCategoria(Categoria categoria)
         {
-            await _context.AddAsync(categoria);
-            await _context.SaveChangesAsync();
-            return categoria;
+            try
+            {
+                await _context.AddAsync(categoria);
+                await _context.SaveChangesAsync();
+                return categoria;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            
         }
 
         public async Task DeletarCategoria(int id)
