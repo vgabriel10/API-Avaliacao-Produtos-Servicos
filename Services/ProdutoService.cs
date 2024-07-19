@@ -27,6 +27,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
                 Preco = produtoInputModel.Preco,
                 Descricao = produtoInputModel.Descricao,
                 FornecedorId = produtoInputModel.FornecedorId,
+                CategoriaId = produtoInputModel.CategoriaId,
             };
 
             var produto = await _produtoRepository.AdicionarProduto(produtoConvertido);
