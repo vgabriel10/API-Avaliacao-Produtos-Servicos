@@ -13,13 +13,13 @@ namespace API_Avaliacao_Produtos_Servicos.Services
     {
         IFornecedorMapper _fornecedorMapper;
         private readonly IFornecedorRepository _fornecedorRepository;
-        private readonly IUsuarioService _usuaarioService;
+        private readonly IUsuarioService _usuarioService;
         private readonly IProdutoService _produtoService;
 
         public FornecedorService(IFornecedorRepository fornecedorRepository, IUsuarioService usuarioService, IProdutoService produtoService, IFornecedorMapper fornecedorMapper) 
         {
             _fornecedorRepository = fornecedorRepository;
-            _usuaarioService = usuarioService;
+            _usuarioService = usuarioService;
             _produtoService = produtoService;
             _fornecedorMapper = fornecedorMapper;
         }
@@ -31,13 +31,13 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             return _fornecedorMapper.ConverterParaViewModel(fornecedor);
         }
 
-        public async Task<FornecedorViewModel> AlterarFornecedor(int id, UpdateFornecedorInputModel fornecedorViewModel)
+        public async Task<FornecedorViewModel> AlterarFornecedor(int id, UpdateFornecedorInputModel fornecedorInputModel)
         {
             var existeFornecedor = await _fornecedorRepository.RetornarFornecedorPorId(id);
             if (existeFornecedor == null)
                 throw new NotFoundException("Fornecedor não encontrado");
 
-            var fornecedor = _fornecedorMapper.ConverterParaEntidade(fornecedorViewModel);
+            var fornecedor = _fornecedorMapper.ConverterParaEntidade(fornecedorInputModel);
             await _fornecedorRepository.AlterarFornecedor(id, fornecedor);
             return _fornecedorMapper.ConverterParaViewModel(fornecedor);          
         }

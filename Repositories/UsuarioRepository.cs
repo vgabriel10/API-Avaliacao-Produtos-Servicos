@@ -1,7 +1,9 @@
 ﻿using API_Avaliacao_Produtos_Servicos.Data;
+using API_Avaliacao_Produtos_Servicos.Exceptions;
 using API_Avaliacao_Produtos_Servicos.Models;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace API_Avaliacao_Produtos_Servicos.Repositories
 {
@@ -18,9 +20,25 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
         {
             try
             {
-                await _context.Usuarios.AddAsync(usuario);
+                var teste = new Usuario
+                {
+                    Nome = usuario.Nome,
+                    DataCadastro = usuario.DataCadastro,
+                    Cpf = usuario.Cpf,
+                    Cidade = usuario.Cidade,
+                    DataNascimento = usuario.DataNascimento,
+                    Nacionalidade = usuario.Nacionalidade,
+                    Deletado = usuario.Deletado,
+                    Avaliacoes = new List<Avaliacao>()
+                };
+                await _context.Usuarios.AddAsync(teste);
+                //await _context.Usuarios.AddAsync(usuario);
                 await _context.SaveChangesAsync();
                 return usuario;
+            }
+            catch (PostgresException ex) when (ex.SqlState == "23505")
+            {
+                return null;
             }
             catch (Exception ex)
             {
@@ -46,7 +64,7 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
 
         public async Task DeletarUsuario(int id)
         {
-            var usuario = _context.Usuarios.FirstOrDefault(x => x.Id == id);
+            var usuario = await _context.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
             if (usuario != null) 
             { 
                 _context.Usuarios.Remove(usuario);

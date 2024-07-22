@@ -68,15 +68,16 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Deletado")
-                        .HasColumnType("boolean");
+                        .HasColumnType("BOOLEAN");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(20)
+                        .HasColumnType("VARCHAR");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categoria");
+                    b.ToTable("Categorias");
                 });
 
             modelBuilder.Entity("API_Avaliacao_Produtos_Servicos.Models.Fornecedor", b =>
@@ -86,9 +87,6 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int[]>("Avaliacoes")
-                        .HasColumnType("integer[]");
 
                     b.Property<string>("Cidade")
                         .IsRequired()
@@ -149,9 +147,6 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                     b.Property<int>("FornecedorId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("FornecedorId1")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -165,8 +160,6 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                     b.HasIndex("CategoriaId");
 
                     b.HasIndex("FornecedorId");
-
-                    b.HasIndex("FornecedorId1");
 
                     b.ToTable("Produtos");
                 });
@@ -241,14 +234,10 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                         .IsRequired();
 
                     b.HasOne("API_Avaliacao_Produtos_Servicos.Models.Fornecedor", "Fornecedor")
-                        .WithMany()
+                        .WithMany("Produtos")
                         .HasForeignKey("FornecedorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("API_Avaliacao_Produtos_Servicos.Models.Fornecedor", null)
-                        .WithMany("Produtos")
-                        .HasForeignKey("FornecedorId1");
 
                     b.Navigation("Categoria");
 
