@@ -3,6 +3,7 @@ using API_Avaliacao_Produtos_Servicos.Models;
 using API_Avaliacao_Produtos_Servicos.Models.InputModels;
 using API_Avaliacao_Produtos_Servicos.Models.Mappers.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
+using API_Avaliacao_Produtos_Servicos.Repositories;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
 
@@ -30,7 +31,23 @@ namespace API_Avaliacao_Produtos_Servicos.Services
                 CategoriaId = produtoInputModel.CategoriaId,
             };
 
-            var produto = await _produtoRepository.AdicionarProduto(produtoConvertido);
+            //var fornecedor = await _fornecedorService.RetornarFornecedorPorId(produtoInputModel.FornecedorId);
+            //var categoria = await _categoriaService.RetornarCategoriaPorId(produtoInputModel.CategoriaId);
+
+            //if (fornecedor == null)
+            //{
+            //    throw new Exception("Fornecedor não encontrado.");
+            //}
+
+            //if (categoria == null)
+            //{
+            //    throw new Exception("Categoria não encontrada.");
+            //}
+
+            var produto = _produtoMapper.ConverterParaEntidade(produtoInputModel);
+            await _produtoRepository.AdicionarProduto(produtoConvertido);
+
+            //var produto = await _produtoRepository.AdicionarProduto(produtoConvertido);
             return _produtoMapper.ConverterParaViewModel(produto);
             
         }
