@@ -1,7 +1,9 @@
 ﻿using API_Avaliacao_Produtos_Servicos.Data;
+using API_Avaliacao_Produtos_Servicos.Exceptions;
 using API_Avaliacao_Produtos_Servicos.Models;
 using API_Avaliacao_Produtos_Servicos.Models.InputModels;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
+using API_Avaliacao_Produtos_Servicos.Services;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
@@ -13,9 +15,15 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
     public class AvaliacaoController : ControllerBase
     {
         private readonly IAvaliacaoService _avaliacaoService;
-        public AvaliacaoController(IAvaliacaoService avaliacaoService)
+        private readonly IUsuarioService _usuarioService;
+        private readonly IProdutoService _produtoService;
+        public AvaliacaoController(IAvaliacaoService avaliacaoService, 
+            IUsuarioService usuarioService,
+            IProdutoService produtoService)
         {
             _avaliacaoService = avaliacaoService;
+            _usuarioService = usuarioService;
+            _produtoService = produtoService;
         }
 
         [HttpGet("avaliacao")]
@@ -41,6 +49,15 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         [HttpPost("avaliacao")]
         public async Task<IActionResult> Post(CreateAvaliacaoInputModel avaliacao)
         {
+            var usuario = await _usuarioService.BuscarUsuarioPorId(avaliacao.UsuarioId);
+            var produto = await _produtoService.RetornarProdutoPorId(avaliacao.ProdutoId);
+
+            if (usuario == null)
+                throw new NotFoundException("Usuario não encontrado");
+
+            if (produto == null)
+                throw new NotFoundException("Produto não encontrado");
+
             var result = await _avaliacaoService.AdicionarAvaliacao(avaliacao);
             if (result != null)
                 return Ok(result);

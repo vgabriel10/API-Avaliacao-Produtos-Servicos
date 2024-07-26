@@ -13,14 +13,11 @@ namespace API_Avaliacao_Produtos_Servicos.Services
     {
         IFornecedorMapper _fornecedorMapper;
         private readonly IFornecedorRepository _fornecedorRepository;
-        private readonly IUsuarioService _usuarioService;
-        private readonly IProdutoService _produtoService;
 
-        public FornecedorService(IFornecedorRepository fornecedorRepository, IUsuarioService usuarioService, IProdutoService produtoService, IFornecedorMapper fornecedorMapper) 
+
+        public FornecedorService(IFornecedorRepository fornecedorRepository, IFornecedorMapper fornecedorMapper) 
         {
             _fornecedorRepository = fornecedorRepository;
-            _usuarioService = usuarioService;
-            _produtoService = produtoService;
             _fornecedorMapper = fornecedorMapper;
         }
 
