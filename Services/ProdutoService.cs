@@ -6,6 +6,7 @@ using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
 using API_Avaliacao_Produtos_Servicos.Repositories;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API_Avaliacao_Produtos_Servicos.Services
 {
@@ -31,57 +32,27 @@ namespace API_Avaliacao_Produtos_Servicos.Services
                 CategoriaId = produtoInputModel.CategoriaId,
             };
 
-            //var fornecedor = await _fornecedorService.RetornarFornecedorPorId(produtoInputModel.FornecedorId);
-            //var categoria = await _categoriaService.RetornarCategoriaPorId(produtoInputModel.CategoriaId);
-
-            //if (fornecedor == null)
-            //{
-            //    throw new Exception("Fornecedor não encontrado.");
-            //}
-
-            //if (categoria == null)
-            //{
-            //    throw new Exception("Categoria não encontrada.");
-            //}
-
             var produto = _produtoMapper.ConverterParaEntidade(produtoInputModel);
             produto = await _produtoRepository.AdicionarProduto(produtoConvertido);
-
-            //var produto = await _produtoRepository.AdicionarProduto(produtoConvertido);
             return _produtoMapper.ConverterParaViewModel(produto);
-            
+           
         }
 
         public async Task<ProdutoViewModel> AlterarProduto(int id, UpdateProdutoInputModel produtoInputModel)
         {
-            Produto produtoEntity = new Produto
-            {
-                Id = id,
-                Nome = produtoInputModel.Nome,
-                Descricao = produtoInputModel.Descricao,
-                Preco = produtoInputModel.Preco,
-                FornecedorId = produtoInputModel.FornecedorId
-            };
+            //Produto produtoEntity = new Produto
+            //{
+            //    Id = id,
+            //    Nome = produtoInputModel.Nome,
+            //    Descricao = produtoInputModel.Descricao,
+            //    Preco = produtoInputModel.Preco,
+            //    FornecedorId = produtoInputModel.FornecedorId,
+            //    CategoriaId = produtoInputModel.CategoriaId
+            //};
+
+            var produtoEntity = _produtoMapper.ConverterParaEntidade(produtoInputModel);
 
             var produto = await _produtoRepository.AlterarProduto(id, produtoEntity);
-
-            return _produtoMapper.ConverterParaViewModel(produto);
-        }
-
-        public async Task<ProdutoViewModel> AlterarProduto(UpdateProdutoInputModel produtoInputModel)
-        {
-            if (produtoInputModel.Id == null)
-                return null;
-            Produto produtoEntity = new Produto
-            {
-                Id = produtoInputModel.Id.Value,
-                Nome = produtoInputModel.Nome,
-                Descricao = produtoInputModel.Descricao,
-                Preco = produtoInputModel.Preco,
-                FornecedorId = produtoInputModel.FornecedorId
-            };
-
-            var produto = await _produtoRepository.AlterarProduto(produtoEntity);
 
             return _produtoMapper.ConverterParaViewModel(produto);
         }

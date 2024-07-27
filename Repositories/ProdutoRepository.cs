@@ -59,7 +59,7 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
                 produto.Fornecedor = fornecedor;
                 produto.Categoria = categoria;
 
-                _context.Produtos.Add(produto);
+                await _context.Produtos.AddAsync(produto);
                 await _context.SaveChangesAsync();
                 return produto;
             }
@@ -70,10 +70,23 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             
         }
 
-        public async Task<Produto> AlterarProduto(int id, Produto produto)
+        public async Task<Produto> AlterarProduto(int id, Produto produtoUpdate)
         {
+            var fornecedor = _context.Fornecedores.First(x => x.Id == produtoUpdate.FornecedorId);
+            var categoria = _context.Categorias.First(x => x.Id == produtoUpdate.CategoriaId);
+            var produto = await _context.Produtos.FindAsync(id);
 
-            return null;
+            produto.Fornecedor = fornecedor;
+            produto.Categoria = categoria;
+            produto.Nome = produtoUpdate.Nome;
+            produto.Descricao = produtoUpdate.Descricao;
+            produto.Preco = produtoUpdate.Preco;
+            produto.FornecedorId = produtoUpdate.FornecedorId;  
+            produto.CategoriaId = produto.CategoriaId;
+
+            _context.Update(produto);
+            await _context.SaveChangesAsync();
+            return produto;
         }
 
         public async Task<Produto> AlterarProduto(Produto produto)

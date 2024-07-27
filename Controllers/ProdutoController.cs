@@ -63,12 +63,12 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         //    }
         //}
 
-        [HttpPut("produto")]
-        public async Task<IActionResult> Put([FromBody] UpdateProdutoInputModel produto)
+        [HttpPut("produto/{id}")]
+        public async Task<IActionResult> Put([FromRoute] int id, [FromBody] UpdateProdutoInputModel produto)
         {
             try
             {
-                var result = await _produtoService.AlterarProduto(produto);
+                var result = await _produtoService.AlterarProduto(id,produto);
                 return Ok(result);
             }
             catch (Exception ex)

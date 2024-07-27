@@ -15,7 +15,6 @@ namespace API_Avaliacao_Produtos_Servicos.Services.Interfaces
 
         Task<ProdutoViewModel> RetornarProdutoPorId(int id);
         Task<ProdutoViewModel> AlterarProduto(int id, UpdateProdutoInputModel produto);
-        Task<ProdutoViewModel> AlterarProduto(UpdateProdutoInputModel produto);
         Task DeletarProduto(int id);
 
     }
