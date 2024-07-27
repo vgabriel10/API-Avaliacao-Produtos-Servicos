@@ -45,7 +45,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             //}
 
             var produto = _produtoMapper.ConverterParaEntidade(produtoInputModel);
-            await _produtoRepository.AdicionarProduto(produtoConvertido);
+            produto = await _produtoRepository.AdicionarProduto(produtoConvertido);
 
             //var produto = await _produtoRepository.AdicionarProduto(produtoConvertido);
             return _produtoMapper.ConverterParaViewModel(produto);

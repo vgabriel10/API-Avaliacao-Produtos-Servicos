@@ -53,6 +53,12 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
         {
             try
             {
+                
+                var fornecedor = _context.Fornecedores.First(x => x.Id == produto.FornecedorId);
+                var categoria = _context.Categorias.First(x => x.Id == produto.CategoriaId);
+                produto.Fornecedor = fornecedor;
+                produto.Categoria = categoria;
+
                 _context.Produtos.Add(produto);
                 await _context.SaveChangesAsync();
                 return produto;

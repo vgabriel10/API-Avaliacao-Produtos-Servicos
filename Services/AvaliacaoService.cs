@@ -12,18 +12,12 @@ namespace API_Avaliacao_Produtos_Servicos.Services
     {
         private readonly IAvaliacaoMapper _avaliacaoMapper;
         private readonly IAvaliacaoRepository _avaliacaoRepository;
-        private readonly IUsuarioService _usuarioService;
-        private readonly IProdutoService _produtoService;
 
         public AvaliacaoService (IAvaliacaoRepository avaliacaoRepository,
-            IAvaliacaoMapper avaliacaoMapper,
-            IUsuarioService usuarioService,
-            IProdutoService produtoService)
+            IAvaliacaoMapper avaliacaoMapper)
         {
             _avaliacaoMapper = avaliacaoMapper;
             _avaliacaoRepository = avaliacaoRepository;
-            _usuarioService = usuarioService;
-            _produtoService = produtoService;
         }
 
         public async Task<AvaliacaoViewModel> AdicionarAvaliacao(CreateAvaliacaoInputModel avaliacaoInputModel)
