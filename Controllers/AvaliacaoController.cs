@@ -51,10 +51,8 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         {
             var usuario = await _usuarioService.BuscarUsuarioPorId(avaliacao.UsuarioId);
             var produto = await _produtoService.RetornarProdutoPorId(avaliacao.ProdutoId);
-
             if (usuario == null)
                 throw new NotFoundException("Usuario não encontrado");
-
             if (produto == null)
                 throw new NotFoundException("Produto não encontrado");
 

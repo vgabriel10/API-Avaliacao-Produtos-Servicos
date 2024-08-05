@@ -23,37 +23,16 @@ namespace API_Avaliacao_Produtos_Servicos.Services
 
         public async Task<ProdutoViewModel> AdicionarProduto(CreateProdutoInputModel produtoInputModel)
         {
-            Produto produtoConvertido = new Produto
-            {
-                Nome = produtoInputModel.Nome,
-                Preco = produtoInputModel.Preco,
-                Descricao = produtoInputModel.Descricao,
-                FornecedorId = produtoInputModel.FornecedorId,
-                CategoriaId = produtoInputModel.CategoriaId,
-            };
-
             var produto = _produtoMapper.ConverterParaEntidade(produtoInputModel);
-            produto = await _produtoRepository.AdicionarProduto(produtoConvertido);
+            produto = await _produtoRepository.AdicionarProduto(produto);
             return _produtoMapper.ConverterParaViewModel(produto);
            
         }
 
         public async Task<ProdutoViewModel> AlterarProduto(int id, UpdateProdutoInputModel produtoInputModel)
         {
-            //Produto produtoEntity = new Produto
-            //{
-            //    Id = id,
-            //    Nome = produtoInputModel.Nome,
-            //    Descricao = produtoInputModel.Descricao,
-            //    Preco = produtoInputModel.Preco,
-            //    FornecedorId = produtoInputModel.FornecedorId,
-            //    CategoriaId = produtoInputModel.CategoriaId
-            //};
-
             var produtoEntity = _produtoMapper.ConverterParaEntidade(produtoInputModel);
-
             var produto = await _produtoRepository.AlterarProduto(id, produtoEntity);
-
             return _produtoMapper.ConverterParaViewModel(produto);
         }
 
