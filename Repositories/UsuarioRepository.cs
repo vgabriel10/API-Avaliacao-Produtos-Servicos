@@ -20,19 +20,7 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
         {
             try
             {
-                var teste = new Usuario
-                {
-                    Nome = usuario.Nome,
-                    DataCadastro = usuario.DataCadastro,
-                    Cpf = usuario.Cpf,
-                    Cidade = usuario.Cidade,
-                    DataNascimento = usuario.DataNascimento,
-                    Nacionalidade = usuario.Nacionalidade,
-                    Deletado = usuario.Deletado,
-                    Avaliacoes = new List<Avaliacao>()
-                };
-                await _context.Usuarios.AddAsync(teste);
-                //await _context.Usuarios.AddAsync(usuario);
+                await _context.Usuarios.AddAsync(usuario);
                 await _context.SaveChangesAsync();
                 return usuario;
             }
@@ -42,7 +30,7 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             }
             catch (Exception ex)
             {
-                return null;
+                throw ex;
             }           
         }
 

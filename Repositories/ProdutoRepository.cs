@@ -19,7 +19,10 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
         {
             try
             {
-                var produtos = await _context.Produtos.ToListAsync();
+                var produtos = await _context.Produtos
+                    .Include(x => x.Fornecedor)
+                    .Include(x => x.Categoria)
+                    .ToListAsync();
                 return produtos;
             }
             catch (Exception ex)
@@ -32,6 +35,8 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
         public async Task<Produto> RetornarProdutoPorId(int id)
         {
             return await _context.Produtos
+                .Include(x => x.Fornecedor)
+                .Include(x => x.Categoria)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
@@ -53,7 +58,13 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
         {
             try
             {
-                _context.Produtos.Add(produto);
+                
+                var fornecedor = _context.Fornecedores.First(x => x.Id == produto.FornecedorId);
+                var categoria = _context.Categorias.First(x => x.Id == produto.CategoriaId);
+                produto.Fornecedor = fornecedor;
+                produto.Categoria = categoria;
+
+                await _context.Produtos.AddAsync(produto);
                 await _context.SaveChangesAsync();
                 return produto;
             }
@@ -64,10 +75,23 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             
         }
 
-        public async Task<Produto> AlterarProduto(int id, Produto produto)
+        public async Task<Produto> AlterarProduto(int id, Produto produtoUpdate)
         {
+            var fornecedor = _context.Fornecedores.First(x => x.Id == produtoUpdate.FornecedorId);
+            var categoria = _context.Categorias.First(x => x.Id == produtoUpdate.CategoriaId);
+            var produto = await _context.Produtos.FindAsync(id);
 
-            return null;
+            produto.Fornecedor = fornecedor;
+            produto.Categoria = categoria;
+            produto.Nome = produtoUpdate.Nome;
+            produto.Descricao = produtoUpdate.Descricao;
+            produto.Preco = produtoUpdate.Preco;
+            produto.FornecedorId = produtoUpdate.FornecedorId;  
+            produto.CategoriaId = produto.CategoriaId;
+
+            _context.Update(produto);
+            await _context.SaveChangesAsync();
+            return produto;
         }
 
         public async Task<Produto> AlterarProduto(Produto produto)

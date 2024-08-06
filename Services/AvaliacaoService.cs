@@ -12,18 +12,12 @@ namespace API_Avaliacao_Produtos_Servicos.Services
     {
         private readonly IAvaliacaoMapper _avaliacaoMapper;
         private readonly IAvaliacaoRepository _avaliacaoRepository;
-        private readonly IUsuarioService _usuarioService;
-        private readonly IProdutoService _produtoService;
 
         public AvaliacaoService (IAvaliacaoRepository avaliacaoRepository,
-            IAvaliacaoMapper avaliacaoMapper,
-            IUsuarioService usuarioService,
-            IProdutoService produtoService)
+            IAvaliacaoMapper avaliacaoMapper)
         {
             _avaliacaoMapper = avaliacaoMapper;
             _avaliacaoRepository = avaliacaoRepository;
-            _usuarioService = usuarioService;
-            _produtoService = produtoService;
         }
 
         public async Task<AvaliacaoViewModel> AdicionarAvaliacao(CreateAvaliacaoInputModel avaliacaoInputModel)
@@ -31,20 +25,8 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             try
             {
                 var avaliacao = _avaliacaoMapper.ConverterParaEntidade(avaliacaoInputModel);
-
-                var usuario = await _usuarioService.BuscarUsuarioPorId(avaliacao.UsuarioId);
-                var produto = await _produtoService.RetornarProdutoPorId(avaliacao.ProdutoId);
-
-                if (usuario == null)
-                    throw new NotFoundException("Usuario não encontrado");
-
-                if (produto == null)
-                    throw new NotFoundException("Produto não encontrado");
-
                 await _avaliacaoRepository.AdicionarAvaliacao(avaliacao);
-
                 return _avaliacaoMapper.ConverterParaViewModel(avaliacao);
-
             }
             catch (Exception ex)
             {
