@@ -19,7 +19,10 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
         {
             try
             {
-                var produtos = await _context.Produtos.ToListAsync();
+                var produtos = await _context.Produtos
+                    .Include(x => x.Fornecedor)
+                    .Include(x => x.Categoria)
+                    .ToListAsync();
                 return produtos;
             }
             catch (Exception ex)
@@ -32,6 +35,8 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
         public async Task<Produto> RetornarProdutoPorId(int id)
         {
             return await _context.Produtos
+                .Include(x => x.Fornecedor)
+                .Include(x => x.Categoria)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == id);
         }

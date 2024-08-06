@@ -1,4 +1,5 @@
 ﻿using API_Avaliacao_Produtos_Servicos.Enums;
+using API_Avaliacao_Produtos_Servicos.Exceptions;
 using API_Avaliacao_Produtos_Servicos.Models;
 using API_Avaliacao_Produtos_Servicos.Models.InputModels;
 using API_Avaliacao_Produtos_Servicos.Models.Mappers.Interfaces;
@@ -50,6 +51,9 @@ namespace API_Avaliacao_Produtos_Servicos.Services
         public async Task<ProdutoViewModel> RetornarProdutoPorId(int id)
         {
             var produto = await _produtoRepository.RetornarProdutoPorId(id);
+            if (produto == null)
+                throw new NotFoundException("Produto não encontrado");
+
             return _produtoMapper.ConverterParaViewModel(produto);
         }
 
