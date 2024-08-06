@@ -34,6 +34,7 @@ namespace API_Avaliacao_Produtos_Servicos.Models.Mappers
         {
             return new ProdutoViewModel
             {
+                Id = entidade.Id,
                 Nome = entidade.Nome,
                 Descricao = entidade.Descricao,
                 Preco = entidade.Preco,

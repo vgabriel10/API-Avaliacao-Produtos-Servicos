@@ -46,17 +46,20 @@ namespace API_Avaliacao_Produtos_Servicos.Models.Mappers
         {
             return new AvaliacaoViewModel
             {
+                Id = entidade.Id,
                 Titulo = entidade.Titulo,
                 Descricao = entidade.Descricao,
                 Nota = entidade.Nota,
                 Produto = new ProdutoViewModel
                 {
+                    Id = entidade.Produto.Id,
                     Nome = entidade.Produto.Nome,
                     Descricao = entidade.Produto.Descricao,
                     Preco = entidade.Produto.Preco
                 },
                 Usuario = new UsuarioViewModel
                 {
+                    Id= entidade.Usuario.Id,
                     Nome = entidade.Usuario.Nome,
                     Cpf = entidade.Usuario.Cpf,
                     Cidade = entidade.Usuario.Cidade,
