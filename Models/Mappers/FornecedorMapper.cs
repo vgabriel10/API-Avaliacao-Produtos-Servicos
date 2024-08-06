@@ -38,6 +38,7 @@ namespace API_Avaliacao_Produtos_Servicos.Models.Mappers
         {
             return new FornecedorViewModel
             {
+                Id = entidade.Id,
                 Nome = entidade.Nome,
                 Cidade = entidade.Cidade,
                 Cnpj = entidade.Cnpj,

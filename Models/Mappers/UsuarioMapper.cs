@@ -34,6 +34,7 @@ namespace API_Avaliacao_Produtos_Servicos.Models.Mappers
         {
             return new UsuarioViewModel
             {
+                Id = entidade.Id,
                 Nome = entidade.Nome,
                 Cpf = entidade.Cpf,
                 Cidade = entidade.Cidade,

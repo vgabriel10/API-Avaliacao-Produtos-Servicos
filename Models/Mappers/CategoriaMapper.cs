@@ -26,6 +26,7 @@ namespace API_Avaliacao_Produtos_Servicos.Models.Mappers
         {
             return new CategoriaViewModel
             {
+                Id = entidade.Id,
                 Nome = entidade.Nome,                
             };
         }
