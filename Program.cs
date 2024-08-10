@@ -1,4 +1,5 @@
 using API_Avaliacao_Produtos_Servicos.Data;
+using API_Avaliacao_Produtos_Servicos.Middlewares;
 using API_Avaliacao_Produtos_Servicos.Models.Mappers;
 using API_Avaliacao_Produtos_Servicos.Models.Mappers.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Repositories;
@@ -52,6 +53,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Configurando data no postgres para UTC
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
