@@ -1,4 +1,5 @@
-﻿using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
+﻿using API_Avaliacao_Produtos_Servicos.Models.Response;
+using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
 using Newtonsoft.Json;
 
 namespace API_Avaliacao_Produtos_Servicos.Middlewares
@@ -30,7 +31,12 @@ namespace API_Avaliacao_Produtos_Servicos.Middlewares
 
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            var response = new ExceptionViewModel(false, "Ocorreu um erro", new List<string> { exception.Message });
+            var response = new ErroResponse
+            {
+                Status = StatusCodes.Status500InternalServerError,
+                Mensagem = "Ocorreu um erro no servidor.",
+                Erros = new List<string> { exception.Message }
+            };
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             return context.Response.WriteAsync(JsonConvert.SerializeObject(response));
