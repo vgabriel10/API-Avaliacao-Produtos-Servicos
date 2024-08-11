@@ -3,16 +3,28 @@
     public class ApiResponse<T>
     {
         public bool Success { get; set; }
-        public T Data { get; set; }
-        public string Message { get; set; }
-        public List<string> Errors { get; set; }
+        //public T Data { get; set; }
+        public string Message { get; set; } = string.Empty;
+        public List<string>? Erros { get; set; }
 
-        public ApiResponse(T data, bool success = true, string message = null, List<string> errors = null)
+        public int PaginaAtual { get; set; }
+        public int ItensPagina { get; set; }
+        public int TotalPaginas { get; set; }
+        public int TotalItens { get; set; }
+        public IEnumerable<T> Data { get; set; }
+
+
+        public ApiResponse() { }
+        public ApiResponse(bool success, string message, List<string> erros, int paginaAtual, int itensPagina, int totalPaginas, int totalItens, IEnumerable<T> data)
         {
             Success = success;
-            Data = data;
             Message = message;
-            Errors = errors ?? new List<string>();
+            Erros = erros ?? new List<string>();
+            PaginaAtual = paginaAtual;
+            ItensPagina = itensPagina;
+            TotalPaginas = totalPaginas;
+            TotalItens = totalItens;
+            Data = data;
         }
     }
 }

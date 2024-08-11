@@ -60,10 +60,28 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             return _usuarioMapper.ConverterParaViewModel(result);
         }
 
-        public async Task<IEnumerable<UsuarioViewModel>> RetornarTodosUsuarios()
+        public async Task<IEnumerable<UsuarioViewModel>> RetornarTodosUsuarios(int pagina = 1, int itensPagina = 20)
         {
-            var usuarios = await _usuarioRepository.RetornarTodosUsuarios();
+
+            // Garantir que o número da página e o tamanho sejam válidos
+            pagina = pagina < 1 ? 1 : pagina;
+            itensPagina = itensPagina < 1 ? 10 : itensPagina;
+
+            // Calcular quantos itens pular (skip)
+            int pular = (pagina - 1) * itensPagina;
+
+            var usuarios = await _usuarioRepository.RetornarTodosUsuarios(pular, itensPagina);
             return _usuarioMapper.ConverterParaViewModel(usuarios);
+        }
+
+        public async Task<int> QuantidadeUsuariosAtivos()
+        {
+            return await _usuarioRepository.QuantidadeUsuariosAtivos();
+        }
+
+        public async Task<int> QuantidadePaginas(int totalRegistros, int itensPagina)
+        {
+            return await _usuarioRepository.QuantidadePaginas(totalRegistros, itensPagina);
         }
     }
 }
