@@ -20,25 +20,9 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             _usuarioService = usuarioService;
         }
 
-        //[HttpGet("usuario")]
-        //public async Task<IEnumerable<UsuarioViewModel>> Get([FromQuery] int pagina = 1, [FromQuery] int itensPagina = 20)
-        //{
-        //    //return await _usuarioService.RetornarTodosUsuarios(numeroPagina,itensPagina);
-        //    var usuarios = await _usuarioService.RetornarTodosUsuarios(pagina, itensPagina);
-
-        //    return new ApiResponse
-        //    {
-        //        PaginaAtual = pagina,
-        //        ItensPagina = itensPagina,
-        //        TotalItens = _usuarioService.QuantidadeUsuariosAtivos()
-
-        //    };
-        //}
-
         [HttpGet("usuario")]
         public async Task<ApiResponse<UsuarioViewModel>> Get([FromQuery] int pagina = 1, [FromQuery] int itensPagina = 20)
         {
-            //return await _usuarioService.RetornarTodosUsuarios(numeroPagina,itensPagina);
             var usuarios = await _usuarioService.RetornarTodosUsuarios(pagina, itensPagina);
             int totalItens = await _usuarioService.QuantidadeUsuariosAtivos();
             int totalPaginas = await _usuarioService.QuantidadePaginas(totalItens,itensPagina);
