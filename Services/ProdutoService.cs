@@ -42,10 +42,27 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             await _produtoRepository.DeleteById(id);
         }
 
-        public async Task<IEnumerable<ProdutoViewModel>> GetAllProdutos()
+        public async Task<IEnumerable<ProdutoViewModel>> GetAllProdutos(int pagina, int itensPagina)
         {
-            var produtos = await _produtoRepository.FindAll();
+            // Garantir que o número da página e o tamanho sejam válidos
+            pagina = pagina < 1 ? 1 : pagina;
+            itensPagina = itensPagina < 1 ? 10 : itensPagina;
+
+            // Calcular quantos itens pular (skip)
+            int skip = (pagina - 1) * itensPagina;
+
+            var produtos = await _produtoRepository.FindAll(skip, itensPagina);
             return _produtoMapper.ConverterParaViewModel(produtos);
+        }
+
+        public async Task<int> QuantidadePaginas(int totalItens, int itensPagina)
+        {
+            return await _produtoRepository.QuantidadePaginas(totalItens, itensPagina);
+        }
+
+        public async Task<int> QuantidadeProdutosAtivos()
+        {
+            return await _produtoRepository.QuantidadeProdutosAtivos();
         }
 
         public async Task<ProdutoViewModel> RetornarProdutoPorId(int id)

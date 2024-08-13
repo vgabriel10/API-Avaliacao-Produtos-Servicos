@@ -7,7 +7,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services.Interfaces
 {
     public interface IProdutoService
     {
-        Task<IEnumerable<ProdutoViewModel>> GetAllProdutos();
+        Task<IEnumerable<ProdutoViewModel>> GetAllProdutos(int pagina, int itensPagina);
         List<ProdutoViewModel> RetornarProdutosMaisBaratos(CategoriaEnum categoria);
 
         List<ProdutoViewModel> RetornarProdutosMaisBemAvaliados();
@@ -16,6 +16,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services.Interfaces
         Task<ProdutoViewModel> RetornarProdutoPorId(int id);
         Task<ProdutoViewModel> AlterarProduto(int id, UpdateProdutoInputModel produto);
         Task DeletarProduto(int id);
-
+        Task<int> QuantidadeProdutosAtivos();
+        Task<int> QuantidadePaginas(int totalItens, int itensPagina);
     }
 }
