@@ -97,6 +97,8 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
         public Task<int> QuantidadePaginas(int totalRegistros, int itensPagina)
         {
             int totalPaginas = (int)Math.Ceiling((double)totalRegistros / itensPagina);
+            if (totalPaginas < 0)
+                totalPaginas = 1;
             return Task.FromResult(totalPaginas);
         }
     }

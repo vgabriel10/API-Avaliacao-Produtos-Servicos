@@ -61,6 +61,8 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
         public async Task<int> QuantidadePaginas(int totalRegistros, int itensPagina)
         {
             int totalPaginas = (int)Math.Ceiling((double)totalRegistros / itensPagina);
+            if (totalPaginas < 0)
+                totalPaginas = 1;
             return await Task.FromResult(totalPaginas);
         }
 
