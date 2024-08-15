@@ -49,15 +49,28 @@ namespace API_Avaliacao_Produtos_Servicos.Services
 
         }
 
+        public async Task<int> QuantidadeCategoriasAtivas()
+        {
+            return await _categoriaRepository.QuantidadeCategoriasAtivas();
+        }
+
+        public async Task<int> QuantidadePaginas(int totalRegistros, int itensPagina)
+        {
+            return await _categoriaRepository.QuantidadePaginas(totalRegistros,itensPagina);
+        }
+
         public async Task<CategoriaViewModel> RetornarCategoriaPorId(int id)
         {
             var categoria = await _categoriaRepository.RetornarCategoriaPorId(id);
             return _categoriaMapper.ConverterParaViewModel(categoria);
         }
 
-        public async Task<IEnumerable<CategoriaViewModel>> RetornarTodasCategorias()
+        public async Task<IEnumerable<CategoriaViewModel>> RetornarTodasCategorias(int pular, int quantItens)
         {
-            var categorias = await _categoriaRepository.RetornarTodasCategorias();
+            pular = pular < 1 ? 1 : pular;
+            quantItens = quantItens < 1 ? 20 : quantItens;
+            pular = (pular - 1) * quantItens;
+            var categorias = await _categoriaRepository.RetornarTodasCategorias(pular,quantItens);
             return _categoriaMapper.ConverterParaViewModel(categorias);
         }
     }

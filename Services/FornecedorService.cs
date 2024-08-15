@@ -62,11 +62,8 @@ namespace API_Avaliacao_Produtos_Servicos.Services
 
         public async Task<IEnumerable<FornecedorViewModel>> RetornarTodosFornecedores(int pular, int quantItens)
         {
-            // Garantir que o número da página e o tamanho sejam válidos
             pular = pular < 1 ? 1 : pular;
             quantItens = quantItens < 1 ? 20 : quantItens;
-
-            // Calcular quantos itens pular (skip)
             int skip = (pular - 1) * quantItens;
             var fornecedores = await _fornecedorRepository.RetornarTodosFornecedores(skip, quantItens);
             return _fornecedorMapper.ConverterParaViewModel(fornecedores);
