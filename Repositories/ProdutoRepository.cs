@@ -105,7 +105,7 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
 
         public async Task<int> QuantidadeProdutosAtivos()
         {
-            return await _context.Produtos.CountAsync();
+            return await _context.Produtos.CountAsync(x => !x.Deletado);
         }
 
         public Task<int> QuantidadePaginas(int totalItens, int itensPagina)

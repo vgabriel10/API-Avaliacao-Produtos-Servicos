@@ -1,5 +1,7 @@
 ﻿using API_Avaliacao_Produtos_Servicos.Models.InputModels;
+using API_Avaliacao_Produtos_Servicos.Models.Response;
 using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
+using API_Avaliacao_Produtos_Servicos.Services;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,13 +19,25 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpGet("fornecedor")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] int pagina = 1, [FromQuery] int itensPagina = 20)
         {
-            var fornecedores = await _fornecedorService.RetornarTodosFornecedores();
+            var fornecedores = await _fornecedorService.RetornarTodosFornecedores(pagina, itensPagina);
 
-            if(fornecedores != null ) 
-                return Ok(fornecedores);
-            return BadRequest();
+            if(fornecedores == null )
+                return BadRequest();
+
+            int totalItens = await _fornecedorService.QuantidadeFornecedoresAtivos();
+            int totalPaginas = await _fornecedorService.QuantidadePaginas(totalItens, itensPagina);
+
+            return Ok(new ApiResponse<FornecedorViewModel>
+            {
+                PaginaAtual = pagina,
+                ItensPagina = fornecedores.Count(),
+                TotalPaginas = totalPaginas,
+                TotalItens = totalItens,
+                Data = fornecedores,
+                Success = true,
+            });
         }
 
         [HttpGet("fornecedor/{id}")]

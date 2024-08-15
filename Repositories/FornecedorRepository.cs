@@ -56,14 +56,28 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<int> QuantidadeFornecedoresAtivos()
+        {
+            return await _context.Fornecedores.CountAsync(x => !x.Deletado);
+        }
+
+        public async Task<int> QuantidadePaginas(int totalRegistros, int itensPagina)
+        {
+            int totalPaginas = (int)Math.Ceiling((double)totalRegistros / itensPagina);
+            return await Task.FromResult(totalPaginas);
+        }
+
         public async Task<Fornecedor> RetornarFornecedorPorId(int id)
         {
             return await _context.Fornecedores.FirstOrDefaultAsync(x => x.Id == id && x.Deletado == false);
         }
 
-        public async Task<IEnumerable<Fornecedor>> RetornarTodosFornecedores()
+        public async Task<IEnumerable<Fornecedor>> RetornarTodosFornecedores(int pular, int quantItens)
         {
-            return await _context.Fornecedores.Where(x => x.Deletado == false).ToListAsync();
+            return await _context.Fornecedores.Where(x => x.Deletado == false)
+                .Skip(pular)
+                .Take(quantItens)
+                .ToListAsync();
         }
     }
 }

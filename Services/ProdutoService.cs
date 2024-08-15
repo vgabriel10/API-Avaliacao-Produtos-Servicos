@@ -46,7 +46,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
         {
             // Garantir que o número da página e o tamanho sejam válidos
             pagina = pagina < 1 ? 1 : pagina;
-            itensPagina = itensPagina < 1 ? 10 : itensPagina;
+            itensPagina = itensPagina < 1 ? 20 : itensPagina;
 
             // Calcular quantos itens pular (skip)
             int skip = (pagina - 1) * itensPagina;
