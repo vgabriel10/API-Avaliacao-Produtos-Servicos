@@ -53,6 +53,21 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             }
         }
 
+        public async Task<int> QuantidadeAvaliacoesAtivas()
+        {
+            return await _avaliacaoRepository.QuantidadeAvaliacoesAtivas();
+        }
+
+        public async Task<int> QuantidadeAvaliacoesDoProduto(int idProduto)
+        {
+            return await _avaliacaoRepository.QuantidadeAvaliacoesDoProduto(idProduto);
+        }
+
+        public async Task<int> QuantidadePaginas(int totalRegistros, int itensPagina)
+        {
+            return await _avaliacaoRepository.QuantidadePaginas(totalRegistros, itensPagina);
+        }
+
         public async Task RemoverAvaliacao(int idAvaliacao)
         {
             await _avaliacaoRepository.RemoverAvaliacao(idAvaliacao);
@@ -63,15 +78,21 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<AvaliacaoViewModel>> RetornaAvaliacoesDoProduto(int idProduto)
+        public async Task<IEnumerable<AvaliacaoViewModel>> RetornaAvaliacoesDoProduto(int idProduto, int pular, int quantItens)
         {
-            var avaliacoes = await _avaliacaoRepository.RetornaAvaliacoesDoProduto(idProduto);
+            pular = pular < 1 ? 1 : pular;
+            quantItens = quantItens < 1 ? 20 : quantItens;
+            pular = (pular - 1) * quantItens;
+            var avaliacoes = await _avaliacaoRepository.RetornaAvaliacoesDoProduto(idProduto,pular,quantItens);
             return _avaliacaoMapper.ConverterParaViewModel(avaliacoes);
         }
 
-        public async Task<IEnumerable<AvaliacaoViewModel>> RetornaTodasAvaliacoes()
+        public async Task<IEnumerable<AvaliacaoViewModel>> RetornaTodasAvaliacoes(int pular, int quantItens)
         {
-            var avaliacoes = await _avaliacaoRepository.RetornaTodasAvaliacoes();
+            pular = pular < 1 ? 1 : pular;
+            quantItens = quantItens < 1 ? 20 : quantItens;
+            pular = (pular - 1) * quantItens;
+            var avaliacoes = await _avaliacaoRepository.RetornaTodasAvaliacoes(pular, quantItens);
             return _avaliacaoMapper.ConverterParaViewModel(avaliacoes);
         }
     }

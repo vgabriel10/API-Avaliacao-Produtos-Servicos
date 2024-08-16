@@ -2,6 +2,8 @@
 using API_Avaliacao_Produtos_Servicos.Exceptions;
 using API_Avaliacao_Produtos_Servicos.Models;
 using API_Avaliacao_Produtos_Servicos.Models.InputModels;
+using API_Avaliacao_Produtos_Servicos.Models.Response;
+using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Services;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
@@ -27,23 +29,46 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpGet("avaliacao")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] int pagina = 1, [FromQuery] int itensPagina = 20)
         {
-            var todasAvaliacoes = await _avaliacaoService.RetornaTodasAvaliacoes();
-            if (todasAvaliacoes != null)
-                return Ok(todasAvaliacoes);
+            var todasAvaliacoes = await _avaliacaoService.RetornaTodasAvaliacoes(pagina,itensPagina);
+            if (todasAvaliacoes == null)
+                return BadRequest();
 
-            return BadRequest();
+            int totalItens = await _avaliacaoService.QuantidadeAvaliacoesAtivas();
+            int totalPaginas = await _avaliacaoService.QuantidadePaginas(totalItens, itensPagina);
+            return Ok(new ApiResponse<AvaliacaoViewModel>
+            {
+                PaginaAtual = pagina,
+                ItensPagina = todasAvaliacoes.Count(),
+                TotalPaginas = totalPaginas,
+                TotalItens = totalItens,
+                Data = todasAvaliacoes,
+                Success = true,
+            });
         }
 
         [HttpGet("avaliacao/{idProduto}")]
-        public async Task<IActionResult> Get(int idProduto)
+        public async Task<IActionResult> Get([FromRoute] int idProduto, [FromQuery] int pagina = 1, [FromQuery] int itensPagina = 20)
         {
-            var avaliacoesDoProduto = await _avaliacaoService.RetornaAvaliacoesDoProduto(idProduto);
-            if (avaliacoesDoProduto != null)
-                return Ok(avaliacoesDoProduto);
+            var avaliacoesDoProduto = await _avaliacaoService.RetornaAvaliacoesDoProduto(idProduto, pagina , itensPagina);
+            if (avaliacoesDoProduto == null)
+                return NotFound();
 
-            return NotFound();
+            int totalItens = await _avaliacaoService.QuantidadeAvaliacoesDoProduto(idProduto);
+            int totalPaginas = await _avaliacaoService.QuantidadePaginas(totalItens, itensPagina);
+
+            return Ok(new ApiResponse<AvaliacaoViewModel>
+            {
+                PaginaAtual = pagina,
+                ItensPagina = avaliacoesDoProduto.Count(),
+                TotalPaginas = totalPaginas,
+                TotalItens = totalItens,
+                Data = avaliacoesDoProduto,
+                Success = true,
+            });
+
+            
         }
 
         [HttpPost("avaliacao")]
