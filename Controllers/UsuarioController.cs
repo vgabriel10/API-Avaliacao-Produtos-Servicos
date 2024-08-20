@@ -1,5 +1,6 @@
 ﻿using API_Avaliacao_Produtos_Servicos.Models;
 using API_Avaliacao_Produtos_Servicos.Models.InputModels;
+using API_Avaliacao_Produtos_Servicos.Models.Response;
 using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
@@ -20,9 +21,21 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpGet("usuario")]
-        public async Task<IEnumerable<UsuarioViewModel>> Get()
+        public async Task<ApiResponse<UsuarioViewModel>> Get([FromQuery] int pagina = 1, [FromQuery] int itensPagina = 20)
         {
-            return await _usuarioService.RetornarTodosUsuarios();
+            var usuarios = await _usuarioService.RetornarTodosUsuarios(pagina, itensPagina);
+            int totalItens = await _usuarioService.QuantidadeUsuariosAtivos();
+            int totalPaginas = await _usuarioService.QuantidadePaginas(totalItens,itensPagina);
+
+            return new ApiResponse<UsuarioViewModel>
+            {
+                PaginaAtual = pagina,
+                ItensPagina = usuarios.Count(),
+                TotalPaginas = totalPaginas,
+                TotalItens = totalItens,
+                Data = usuarios,
+                Success = true,                
+            };
         }
 
         [HttpGet("usuario/{id}")]

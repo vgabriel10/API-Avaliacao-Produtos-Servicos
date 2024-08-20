@@ -2,8 +2,10 @@
 using API_Avaliacao_Produtos_Servicos.Exceptions;
 using API_Avaliacao_Produtos_Servicos.Models;
 using API_Avaliacao_Produtos_Servicos.Models.InputModels;
+using API_Avaliacao_Produtos_Servicos.Models.Response;
 using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
+using API_Avaliacao_Produtos_Servicos.Services;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
@@ -26,13 +28,27 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpGet("produto")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] int pagina = 1, [FromQuery] int itensPagina = 20)
         {
-            var response = await _produtoService.GetAllProdutos();
-            if(response != null)
-                return Ok(response);
+            var response = await _produtoService.GetAllProdutos(pagina,itensPagina);
+            if(response == null)
+                return BadRequest();
 
-            return BadRequest();
+            int totalItens = await _produtoService.QuantidadeProdutosAtivos();
+            int totalPaginas = await _produtoService.QuantidadePaginas(totalItens, itensPagina);
+
+            return Ok(new ApiResponse<ProdutoViewModel>
+            {
+                PaginaAtual = pagina,
+                ItensPagina = response.Count(),
+                TotalPaginas = totalPaginas,
+                TotalItens = totalItens,
+                Data = response,
+                Success = true,
+            });
+            
+
+            
         }
 
         [HttpGet("produto/{id}")]

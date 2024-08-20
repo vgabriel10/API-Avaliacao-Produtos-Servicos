@@ -53,14 +53,31 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             return categoriaExistente;
         }
 
+        public async Task<int> QuantidadeCategoriasAtivas()
+        {
+            return await _context.Categorias.CountAsync(x => !x.Deletado);
+        }
+
+        public async Task<int> QuantidadePaginas(int totalRegistros, int itensPagina)
+        {
+            int totalPaginas = (int)Math.Ceiling((double)totalRegistros / itensPagina);
+            if (totalPaginas < 0)
+                totalPaginas = 1;
+            return await Task.FromResult(totalPaginas);
+        }
+
         public async Task<Categoria> RetornarCategoriaPorId(int id)
         {
             return await _context.Categorias.FirstOrDefaultAsync(x => x.Id == id && !x.Deletado);
         }
 
-        public async Task<IEnumerable<Categoria>> RetornarTodasCategorias()
+        public async Task<IEnumerable<Categoria>> RetornarTodasCategorias(int pular, int quantItens)
         {
-            return await _context.Categorias.Where(x => !x.Deletado).ToListAsync();
+            return await _context.Categorias
+                .Where(x => !x.Deletado)
+                .Skip(pular)
+                .Take(quantItens)
+                .ToListAsync();
         }
     }
 }

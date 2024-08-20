@@ -47,6 +47,29 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             return avaliacao;
         }
 
+        public async Task<int> QuantidadeAvaliacoesAtivas()
+        {
+            return await _context.Avaliacoes.CountAsync();
+        }
+
+        public async Task<int> QuantidadeAvaliacoesDoProduto(int idProduto)
+        {
+            var avaliacoesProduto = await _context.Avaliacoes
+                .Where(x => x.Produto.Id == idProduto)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return avaliacoesProduto.Count() > 0 ? avaliacoesProduto.Count() : 0;
+        }
+
+        public async Task<int> QuantidadePaginas(int totalRegistros, int itensPagina)
+        {
+            int totalPaginas = (int)Math.Ceiling((double)totalRegistros / itensPagina);
+            if (totalPaginas < 0)
+                totalPaginas = 1;
+            return await Task.FromResult(totalPaginas);
+        }
+
         public async Task RemoverAvaliacao(int idAvaliacao)
         {
             var avaliacao = await _context.Avaliacoes.FirstOrDefaultAsync(x => x.Id == idAvaliacao);
@@ -63,18 +86,22 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             return await _context.Avaliacoes.FirstOrDefaultAsync(x => x.Id == idAvaliacao);
         }
 
-        public async Task<IEnumerable<Avaliacao>> RetornaAvaliacoesDoProduto(int idProduto)
+        public async Task<IEnumerable<Avaliacao>> RetornaAvaliacoesDoProduto(int idProduto, int pular, int quantItens)
         {
             return await _context.Avaliacoes
+                .Skip(pular)
+                .Take(quantItens)
                 .Include(p => p.Produto)
                 .Include(u => u.Usuario)
                 .Where(x => x.ProdutoId == idProduto)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Avaliacao>> RetornaTodasAvaliacoes()
+        public async Task<IEnumerable<Avaliacao>> RetornaTodasAvaliacoes(int pular, int quantItens)
         {
             return await _context.Avaliacoes
+                .Skip(pular)
+                .Take(quantItens)
                 .Include(p => p.Produto)
                 .Include(u => u.Usuario)
                 .ToListAsync();

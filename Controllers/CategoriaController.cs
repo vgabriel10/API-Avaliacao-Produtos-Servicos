@@ -1,4 +1,8 @@
-﻿using API_Avaliacao_Produtos_Servicos.Models.InputModels;
+﻿using API_Avaliacao_Produtos_Servicos.Models;
+using API_Avaliacao_Produtos_Servicos.Models.InputModels;
+using API_Avaliacao_Produtos_Servicos.Models.Response;
+using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
+using API_Avaliacao_Produtos_Servicos.Services;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,14 +20,24 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpGet("categoria")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] int pagina = 1, [FromQuery] int itensPagina = 20)
         {
-            var result = await _categoriaService.RetornarTodasCategorias();
-            if (result != null)
-                return Ok(result);
+            var result = await _categoriaService.RetornarTodasCategorias(pagina, itensPagina);
+            if (result == null)
+                return BadRequest();
 
-            return BadRequest();
-            
+            int totalItens = await _categoriaService.QuantidadeCategoriasAtivas();
+            int totalPaginas = await _categoriaService.QuantidadePaginas(totalItens, itensPagina);
+
+            return Ok( new ApiResponse<CategoriaViewModel>
+            {
+                PaginaAtual = pagina,
+                ItensPagina = result.Count(),
+                TotalPaginas = totalPaginas,
+                TotalItens = totalItens,
+                Data = result,
+                Success = true,
+            });                        
         }
 
         [HttpGet("categoria/{id}")]

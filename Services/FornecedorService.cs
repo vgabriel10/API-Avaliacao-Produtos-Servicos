@@ -60,10 +60,23 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             return _fornecedorMapper.ConverterParaViewModel(fornecedor);
         }
 
-        public async Task<IEnumerable<FornecedorViewModel>> RetornarTodosFornecedores()
+        public async Task<IEnumerable<FornecedorViewModel>> RetornarTodosFornecedores(int pular, int quantItens)
         {
-            var fornecedores = await _fornecedorRepository.RetornarTodosFornecedores();
+            pular = pular < 1 ? 1 : pular;
+            quantItens = quantItens < 1 ? 20 : quantItens;
+            int skip = (pular - 1) * quantItens;
+            var fornecedores = await _fornecedorRepository.RetornarTodosFornecedores(skip, quantItens);
             return _fornecedorMapper.ConverterParaViewModel(fornecedores);
+        }
+
+        public async Task<int> QuantidadeFornecedoresAtivos()
+        {
+            return await _fornecedorRepository.QuantidadeFornecedoresAtivos();
+        }
+
+        public async Task<int> QuantidadePaginas(int totalRegistros, int itensPagina)
+        {
+            return await _fornecedorRepository.QuantidadePaginas(totalRegistros, itensPagina);
         }
     }
 }

@@ -15,13 +15,15 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             _context = context;
         }       
 
-        public async Task<IEnumerable<Produto>> FindAll()
+        public async Task<IEnumerable<Produto>> FindAll(int skip, int take)
         {
             try
             {
                 var produtos = await _context.Produtos
                     .Include(x => x.Fornecedor)
                     .Include(x => x.Categoria)
+                    .Skip(skip)
+                    .Take(take)
                     .ToListAsync();
                 return produtos;
             }
@@ -99,6 +101,19 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             _context.Entry(produto).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return produto;
+        }
+
+        public async Task<int> QuantidadeProdutosAtivos()
+        {
+            return await _context.Produtos.CountAsync(x => !x.Deletado);
+        }
+
+        public Task<int> QuantidadePaginas(int totalItens, int itensPagina)
+        {
+            int totalPaginas = (int)Math.Ceiling((double)totalItens / itensPagina);
+            if (totalPaginas < 0)
+                totalPaginas = 1;
+            return Task.FromResult(totalPaginas);
         }
     }
 }

@@ -34,9 +34,16 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             }           
         }
 
-        public async Task<IEnumerable<Usuario>> RetornarTodosUsuarios()
+        public async Task<IEnumerable<Usuario>> RetornarTodosUsuarios(int pagina = 1, int itensPagina = 20)
         {
-            return await _context.Usuarios.ToListAsync();
+            //// Garantir que o número da página e o tamanho sejam válidos
+            //pagina = pagina < 1 ? 1 : pagina;
+            //itensPagina = itensPagina < 1 ? 10 : itensPagina;
+
+            //// Calcular quantos itens pular (skip)
+            //int pular = (pagina - 1) * itensPagina;
+
+            return await _context.Usuarios.Skip(pagina).Take(itensPagina).ToListAsync();
         }
 
         public async Task<Usuario> BuscarUsuarioPorId(int id)
@@ -80,6 +87,19 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             await _context.SaveChangesAsync();
 
             return usuarioExistente;
+        }
+
+        public async Task<int> QuantidadeUsuariosAtivos()
+        {
+            return await _context.Usuarios.CountAsync(x => !x.Deletado);
+        }
+
+        public Task<int> QuantidadePaginas(int totalRegistros, int itensPagina)
+        {
+            int totalPaginas = (int)Math.Ceiling((double)totalRegistros / itensPagina);
+            if (totalPaginas < 0)
+                totalPaginas = 1;
+            return Task.FromResult(totalPaginas);
         }
     }
 }
