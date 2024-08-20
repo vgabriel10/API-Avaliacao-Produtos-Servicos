@@ -1,13 +1,10 @@
 ﻿using API_Avaliacao_Produtos_Servicos.Enums;
 using API_Avaliacao_Produtos_Servicos.Exceptions;
-using API_Avaliacao_Produtos_Servicos.Models;
 using API_Avaliacao_Produtos_Servicos.Models.InputModels;
 using API_Avaliacao_Produtos_Servicos.Models.Mappers.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
-using API_Avaliacao_Produtos_Servicos.Repositories;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 
 namespace API_Avaliacao_Produtos_Servicos.Services
 {
