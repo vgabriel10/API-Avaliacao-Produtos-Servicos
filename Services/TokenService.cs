@@ -18,7 +18,16 @@ namespace API_Avaliacao_Produtos_Servicos.Services
 
         public ClaimsIdentity GerarClaims(UsuarioLogin usuario)
         {
-            throw new NotImplementedException();
+            var ci = new ClaimsIdentity();
+            ci.AddClaim(
+                new Claim(ClaimTypes.Name, usuario.Nome));
+
+            foreach (var role in usuario.Roles)
+            {
+                ci.AddClaim(new Claim (ClaimTypes.Role, role));
+            }
+
+            return ci;
         }
 
         public string GerarToken(UsuarioLogin usuario)
@@ -33,6 +42,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
+                Subject = GerarClaims(usuario),
                 SigningCredentials = credenciais,
                 Expires = DateTime.UtcNow.AddHours(2)
             };
