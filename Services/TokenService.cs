@@ -44,7 +44,9 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             {
                 Subject = GerarClaims(usuario),
                 SigningCredentials = credenciais,
-                Expires = DateTime.UtcNow.AddHours(2)
+                Expires = DateTime.UtcNow.AddHours(2),
+                Audience = _configuration["Jwt:Audience"],
+                Issuer = _configuration["Jwt:Issuer"]
             };
 
             var token = handler.CreateToken(tokenDescriptor);
