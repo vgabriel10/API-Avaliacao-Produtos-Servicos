@@ -9,5 +9,6 @@ namespace API_Avaliacao_Produtos_Servicos.Services.Interfaces
         Task<UsuarioLoginViewModel> CadastrarUsuario(CreateUsuarioLoginInputModel usuarioLogin);
         Task AdicionarRolePadrao(UsuarioLogin usuarioLogin);
         Task<bool> UsuarioTemCadastro(UsuarioLogin usuarioLogin);
+        Task<IEnumerable<string>> RetornarRolesDoUsuario(int idUsuario);
     }
 }

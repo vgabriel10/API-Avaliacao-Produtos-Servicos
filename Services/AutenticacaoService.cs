@@ -39,5 +39,10 @@ namespace API_Avaliacao_Produtos_Servicos.Services
         {
             throw new NotImplementedException();
         }
+
+        public Task<IEnumerable<string>> RetornarRolesDoUsuario(int idUsuario)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
