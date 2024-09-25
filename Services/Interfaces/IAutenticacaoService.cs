@@ -7,5 +7,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services.Interfaces
     public interface IAutenticacaoService
     {
         Task<UsuarioLoginViewModel> CadastrarUsuario(CreateUsuarioLoginInputModel usuarioLogin);
+        Task AdicionarRolePadrao(UsuarioLogin usuarioLogin);
+        Task<bool> UsuarioTemCadastro(UsuarioLogin usuarioLogin);
     }
 }

@@ -7,7 +7,7 @@ namespace API_Avaliacao_Produtos_Servicos.Models.Mappers.Interfaces
     {
         UsuarioLogin ConverterParaEntidade(CreateUsuarioLoginInputModel inputModel);
         UsuarioLogin ConverterParaEntidade(UpdateUsuarioLoginInputModel inputModel);
-        CategoriaViewModel ConverterParaViewModel(UsuarioLogin entidade);
+        UsuarioLoginViewModel ConverterParaViewModel(UsuarioLogin entidade);
         IEnumerable<UsuarioLoginViewModel> ConverterParaViewModel(IEnumerable<UsuarioLogin> entidades);
     }
 }

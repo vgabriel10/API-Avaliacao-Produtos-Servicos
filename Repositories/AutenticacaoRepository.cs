@@ -14,9 +14,26 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
         }
         public async Task<UsuarioLogin> CadastrarUsuario(UsuarioLogin usuarioLogin)
         {
-            _context.AddAsync(usuarioLogin);
-            _context.SaveChangesAsync();
+            await _context.AddAsync(usuarioLogin);
+            await _context.SaveChangesAsync();
             return usuarioLogin;
+        }
+
+        public async Task AdicionarRolePadrao(UsuarioLogin usuarioLogin)
+        {
+            var usuarioRole = new UsuarioRole
+            {
+                RoleId = 2,
+                UsuarioId = usuarioLogin.Id
+            };
+
+            await _context.UsuarioRoles.AddAsync(usuarioRole);
+            await _context.SaveChangesAsync();
+        }
+
+        public Task<bool> UsuarioTemCadastro(UsuarioLogin usuarioLogin)
+        {
+            throw new NotImplementedException();
         }
     }
 }

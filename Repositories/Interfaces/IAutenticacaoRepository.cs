@@ -5,6 +5,8 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories.Interfaces
 {
     public interface IAutenticacaoRepository
     {
-        Task<UsuarioLogin> CadastrarUsuario(UsuarioLogin usuarioLogin); 
+        Task<UsuarioLogin> CadastrarUsuario(UsuarioLogin usuarioLogin);
+        Task AdicionarRolePadrao(UsuarioLogin usuarioLogin);
+        Task<bool> UsuarioTemCadastro(UsuarioLogin usuarioLogin);
     }
 }

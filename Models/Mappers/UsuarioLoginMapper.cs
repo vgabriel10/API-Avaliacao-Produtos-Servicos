@@ -8,22 +8,40 @@ namespace API_Avaliacao_Produtos_Servicos.Models.Mappers
     {
         public UsuarioLogin ConverterParaEntidade(CreateUsuarioLoginInputModel inputModel)
         {
-            throw new NotImplementedException();
+            return new UsuarioLogin
+            {
+                Email = inputModel.Email,
+                Senha = inputModel.Senha,
+            };
         }
 
         public UsuarioLogin ConverterParaEntidade(UpdateUsuarioLoginInputModel inputModel)
         {
-            throw new NotImplementedException();
+            return new UsuarioLogin
+            {
+                Email = inputModel.Email,
+                Senha = inputModel.Senha,
+            };
         }
 
-        public CategoriaViewModel ConverterParaViewModel(UsuarioLogin entidade)
+        public UsuarioLoginViewModel ConverterParaViewModel(UsuarioLogin entidade)
         {
-            throw new NotImplementedException();
+            return new UsuarioLoginViewModel
+            {
+                Email = entidade.Email,
+                Senha = entidade.Senha,
+            };
         }
 
         public IEnumerable<UsuarioLoginViewModel> ConverterParaViewModel(IEnumerable<UsuarioLogin> entidades)
         {
-            throw new NotImplementedException();
+            List<UsuarioLoginViewModel> usuariosViewModels = new List<UsuarioLoginViewModel>();
+            foreach (var usuario in entidades)
+            {
+                usuariosViewModels.Add(ConverterParaViewModel(usuario));
+            }
+
+            return usuariosViewModels;
         }
     }
 }
