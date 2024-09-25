@@ -44,6 +44,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddTransient<ITokenService, TokenService>();
 
+builder.Services.AddScoped<IAutenticacaoService, AutenticacaoService>();
+builder.Services.AddScoped<IAutenticacaoRepository, AutenticacaoRepository>();
+
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 
@@ -60,6 +63,7 @@ builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 
 #region Mappers
+builder.Services.AddScoped<IUsuarioLoginMapper, UsuarioLoginMapper>();
 builder.Services.AddScoped<IAvaliacaoMapper,AvaliacaoMapper>();
 builder.Services.AddScoped<IFornecedorMapper, FornecedorMapper>();
 builder.Services.AddScoped<IUsuarioMapper, UsuarioMapper>();

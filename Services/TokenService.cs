@@ -20,12 +20,14 @@ namespace API_Avaliacao_Produtos_Servicos.Services
         {
             var ci = new ClaimsIdentity();
             ci.AddClaim(
-                new Claim(ClaimTypes.Name, usuario.Nome));
+                new Claim(ClaimTypes.Email, usuario.Email));
 
-            foreach (var role in usuario.Roles)
-            {
-                ci.AddClaim(new Claim (ClaimTypes.Role, role));
-            }
+            // Comentado para fazer ajuste nas entidades
+
+            //foreach (var role in usuario.Roles)
+            //{
+            //    ci.AddClaim(new Claim (ClaimTypes.Role, role));
+            //}
 
             return ci;
         }

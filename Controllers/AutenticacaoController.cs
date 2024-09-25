@@ -1,4 +1,5 @@
 ﻿using API_Avaliacao_Produtos_Servicos.Models;
+using API_Avaliacao_Produtos_Servicos.Models.InputModels;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +10,12 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
     public class AutenticacaoController : ControllerBase
     {
         private readonly ITokenService _tokenService;
+        private readonly IAutenticacaoService _autenticacaoService;
 
-        public AutenticacaoController(ITokenService tokenService)
+        public AutenticacaoController(ITokenService tokenService, IAutenticacaoService autenticacaoService)
         {
             _tokenService = tokenService;
+            _autenticacaoService = autenticacaoService;
         }
 
         [HttpPost("GerarToken")]
@@ -29,5 +32,20 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             }
             
         }
+
+        [HttpPost("CriarConta")]
+        public async Task<IActionResult> CriarContaUsuario([FromBody] CreateUsuarioLoginInputModel usuarioLogin)
+        {
+            try
+            {
+                var result = await _autenticacaoService.CadastrarUsuario(usuarioLogin);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }

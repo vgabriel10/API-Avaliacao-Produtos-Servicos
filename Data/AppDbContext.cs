@@ -14,6 +14,10 @@ namespace API_Avaliacao_Produtos_Servicos.Data
         public DbSet<Avaliacao> Avaliacoes { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
 
+        public DbSet<UsuarioLogin> UsuariosLogin { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<UsuarioRole> UsuarioRoles { get; set; }
+
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 
@@ -178,6 +182,57 @@ namespace API_Avaliacao_Produtos_Servicos.Data
 
 
             #endregion
+
+            #region UsuarioLogin
+
+            modelBuilder.Entity<UsuarioLogin>()
+                .HasKey(x => x.Id);
+
+            modelBuilder.Entity<UsuarioLogin>()
+                .Property(x => x.Email)
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(70);
+
+            modelBuilder.Entity<UsuarioLogin>()
+                .Property(x => x.Senha)
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(100);
+
+
+
+            #endregion
+
+            #region Role
+
+            modelBuilder.Entity<Role>()
+                .HasKey(x => x.Id);
+
+            modelBuilder.Entity<Role>()
+                .Property(x => x.Nome)
+                .HasColumnType("VARCHAR")
+                .HasMaxLength(20);
+
+            #endregion
+
+            #region UsuarioRole
+
+            // Configurando relacionamento N:N entre UsuarioLogin e Role
+            modelBuilder.Entity<UsuarioRole>()
+                .HasKey(ur => new { ur.UsuarioId, ur.RoleId }); // Chave composta
+
+            modelBuilder.Entity<UsuarioRole>()
+                .HasOne(ur => ur.Usuario)
+                .WithMany(u => u.UsuarioRoles)
+                .HasForeignKey(ur => ur.UsuarioId);
+
+            modelBuilder.Entity<UsuarioRole>()
+                .HasOne(ur => ur.Role)
+                .WithMany(r => r.UsuarioRoles)
+                .HasForeignKey(ur => ur.RoleId);
+
+            #endregion
+
+            
 
         }
     }
