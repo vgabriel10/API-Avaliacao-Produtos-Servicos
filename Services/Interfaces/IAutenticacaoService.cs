@@ -11,6 +11,6 @@ namespace API_Avaliacao_Produtos_Servicos.Services.Interfaces
         Task<bool> UsuarioTemCadastro(UsuarioLogin usuarioLogin);
         Task<IEnumerable<string>> RetornarRolesDoUsuario(int idUsuario);
         Task<UsuarioLogin> RetornarUsuarioLoginComRolesPorEmail(string email);
-        Task<UsuarioLoginInputModel> RetornarUsuarioLoginComRolesPorLogin(UsuarioLogin usuarioLogin);
+        Task<UsuarioLogin> RetornarUsuarioLoginComRolesPorLogin(UsuarioLoginInputModel usuarioLogin);
     }
 }
