@@ -1,4 +1,5 @@
 ﻿using API_Avaliacao_Produtos_Servicos.Models;
+using API_Avaliacao_Produtos_Servicos.Models.InputModels;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -32,7 +33,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             return ci;
         }
 
-        public string GerarToken(UsuarioLogin usuario)
+        public string GerarToken(CreateUsuarioLoginInputModel usuario)
         {
             var handler = new JwtSecurityTokenHandler();
 

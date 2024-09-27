@@ -9,5 +9,7 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories.Interfaces
         Task AdicionarRolePadrao(UsuarioLogin usuarioLogin);
         Task<bool> UsuarioTemCadastro(UsuarioLogin usuarioLogin);
         Task<IEnumerable<string>> RetornarRolesDoUsuario(int idUsuario);
+        Task<UsuarioLogin> RetornarUsuarioLoginComRolesPorEmail(string email);
+        Task<UsuarioLogin> RetornarUsuarioLoginComRolesPorLogin(UsuarioLogin usuarioLogin);
     }
 }

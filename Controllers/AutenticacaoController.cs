@@ -19,10 +19,11 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpPost("GerarToken")]
-        public async Task<IActionResult> GerarToken([FromBody] UsuarioLogin usuarioLogin)
+        public async Task<IActionResult> GerarToken([FromBody] UsuarioLoginInputModel usuarioLogin)
         {
             try
             {
+                var usuario = await _autenticacaoService.RetornarUsuarioLoginComRolesPorLogin(usuarioLogin)
                 var token = _tokenService.GerarToken(usuarioLogin);
                 return Ok(token);
             }

@@ -35,14 +35,25 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             await _autenticacaoRepository.AdicionarRolePadrao(usuarioLogin);
         }
 
-        public Task<bool> UsuarioTemCadastro(UsuarioLogin usuarioLogin)
+        public async Task<bool> UsuarioTemCadastro(UsuarioLogin usuarioLogin)
         {
-            throw new NotImplementedException();
+            return await _autenticacaoRepository.UsuarioTemCadastro(usuarioLogin);
         }
 
         public Task<IEnumerable<string>> RetornarRolesDoUsuario(int idUsuario)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<UsuarioLogin> RetornarUsuarioLoginComRolesPorEmail(string email)
+        {
+            return await _autenticacaoRepository.RetornarUsuarioLoginComRolesPorEmail(email);
+        }
+
+        public async Task<UsuarioLogin> RetornarUsuarioLoginComRolesPorLogin(UsuarioLoginInputModel usuarioLogin)
+        {
+            var usuario = _usuarioLoginMapper.ConverterParaEntidade(usuarioLogin);
+            return await _autenticacaoRepository.RetornarUsuarioLoginComRolesPorLogin(usuario);
         }
     }
 }

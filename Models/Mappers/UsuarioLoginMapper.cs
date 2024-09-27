@@ -24,6 +24,15 @@ namespace API_Avaliacao_Produtos_Servicos.Models.Mappers
             };
         }
 
+        public UsuarioLogin ConverterParaEntidade(UsuarioLoginInputModel inputModel)
+        {
+            return new UsuarioLogin
+            {
+                Email = inputModel.Email,
+                Senha = inputModel.Senha
+            };
+        }
+
         public UsuarioLoginViewModel ConverterParaViewModel(UsuarioLogin entidade)
         {
             return new UsuarioLoginViewModel

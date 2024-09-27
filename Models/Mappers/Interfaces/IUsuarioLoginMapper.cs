@@ -5,6 +5,7 @@ namespace API_Avaliacao_Produtos_Servicos.Models.Mappers.Interfaces
 {
     public interface IUsuarioLoginMapper
     {
+        UsuarioLogin ConverterParaEntidade(UsuarioLoginInputModel inputModel);
         UsuarioLogin ConverterParaEntidade(CreateUsuarioLoginInputModel inputModel);
         UsuarioLogin ConverterParaEntidade(UpdateUsuarioLoginInputModel inputModel);
         UsuarioLoginViewModel ConverterParaViewModel(UsuarioLogin entidade);

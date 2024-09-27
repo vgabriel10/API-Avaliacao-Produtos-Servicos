@@ -2,6 +2,7 @@
 using API_Avaliacao_Produtos_Servicos.Models;
 using API_Avaliacao_Produtos_Servicos.Models.InputModels;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace API_Avaliacao_Produtos_Servicos.Repositories
 {
@@ -31,14 +32,32 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public Task<bool> UsuarioTemCadastro(UsuarioLogin usuarioLogin)
+        public async Task<bool> UsuarioTemCadastro(UsuarioLogin usuarioLogin)
         {
-            throw new NotImplementedException();
+            var usuario = await _context.UsuariosLogin.FirstOrDefaultAsync(x => x.Email == usuarioLogin.Email);
+            if (usuario == null)
+                return false;
+
+            return true;
         }
 
         public Task<IEnumerable<string>> RetornarRolesDoUsuario(int idUsuario)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<UsuarioLogin> RetornarUsuarioLoginComRolesPorEmail(string email)
+        {
+            return await _context.UsuariosLogin
+                .Include(x => x.UsuarioRoles)
+                .FirstOrDefaultAsync(x => x.Email == email);
+        }
+
+        public async Task<UsuarioLogin> RetornarUsuarioLoginComRolesPorLogin(UsuarioLogin usuarioLogin)
+        {
+            return await _context.UsuariosLogin
+                .Include(x => x.UsuarioRoles)
+                .FirstOrDefaultAsync(x => x.Email == usuarioLogin.Email && x.Senha == usuarioLogin.Senha);
         }
     }
 }
