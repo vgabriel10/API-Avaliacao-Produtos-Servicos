@@ -6,6 +6,7 @@ using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Validators;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_Avaliacao_Produtos_Servicos.Controllers
@@ -20,6 +21,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             _usuarioService = usuarioService;
         }
 
+        [Authorize]
         [HttpGet("usuario")]
         public async Task<ApiResponse<UsuarioViewModel>> Get([FromQuery] int pagina = 1, [FromQuery] int itensPagina = 20)
         {

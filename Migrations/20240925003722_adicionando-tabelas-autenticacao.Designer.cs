@@ -3,6 +3,7 @@ using System;
 using API_Avaliacao_Produtos_Servicos.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API_Avaliacao_Produtos_Servicos.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240925003722_adicionando-tabelas-autenticacao")]
+    partial class adicionandotabelasautenticacao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,18 +183,6 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Nome = "Admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Nome = "User"
-                        });
                 });
 
             modelBuilder.Entity("API_Avaliacao_Produtos_Servicos.Models.Usuario", b =>
@@ -248,6 +239,10 @@ namespace API_Avaliacao_Produtos_Servicos.Migrations
                         .IsRequired()
                         .HasMaxLength(70)
                         .HasColumnType("VARCHAR");
+
+                    b.Property<string[]>("Roles")
+                        .IsRequired()
+                        .HasColumnType("text[]");
 
                     b.Property<string>("Senha")
                         .IsRequired()
