@@ -18,7 +18,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             _autenticacaoService = autenticacaoService;
         }
 
-        [HttpPost("GerarToken")]
+        [HttpPost("login")]
         public async Task<IActionResult> GerarToken([FromBody] UsuarioLoginInputModel usuarioLogin)
         {
             try
@@ -37,7 +37,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             
         }
 
-        [HttpPost("CriarConta")]
+        [HttpPost("criar-conta")]
         public async Task<IActionResult> CriarContaUsuario([FromBody] CreateUsuarioLoginInputModel usuarioLogin)
         {
             try
