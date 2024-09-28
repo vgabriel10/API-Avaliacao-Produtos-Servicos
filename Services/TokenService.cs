@@ -23,17 +23,15 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             ci.AddClaim(
                 new Claim(ClaimTypes.Email, usuario.Email));
 
-            // Comentado para fazer ajuste nas entidades
-
-            //foreach (var role in usuario.Roles)
-            //{
-            //    ci.AddClaim(new Claim (ClaimTypes.Role, role));
-            //}
+            foreach (var role in usuario.UsuarioRoles)
+            {
+                ci.AddClaim(new Claim(ClaimTypes.Role, role.Role.Nome));
+            }
 
             return ci;
         }
 
-        public string GerarToken(CreateUsuarioLoginInputModel usuario)
+        public string GerarToken(UsuarioLogin usuario)
         {
             var handler = new JwtSecurityTokenHandler();
 

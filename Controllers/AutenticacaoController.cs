@@ -23,8 +23,11 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         {
             try
             {
-                var usuario = await _autenticacaoService.RetornarUsuarioLoginComRolesPorLogin(usuarioLogin)
-                var token = _tokenService.GerarToken(usuarioLogin);
+                var usuario = await _autenticacaoService.RetornarUsuarioLoginComRolesPorLogin(usuarioLogin);
+                if (usuario == null)
+                    return Unauthorized("Usuário ou senha ínvalidos!");
+
+                var token = _tokenService.GerarToken(usuario);
                 return Ok(token);
             }
             catch (Exception ex)

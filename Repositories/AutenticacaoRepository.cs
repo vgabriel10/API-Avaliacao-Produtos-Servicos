@@ -57,6 +57,7 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
         {
             return await _context.UsuariosLogin
                 .Include(x => x.UsuarioRoles)
+                    .ThenInclude(ur => ur.Role)
                 .FirstOrDefaultAsync(x => x.Email == usuarioLogin.Email && x.Senha == usuarioLogin.Senha);
         }
     }
