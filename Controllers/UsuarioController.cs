@@ -40,6 +40,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             };
         }
 
+        [Authorize]
         [HttpGet("usuario/{id}")]
         public async Task<IActionResult> Get(int id)
         {
@@ -50,6 +51,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             return NotFound();
         }
 
+        [Authorize]
         [HttpPost("usuario/")]
         public async Task<IActionResult> Post(CreateUsuarioInputModel usuario)
         {
@@ -60,6 +62,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             return BadRequest();
         }
 
+        [Authorize]
         [HttpPut("usuario/{id}")]
         public async Task<IActionResult> Put([FromRoute] int id, [FromBody] UpdateUsuarioInputModel usuario)
         {
@@ -71,6 +74,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             return BadRequest();
         }
 
+        [Authorize]
         [HttpDelete("usuario/{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {

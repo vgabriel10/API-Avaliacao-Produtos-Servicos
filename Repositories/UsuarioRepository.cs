@@ -2,6 +2,7 @@
 using API_Avaliacao_Produtos_Servicos.Exceptions;
 using API_Avaliacao_Produtos_Servicos.Models;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
@@ -16,6 +17,7 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             _context = context;
         }
 
+        [Authorize]
         public async Task<Usuario> AdicionarUsuario(Usuario usuario)
         {
             try
@@ -34,18 +36,13 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             }           
         }
 
+        [Authorize]
         public async Task<IEnumerable<Usuario>> RetornarTodosUsuarios(int pagina = 1, int itensPagina = 20)
         {
-            //// Garantir que o número da página e o tamanho sejam válidos
-            //pagina = pagina < 1 ? 1 : pagina;
-            //itensPagina = itensPagina < 1 ? 10 : itensPagina;
-
-            //// Calcular quantos itens pular (skip)
-            //int pular = (pagina - 1) * itensPagina;
-
             return await _context.Usuarios.Skip(pagina).Take(itensPagina).ToListAsync();
         }
 
+        [Authorize]
         public async Task<Usuario> BuscarUsuarioPorId(int id)
         {
             var usuario = await _context.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
@@ -57,6 +54,7 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             return null;
         }
 
+        [Authorize("Admin")]
         public async Task DeletarUsuario(int id)
         {
             var usuario = await _context.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
@@ -67,14 +65,12 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             }
         }
 
+        [Authorize]
         public async Task<Usuario> EditarUsuario(int id, Usuario usuario)
         {
             var usuarioExistente = await _context.Usuarios.FindAsync(id);
             if (usuarioExistente == null)
                 return null;
-
-            // Atualize as propriedades da entidade existente com os valores do objeto fornecido
-            //_context.Entry(usuarioExistente).CurrentValues.SetValues(usuario);
 
             usuarioExistente.Nome = usuario.Nome;
             usuarioExistente.Cpf = usuario.Cpf;
@@ -83,7 +79,6 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
             usuarioExistente.DataCadastro = usuario.DataCadastro;
             usuarioExistente.Nacionalidade = usuario.Nacionalidade;
 
-            // Salve as alterações
             await _context.SaveChangesAsync();
 
             return usuarioExistente;
