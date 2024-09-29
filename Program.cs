@@ -72,7 +72,7 @@ builder.Services.AddScoped<ICategoriaMapper, CategoriaMapper>();
 #endregion
 
 #region FluentValidation
-builder.Services.AddValidatorsFromAssemblyContaining<UsuarioValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateUsuarioValidator>();
 builder.Services.AddFluentValidationAutoValidation();
 #endregion
 
