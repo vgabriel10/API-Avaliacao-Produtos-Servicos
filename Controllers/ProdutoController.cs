@@ -7,6 +7,7 @@ using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
 using API_Avaliacao_Produtos_Servicos.Repositories.Interfaces;
 using API_Avaliacao_Produtos_Servicos.Services;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
 
@@ -61,6 +62,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             return NotFound();
         }
 
+        [Authorize("Admin")]
         [HttpPost("produto")]
         public async Task<IActionResult> Post([FromBody] CreateProdutoInputModel produto)
         {
@@ -77,6 +79,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             return BadRequest();
         }
 
+        [Authorize("Admin")]
         [HttpPut("produto/{id}")]
         public async Task<IActionResult> Put([FromRoute] int id, [FromBody] UpdateProdutoInputModel produto)
         {
@@ -97,6 +100,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             }
         }
 
+        [Authorize("Admin")]
         [HttpDelete("produto/{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {

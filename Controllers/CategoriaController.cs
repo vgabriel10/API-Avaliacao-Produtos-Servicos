@@ -4,6 +4,7 @@ using API_Avaliacao_Produtos_Servicos.Models.Response;
 using API_Avaliacao_Produtos_Servicos.Models.ViewModels;
 using API_Avaliacao_Produtos_Servicos.Services;
 using API_Avaliacao_Produtos_Servicos.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_Avaliacao_Produtos_Servicos.Controllers
@@ -57,6 +58,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             }
         }
 
+        [Authorize("Admin")]
         [HttpPost("categoria")]
         public async Task<IActionResult> Post(CreateCategoriaInputModel categoriaInputModel)
         {
@@ -74,6 +76,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             }
         }
 
+        [Authorize("Admin")]
         [HttpPut("categoria/{id}")]
         public async Task<IActionResult> Put(
             [FromRoute] int id, 
@@ -93,6 +96,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             }
         }
 
+        [Authorize("Admin")]
         [HttpDelete("categoria/{id}")]
         public async Task<IActionResult> Delete( [FromRoute] int id)
         {
