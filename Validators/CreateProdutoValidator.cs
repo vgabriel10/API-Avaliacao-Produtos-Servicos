@@ -4,9 +4,9 @@ using FluentValidation;
 
 namespace API_Avaliacao_Produtos_Servicos.Validators
 {
-    public class ProdutoValidator : AbstractValidator<CreateProdutoInputModel>
+    public class CreateProdutoValidator : AbstractValidator<CreateProdutoInputModel>
     {
-        public ProdutoValidator() 
+        public CreateProdutoValidator() 
         {
             RuleFor(x => x.Nome)
                 .NotEmpty().WithMessage("Informe o nome do produto")

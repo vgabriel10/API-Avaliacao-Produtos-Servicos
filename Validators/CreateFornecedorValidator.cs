@@ -4,9 +4,9 @@ using FluentValidation;
 
 namespace API_Avaliacao_Produtos_Servicos.Validators
 {
-    public class FornecedorValidator : AbstractValidator<CreateFornecedorInputModel>
+    public class CreateFornecedorValidator : AbstractValidator<CreateFornecedorInputModel>
     {
-        public FornecedorValidator() 
+        public CreateFornecedorValidator() 
         {
             RuleFor(x => x.Nome)
                 .NotEmpty()

@@ -19,7 +19,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> GerarToken([FromBody] UsuarioLoginInputModel usuarioLogin)
+        public async Task<IActionResult> Login([FromBody] UsuarioLoginInputModel usuarioLogin)
         {
             try
             {

@@ -4,9 +4,9 @@ using FluentValidation;
 
 namespace API_Avaliacao_Produtos_Servicos.Validators
 {
-    public class UsuarioValidator : AbstractValidator<CreateUsuarioInputModel>
+    public class CreateUsuarioValidator : AbstractValidator<CreateUsuarioInputModel>
     {
-        public UsuarioValidator() 
+        public CreateUsuarioValidator() 
         {
             RuleFor(x => x.Nome)
                 .NotEmpty()
