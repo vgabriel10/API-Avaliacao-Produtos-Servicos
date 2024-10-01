@@ -17,9 +17,11 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioService _usuarioService;
-        public UsuarioController(IUsuarioService usuarioService)
+        private readonly IAutenticacaoService _autenticacaoService;
+        public UsuarioController(IUsuarioService usuarioService, IAutenticacaoService autenticacaoService)
         {
             _usuarioService = usuarioService;
+            _autenticacaoService = autenticacaoService;
         }
 
         [Authorize]
@@ -57,6 +59,10 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         public async Task<IActionResult> Post(CreateUsuarioInputModel usuario)
         {
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
+
+            var usuarioLogin = await _autenticacaoService.RetornarUsuarioLoginComRolesPorEmail(email);
+            if (usuarioLogin != null)
+                return BadRequest("O usuário já está cadastrado na base de dados");
 
             var result = await _usuarioService.AdicionarUsuario(usuario);
             if (result != null)
