@@ -8,6 +8,7 @@ using API_Avaliacao_Produtos_Servicos.Validators;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace API_Avaliacao_Produtos_Servicos.Controllers
 {
@@ -55,6 +56,8 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         [HttpPost("usuario/")]
         public async Task<IActionResult> Post(CreateUsuarioInputModel usuario)
         {
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+
             var result = await _usuarioService.AdicionarUsuario(usuario);
             if (result != null)
                 return Ok(result);
