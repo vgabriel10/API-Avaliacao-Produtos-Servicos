@@ -61,10 +61,10 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
 
             var usuarioLogin = await _autenticacaoService.RetornarUsuarioLoginComRolesPorEmail(email);
-            if (usuarioLogin != null)
+            if (usuarioLogin.Usuario != null)
                 return BadRequest("O usuário já está cadastrado na base de dados");
 
-            var result = await _usuarioService.AdicionarUsuario(usuario);
+            var result = await _usuarioService.AdicionarUsuario(usuario,usuarioLogin.Id);
             if (result != null)
                 return Ok(result);
 

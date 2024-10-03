@@ -18,11 +18,14 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
         }
 
         [Authorize]
-        public async Task<Usuario> AdicionarUsuario(Usuario usuario)
+        public async Task<Usuario> AdicionarUsuario(Usuario usuario, int usuarioLoginId)
         {
             try
             {
-                await _context.Usuarios.AddAsync(usuario);
+                await _context.Usuarios.AddAsync(usuario);                
+                await _context.SaveChangesAsync();
+                var usuarioLogin = await _context.UsuariosLogin.FirstOrDefaultAsync(x => x.Id == usuarioLoginId);
+                usuarioLogin.UsuarioId = usuario.Id;
                 await _context.SaveChangesAsync();
                 return usuario;
             }

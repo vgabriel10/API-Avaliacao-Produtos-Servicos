@@ -21,12 +21,12 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             _usuarioMapper = usuarioMapper;
         }
 
-        public async Task<UsuarioViewModel> AdicionarUsuario(CreateUsuarioInputModel usuarioInputModel)
+        public async Task<UsuarioViewModel> AdicionarUsuario(CreateUsuarioInputModel usuarioInputModel, int usuarioLoginId)
         {
             var usuario = _usuarioMapper.ConverterParaEntidade(usuarioInputModel);
             usuario.DataCadastro = DateTime.Now;
 
-            var result = await _usuarioRepository.AdicionarUsuario(usuario);
+            var result = await _usuarioRepository.AdicionarUsuario(usuario,usuarioLoginId);
             if (result == null)
                 throw new BadRequestException("Erro ao adicionar novo usuário");
             return _usuarioMapper.ConverterParaViewModel(result);

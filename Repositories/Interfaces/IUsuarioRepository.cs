@@ -8,7 +8,7 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories.Interfaces
         Task<Usuario> BuscarUsuarioPorId(int id);
         Task<int> QuantidadeUsuariosAtivos();
         Task<int> QuantidadePaginas(int totalRegistros, int itensPagina);
-        Task<Usuario> AdicionarUsuario(Usuario usuario);
+        Task<Usuario> AdicionarUsuario(Usuario usuario, int usuarioLoginId);
         Task<Usuario> EditarUsuario(int id, Usuario usuario);
         Task DeletarUsuario(int id);
     }
