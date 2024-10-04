@@ -42,13 +42,13 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
         [Authorize]
         public async Task<IEnumerable<Usuario>> RetornarTodosUsuarios(int pagina = 1, int itensPagina = 20)
         {
-            return await _context.Usuarios.Skip(pagina).Take(itensPagina).ToListAsync();
+            return await _context.Usuarios.Where(x => x.Deletado == false).Skip(pagina).Take(itensPagina).ToListAsync();
         }
 
         [Authorize]
         public async Task<Usuario> BuscarUsuarioPorId(int id)
         {
-            var usuario = await _context.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
+            var usuario = await _context.Usuarios.FirstOrDefaultAsync(x => x.Id == id && x.Deletado == false);
             if (usuario != null)
             {
                 return usuario;
@@ -62,8 +62,9 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
         {
             var usuario = await _context.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
             if (usuario != null) 
-            { 
-                _context.Usuarios.Remove(usuario);
+            {
+                usuario.Deletado = true;
+                _context.Usuarios.Update(usuario);
                 await _context.SaveChangesAsync();
             }
         }

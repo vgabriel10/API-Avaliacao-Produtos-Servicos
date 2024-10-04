@@ -61,5 +61,17 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
                     .ThenInclude(ur => ur.Role)
                 .FirstOrDefaultAsync(x => x.Email == usuarioLogin.Email && x.Senha == usuarioLogin.Senha);
         }
+
+        public async Task AdicionarRoleUsuarioCadastrado(int usuarioId)
+        {
+            var usuarioRole = new UsuarioRole
+            {
+                RoleId = 3,
+                UsuarioId = usuarioId
+            };
+
+            await _context.UsuarioRoles.AddAsync(usuarioRole);
+            await _context.SaveChangesAsync();
+        }
     }
 }

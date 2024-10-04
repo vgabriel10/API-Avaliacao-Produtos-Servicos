@@ -66,12 +66,16 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
 
             var result = await _usuarioService.AdicionarUsuario(usuario,usuarioLogin.Id);
             if (result != null)
+            {
+                await _autenticacaoService.AdicionarRoleUsuarioCadastrado(usuarioLogin.Id);
                 return Ok(result);
+            }
+                
 
             return BadRequest();
         }
 
-        [Authorize]
+        [Authorize("Admin,RegisteredUser")]
         [HttpPut("usuario/{id}")]
         public async Task<IActionResult> Put([FromRoute] int id, [FromBody] UpdateUsuarioInputModel usuario)
         {
@@ -83,7 +87,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             return BadRequest();
         }
 
-        [Authorize]
+        [Authorize("Admin,RegisteredUser")]
         [HttpDelete("usuario/{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
