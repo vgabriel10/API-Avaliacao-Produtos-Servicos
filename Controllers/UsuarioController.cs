@@ -8,6 +8,7 @@ using API_Avaliacao_Produtos_Servicos.Validators;
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace API_Avaliacao_Produtos_Servicos.Controllers
 {
@@ -16,9 +17,11 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioService _usuarioService;
-        public UsuarioController(IUsuarioService usuarioService)
+        private readonly IAutenticacaoService _autenticacaoService;
+        public UsuarioController(IUsuarioService usuarioService, IAutenticacaoService autenticacaoService)
         {
             _usuarioService = usuarioService;
+            _autenticacaoService = autenticacaoService;
         }
 
         [Authorize]
@@ -55,14 +58,24 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
         [HttpPost("usuario/")]
         public async Task<IActionResult> Post(CreateUsuarioInputModel usuario)
         {
-            var result = await _usuarioService.AdicionarUsuario(usuario);
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+
+            var usuarioLogin = await _autenticacaoService.RetornarUsuarioLoginComRolesPorEmail(email);
+            if (usuarioLogin.Usuario != null)
+                return BadRequest("O usuário autenticado já possui cadastrado na base de dados");
+
+            var result = await _usuarioService.AdicionarUsuario(usuario,usuarioLogin.Id);
             if (result != null)
+            {
+                await _autenticacaoService.AdicionarRoleUsuarioCadastrado(usuarioLogin.Id);
                 return Ok(result);
+            }
+                
 
             return BadRequest();
         }
 
-        [Authorize]
+        [Authorize("Admin,RegisteredUser")]
         [HttpPut("usuario/{id}")]
         public async Task<IActionResult> Put([FromRoute] int id, [FromBody] UpdateUsuarioInputModel usuario)
         {
@@ -74,7 +87,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             return BadRequest();
         }
 
-        [Authorize]
+        [Authorize("Admin,RegisteredUser")]
         [HttpDelete("usuario/{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {

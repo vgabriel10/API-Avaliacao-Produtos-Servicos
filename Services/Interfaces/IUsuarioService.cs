@@ -10,7 +10,7 @@ namespace API_Avaliacao_Produtos_Servicos.Services.Interfaces
         public Task<UsuarioViewModel> BuscarUsuarioPorId(int id);
         Task<int> QuantidadeUsuariosAtivos();
         Task<int> QuantidadePaginas(int totalRegistros,int itensPagina);
-        public Task<UsuarioViewModel> AdicionarUsuario(CreateUsuarioInputModel usuario);
+        public Task<UsuarioViewModel> AdicionarUsuario(CreateUsuarioInputModel usuario, int usuarioLoginId);
         public Task<UsuarioViewModel> EditarUsuario(int id,UpdateUsuarioInputModel usuario);
         public Task DeletarUsuario(int id);
     }

@@ -55,5 +55,10 @@ namespace API_Avaliacao_Produtos_Servicos.Services
             var usuario = _usuarioLoginMapper.ConverterParaEntidade(usuarioLogin);
             return await _autenticacaoRepository.RetornarUsuarioLoginComRolesPorLogin(usuario);
         }
+
+        public async Task AdicionarRoleUsuarioCadastrado(int usuarioId)
+        {
+            await _autenticacaoRepository.AdicionarRoleUsuarioCadastrado(usuarioId);
+        }
     }
 }

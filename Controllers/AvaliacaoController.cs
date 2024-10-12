@@ -72,7 +72,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             
         }
 
-        [Authorize]
+        [Authorize("Admin,RegisteredUser")]
         [HttpPost("avaliacao")]
         public async Task<IActionResult> Post(CreateAvaliacaoInputModel avaliacao)
         {
@@ -90,7 +90,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             return BadRequest();
         }
 
-        [Authorize]
+        [Authorize("Admin,RegisteredUser")]
         [HttpPut("avaliacao/{idAvaliacao}")]
         public async Task<IActionResult> Put([FromRoute]int idAvaliacao, [FromBody] UpdateAvaliacaoInputModel avaliacao)
         {
@@ -102,7 +102,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
             return BadRequest();
         }
 
-        [Authorize("Admin")]
+        [Authorize("Admin,RegisteredUser")]
         [HttpDelete("avaliacao/{idAvaliacao}")]
         public async Task<IActionResult> Delete([FromRoute] int idAvaliacao)
         {

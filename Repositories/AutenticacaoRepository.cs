@@ -50,6 +50,7 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
         {
             return await _context.UsuariosLogin
                 .Include(x => x.UsuarioRoles)
+                .Include(x => x.Usuario)
                 .FirstOrDefaultAsync(x => x.Email == email);
         }
 
@@ -59,6 +60,18 @@ namespace API_Avaliacao_Produtos_Servicos.Repositories
                 .Include(x => x.UsuarioRoles)
                     .ThenInclude(ur => ur.Role)
                 .FirstOrDefaultAsync(x => x.Email == usuarioLogin.Email && x.Senha == usuarioLogin.Senha);
+        }
+
+        public async Task AdicionarRoleUsuarioCadastrado(int usuarioId)
+        {
+            var usuarioRole = new UsuarioRole
+            {
+                RoleId = 3,
+                UsuarioId = usuarioId
+            };
+
+            await _context.UsuarioRoles.AddAsync(usuarioRole);
+            await _context.SaveChangesAsync();
         }
     }
 }

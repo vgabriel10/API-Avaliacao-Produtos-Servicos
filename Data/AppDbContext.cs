@@ -99,6 +99,11 @@ namespace API_Avaliacao_Produtos_Servicos.Data
                 .Property(x => x.Deletado)
                 .HasColumnType("BOOLEAN");
 
+            modelBuilder.Entity<Usuario>()
+                .HasOne(u => u.UsuarioLogin)
+                .WithOne(ul => ul.Usuario)
+                .HasForeignKey<UsuarioLogin>(ul => ul.UsuarioId)
+                .IsRequired(false);
 
             #endregion
 
@@ -236,7 +241,8 @@ namespace API_Avaliacao_Produtos_Servicos.Data
 
             modelBuilder.Entity<Role>().HasData(
                 new Role {Id = 1, Nome = "Admin"},
-                new Role {Id = 2, Nome = "User" }
+                new Role {Id = 2, Nome = "User" },
+                new Role { Id = 3, Nome = "RegisteredUser" }
             );
 
             #endregion
