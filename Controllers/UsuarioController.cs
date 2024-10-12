@@ -62,7 +62,7 @@ namespace API_Avaliacao_Produtos_Servicos.Controllers
 
             var usuarioLogin = await _autenticacaoService.RetornarUsuarioLoginComRolesPorEmail(email);
             if (usuarioLogin.Usuario != null)
-                return BadRequest("O usuário já está cadastrado na base de dados");
+                return BadRequest("O usuário autenticado já possui cadastrado na base de dados");
 
             var result = await _usuarioService.AdicionarUsuario(usuario,usuarioLogin.Id);
             if (result != null)
